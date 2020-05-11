@@ -1,31 +1,33 @@
+package modelo.dto;
+
 
 import java.util.*;
 
 /**
  * 
  */
-public class Carrera {
+public class Calle {
 
     /**
      * Default constructor
      */
-    public Carrera() {
+    public Calle() {
     }
 
     /**
      * 
      */
-    private int idCarrera;
+    private int idCalle;
 
     /**
      * 
      */
-    private int numeroCarrera;
+    private int numeroCalle;
 
     /**
      * 
      */
-    private char letraCarrera;
+    private char letraCalle;
 
     /**
      * 
@@ -35,7 +37,7 @@ public class Carrera {
     /**
      * 
      */
-    private boolean este;
+    private boolean sur;
 
 
     /**

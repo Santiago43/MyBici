@@ -1,9 +1,7 @@
-package modelo.dto;
 
 import java.util.*;
 
 /**
- * 
  * 
  */
 public class Calle {

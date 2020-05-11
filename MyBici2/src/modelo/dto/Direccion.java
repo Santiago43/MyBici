@@ -1,41 +1,28 @@
-
-import java.util.*;
+package modelo.dto;
 
 /**
- * 
+ * @
  */
-public class Carrera {
+public class Direccion {
 
     /**
      * Default constructor
      */
-    public Carrera() {
+    public Direccion() {
     }
 
     /**
      * 
      */
-    private int idCarrera;
+    private Carrera carrera;
 
     /**
      * 
      */
-    private int numeroCarrera;
+    private Calle calle;
 
-    /**
-     * 
-     */
-    private char letraCarrera;
 
-    /**
-     * 
-     */
-    private boolean bis;
 
-    /**
-     * 
-     */
-    private boolean este;
 
 
     /**

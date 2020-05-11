@@ -1,41 +1,33 @@
+package modelo.dto;
+
 
 import java.util.*;
 
 /**
  * 
  */
-public class Carrera {
+public class Taller {
 
     /**
      * Default constructor
      */
-    public Carrera() {
+    public Taller() {
     }
 
     /**
      * 
      */
-    private int idCarrera;
+    private int idTaller;
 
     /**
      * 
      */
-    private int numeroCarrera;
+    private Set<MantenimientoTaller> mantenimientos;
 
     /**
      * 
      */
-    private char letraCarrera;
-
-    /**
-     * 
-     */
-    private boolean bis;
-
-    /**
-     * 
-     */
-    private boolean este;
+    private double totalVentas;
 
 
     /**

@@ -6,27 +6,30 @@ import java.util.*;
 /**
  * 
  */
-public class Empleado extends Persona {
+public class Telefono {
 
     /**
      * Default constructor
      */
-    public Empleado() {
+    public Telefono() {
     }
 
     /**
      * 
      */
-    private String profesion;
+    private int idTelefono;
 
     /**
      * 
      */
-    private String cargo;
+    private String numeroTelefonico;
 
     /**
      * 
      */
-    private double salario;
+    private String tipoTelefono;
+
+
+
 
 }

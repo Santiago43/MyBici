@@ -186,7 +186,7 @@ CREATE TABLE EquipoOficina (
   descripcion VARCHAR(70) NULL,
   PUC VARCHAR(10) NULL,
   PRIMARY KEY(Objeto_idObjeto),
-  INDEX EquipoOficina_FKIndex2(Sede_idSede),
+  INDEX EquipoOficina_FKIndex1(Sede_idSede),
   INDEX EquipoOficina_FKIndex2(Objeto_idObjeto),
   FOREIGN KEY(Sede_idSede)
     REFERENCES Sede(idSede)
@@ -205,7 +205,7 @@ CREATE TABLE Empleado (
   cargo VARCHAR(20) NULL,
   salario DOUBLE NULL,
   PRIMARY KEY(Persona_cedula),
-  INDEX Empleado_FKIndex2(Sede_idSede),
+  INDEX Empleado_FKIndex1(Sede_idSede),
   INDEX Empleado_FKIndex2(Persona_cedula),
   FOREIGN KEY(Sede_idSede)
     REFERENCES Sede(idSede)
@@ -258,7 +258,7 @@ CREATE TABLE Mercancia (
   precio_venta INTEGER UNSIGNED NULL,
   cantidad INTEGER UNSIGNED NULL,
   PRIMARY KEY(Objeto_idObjeto),
-  INDEX Mercancia_FKIndex2(Inventario_id_inventario),
+  INDEX Mercancia_FKIndex1(Inventario_id_inventario),
   INDEX Mercancia_FKIndex2(Objeto_idObjeto),
   FOREIGN KEY(Inventario_id_inventario)
     REFERENCES Inventario(id_inventario)
@@ -395,7 +395,7 @@ CREATE TABLE MantenimientoTaller (
   EmpresaMantenimiento_id_empresaMantenimiento INTEGER UNSIGNED NOT NULL,
   Taller_idTaller INTEGER UNSIGNED NOT NULL,
   fecha DATE NULL,
-  factura VARCHAR NULL,
+  factura VARCHAR(40) NULL,
   PRIMARY KEY(idMantenimiento),
   INDEX Mantenimiento_FKIndex1(Taller_idTaller),
   INDEX Mantenimiento_FKIndex2(EmpresaMantenimiento_id_empresaMantenimiento),

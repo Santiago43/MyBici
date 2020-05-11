@@ -1,42 +1,35 @@
-
-import java.util.*;
+package modelo.dto;
 
 /**
  * 
  */
-public class Carrera {
+public class Mercancia extends Objeto {
 
     /**
      * Default constructor
      */
-    public Carrera() {
+    public Mercancia() {
     }
 
     /**
      * 
      */
-    private int idCarrera;
+    private String nombre;
 
     /**
      * 
      */
-    private int numeroCarrera;
+    private double valorAdquisicion;
 
     /**
      * 
      */
-    private char letraCarrera;
+    private double precioVenta;
 
     /**
      * 
      */
-    private boolean bis;
-
-    /**
-     * 
-     */
-    private boolean este;
-
+    private int cantidad;
 
     /**
      * 

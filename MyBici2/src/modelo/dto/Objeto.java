@@ -1,42 +1,38 @@
+package modelo.dto;
+
 
 import java.util.*;
 
 /**
  * 
  */
-public class Carrera {
+public class Objeto {
 
     /**
      * Default constructor
      */
-    public Carrera() {
+    public Objeto() {
     }
 
     /**
      * 
      */
-    private int idCarrera;
+    private int idObjeto;
 
     /**
      * 
      */
-    private int numeroCarrera;
+    private String marca;
 
     /**
      * 
      */
-    private char letraCarrera;
+    private int añosGarantia;
 
     /**
      * 
      */
-    private boolean bis;
-
-    /**
-     * 
-     */
-    private boolean este;
-
+    private Set<ArrayList> proveedores;
 
     /**
      * 

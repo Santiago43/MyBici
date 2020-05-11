@@ -1,3 +1,5 @@
+package modelo.dto;
+
 
 import java.util.*;
 
@@ -38,18 +40,6 @@ public class Carrera {
     private boolean este;
 
 
-    /**
-     * 
-     */
-    public void getters() {
-        // TODO implement here
-    }
 
-    /**
-     * 
-     */
-    public void setters() {
-        // TODO implement here
-    }
 
 }
