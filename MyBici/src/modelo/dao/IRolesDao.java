@@ -1,6 +1,6 @@
 package modelo.dao;
 
-import modelo.Rol;
+import modelo.dto.Rol;
 
 /**
  *
