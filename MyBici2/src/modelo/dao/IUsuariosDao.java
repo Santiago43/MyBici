@@ -3,7 +3,7 @@ package modelo.dao;
 import modelo.dto.Usuario;
 
 /**
- *
+ * Interfaz usuariosDao
  * @author Santiago Pérez
  * @param <Usuario>
  */

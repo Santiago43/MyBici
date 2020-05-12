@@ -12,11 +12,11 @@ import modelo.dto.Rol;
 import modelo.dto.Usuario;
 
 /**
- *
+ * Clase usuarios dao
  * @author Santiago Pérez
  */
 public class UsuariosDao implements IUsuariosDao{
-
+    
     @Override
     public boolean crear(Usuario usuario) {
          try {
