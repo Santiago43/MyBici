@@ -16,11 +16,21 @@ import vista.VistaPrincipal;
  * @author F. PLAZA
  */
 public class ControladorInventario implements ActionListener{
-    
+    /**
+     * 
+     */
     VistaInventario vista;
+    /**
+     * 
+     */
     VistaPrincipal vistaAnterior;
     UsuariosDao usuariosDao;
-
+    /**
+     * 
+     * @param vista
+     * @param vistaAnterior
+     * @param usuariosDao 
+     */
     public ControladorInventario(VistaInventario vista, VistaPrincipal vistaAnterior, UsuariosDao usuariosDao) {
         this.vista = vista;
         this.vistaAnterior = vistaAnterior;

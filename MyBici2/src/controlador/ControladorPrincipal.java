@@ -19,7 +19,12 @@ public class ControladorPrincipal implements ActionListener {
     VistaLogin vistaAnterior;
     UsuariosDao usuariosDao;
     VistaInventario vistaInv;
-
+    /**
+     * 
+     * @param vista
+     * @param vistaAnterior
+     * @param usuariosDao 
+     */
     public ControladorPrincipal(VistaPrincipal vista, VistaLogin vistaAnterior, UsuariosDao usuariosDao) {
         this.vista = vista;
         this.vista.BtnIventario.addActionListener(this);
