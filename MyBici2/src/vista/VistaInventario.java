@@ -9,12 +9,12 @@ package vista;
  *
  * @author Santiago Pérez
  */
-public class VistaPrincipal extends javax.swing.JFrame {
+public class VistaInventario extends javax.swing.JFrame {
 
     /**
      * Creates new form VistaPrincipal
      */
-    public VistaPrincipal() {
+    public VistaInventario() {
         initComponents();
     }
 
@@ -29,7 +29,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        BtnIventario = new javax.swing.JButton();
+        BtnInventario = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,12 +38,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jButton1.setText("Sedes y Talleres");
 
-        BtnIventario.setText("Inventario");
-        BtnIventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIventarioActionPerformed(evt);
-            }
-        });
+        BtnInventario.setText("Inventario");
 
         jButton3.setText("Empleados");
 
@@ -57,7 +52,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGap(322, 322, 322))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(91, 91, 91)
-                .addComponent(BtnIventario)
+                .addComponent(BtnInventario)
                 .addGap(101, 101, 101)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
@@ -72,7 +67,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(BtnIventario)
+                    .addComponent(BtnInventario)
                     .addComponent(jButton3))
                 .addContainerGap(391, Short.MAX_VALUE))
         );
@@ -80,13 +75,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnIventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnIventarioActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton BtnIventario;
+    public javax.swing.JButton BtnInventario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

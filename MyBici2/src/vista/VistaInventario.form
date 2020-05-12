@@ -30,7 +30,7 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-              <Component id="BtnIventario" min="-2" max="-2" attributes="0"/>
+              <Component id="BtnInventario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="109" max="32767" attributes="0"/>
@@ -47,7 +47,7 @@
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BtnIventario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnInventario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="391" max="32767" attributes="0"/>
@@ -66,13 +66,10 @@
         <Property name="text" type="java.lang.String" value="Sedes y Talleres"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="BtnIventario">
+    <Component class="javax.swing.JButton" name="BtnInventario">
       <Properties>
         <Property name="text" type="java.lang.String" value="Inventario"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnIventarioActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>

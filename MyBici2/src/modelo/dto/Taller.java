@@ -22,7 +22,7 @@ public class Taller {
     /**
      * 
      */
-    private Set<MantenimientoTaller> mantenimientos;
+    //private Set<MantenimientoTaller> mantenimientos;
 
     /**
      * 
