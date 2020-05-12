@@ -53,8 +53,8 @@ CREATE TABLE Usuario (
   INDEX Usuario_FKIndex1(Rol_idRol),
   FOREIGN KEY(Rol_idRol)
     REFERENCES Rol(idRol)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Rol_has_Permiso (
@@ -81,12 +81,12 @@ CREATE TABLE Usuario_has_Permiso (
   INDEX Usuario_has_Permiso_FKIndex2(Permiso_idPermiso),
   FOREIGN KEY(Usuario_usuario)
     REFERENCES Usuario(usuario)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Permiso_idPermiso)
     REFERENCES Permiso(idPermiso)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Direccion (
@@ -98,12 +98,12 @@ CREATE TABLE Direccion (
   INDEX Direccion_FKIndex2(Calle_idCalle),
   FOREIGN KEY(Carrera_idCarrera)
     REFERENCES Carrera(idCarrera)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Calle_idCalle)
     REFERENCES Calle(idCalle)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Persona (
@@ -119,8 +119,8 @@ CREATE TABLE Persona (
   INDEX Persona_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Cliente (
@@ -129,8 +129,8 @@ CREATE TABLE Cliente (
   INDEX Cliente_FKIndex1(Persona_cedula),
   FOREIGN KEY(Persona_cedula)
     REFERENCES Persona(cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Proveedor (
@@ -141,8 +141,8 @@ CREATE TABLE Proveedor (
   INDEX Proveedor_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Sede (
@@ -153,8 +153,8 @@ CREATE TABLE Sede (
   INDEX Sede_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE EmpresaMantenimiento (
@@ -165,8 +165,8 @@ CREATE TABLE EmpresaMantenimiento (
   INDEX EmpresaMantenimiento_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Inventario (
@@ -176,8 +176,8 @@ CREATE TABLE Inventario (
   INDEX Inventario_FKIndex1(Sede_idSede),
   FOREIGN KEY(Sede_idSede)
     REFERENCES Sede(idSede)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE EquipoOficina (
@@ -190,12 +190,12 @@ CREATE TABLE EquipoOficina (
   INDEX EquipoOficina_FKIndex2(Objeto_idObjeto),
   FOREIGN KEY(Sede_idSede)
     REFERENCES Sede(idSede)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Objeto_idObjeto)
     REFERENCES Objeto(idObjeto)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Empleado (
@@ -209,12 +209,12 @@ CREATE TABLE Empleado (
   INDEX Empleado_FKIndex2(Persona_cedula),
   FOREIGN KEY(Sede_idSede)
     REFERENCES Sede(idSede)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Persona_cedula)
     REFERENCES Persona(cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE EmpresaMantenimiento_has_Telefono (
@@ -226,12 +226,12 @@ CREATE TABLE EmpresaMantenimiento_has_Telefono (
   INDEX EmpresaMantenimiento_has_Telefono_FKIndex2(Telefono_id_telefono),
   FOREIGN KEY(EmpresaMantenimiento_id_empresaMantenimiento)
     REFERENCES EmpresaMantenimiento(id_empresaMantenimiento)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Telefono_id_telefono)
     REFERENCES Telefono(id_telefono)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Objeto_has_Proveedor (
@@ -242,12 +242,12 @@ CREATE TABLE Objeto_has_Proveedor (
   INDEX Objeto_has_Proveedor_FKIndex2(Proveedor_idProveedor),
   FOREIGN KEY(Objeto_idObjeto)
     REFERENCES Objeto(idObjeto)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Proveedor_idProveedor)
     REFERENCES Proveedor(idProveedor)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Mercancia (
@@ -262,12 +262,12 @@ CREATE TABLE Mercancia (
   INDEX Mercancia_FKIndex2(Objeto_idObjeto),
   FOREIGN KEY(Inventario_id_inventario)
     REFERENCES Inventario(id_inventario)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Objeto_idObjeto)
     REFERENCES Objeto(idObjeto)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE FacturaVenta (
@@ -280,12 +280,12 @@ CREATE TABLE FacturaVenta (
   PRIMARY KEY(id_fventa),
   FOREIGN KEY(Empleado_Persona_cedula)
     REFERENCES Empleado(Persona_cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Cliente_Persona_cedula)
     REFERENCES Cliente(Persona_cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Proveedor_has_Telefono (
@@ -296,12 +296,12 @@ CREATE TABLE Proveedor_has_Telefono (
   INDEX Telefono_has_Proveedor_FKIndex2(Proveedor_idProveedor),
   FOREIGN KEY(Telefono_id_telefono)
     REFERENCES Telefono(id_telefono)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Proveedor_idProveedor)
     REFERENCES Proveedor(idProveedor)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Persona_has_Telefono (
@@ -313,12 +313,12 @@ CREATE TABLE Persona_has_Telefono (
   INDEX Persona_has_Telefono_FKIndex2(Telefono_id_telefono),
   FOREIGN KEY(Persona_cedula)
     REFERENCES Persona(cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Telefono_id_telefono)
     REFERENCES Telefono(id_telefono)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE PeticionEmpleado (
@@ -329,8 +329,8 @@ CREATE TABLE PeticionEmpleado (
   PRIMARY KEY(idPeticionEmpleado),
   FOREIGN KEY(Empleado_Persona_cedula)
     REFERENCES Empleado(Persona_cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Taller (
@@ -341,8 +341,8 @@ CREATE TABLE Taller (
   INDEX Taller_FKIndex1(Sede_idSede),
   FOREIGN KEY(Sede_idSede)
     REFERENCES Sede(idSede)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE MantenientoBicicleta (
@@ -360,8 +360,8 @@ CREATE TABLE MantenientoBicicleta (
   INDEX MantenientoBici_FKIndex1(FacturaVenta_id_fventa),
   FOREIGN KEY(FacturaVenta_id_fventa)
     REFERENCES FacturaVenta(id_fventa)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE MecanicoPlanta (
@@ -370,8 +370,8 @@ CREATE TABLE MecanicoPlanta (
   PRIMARY KEY(Empleado_Persona_cedula),
   FOREIGN KEY(Empleado_Persona_cedula)
     REFERENCES Empleado(Persona_cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Venta_has_Mercancia (
@@ -382,12 +382,12 @@ CREATE TABLE Venta_has_Mercancia (
   INDEX Venta_has_Mercancia_FKIndex2(Mercancia_Objeto_idObjeto),
   FOREIGN KEY(FacturaVenta_id_fventa)
     REFERENCES FacturaVenta(id_fventa)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Mercancia_Objeto_idObjeto)
     REFERENCES Mercancia(Objeto_idObjeto)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE MantenimientoTaller (
@@ -401,12 +401,13 @@ CREATE TABLE MantenimientoTaller (
   INDEX Mantenimiento_FKIndex2(EmpresaMantenimiento_id_empresaMantenimiento),
   FOREIGN KEY(Taller_idTaller)
     REFERENCES Taller(idTaller)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(EmpresaMantenimiento_id_empresaMantenimiento)
     REFERENCES EmpresaMantenimiento(id_empresaMantenimiento)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
+
 
 

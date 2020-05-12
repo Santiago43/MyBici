@@ -12,5 +12,5 @@ public interface IDao <DTO>{
     DTO consultar(String clave);
     boolean actualizar(DTO dto);
     boolean eliminar(String clave);
-    LinkedList listar();
+    LinkedList <DTO> listar();
 }

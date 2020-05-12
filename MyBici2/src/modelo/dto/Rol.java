@@ -11,6 +11,11 @@ public class Rol {
     private String nombre;
     private LinkedList <String> permisos; 
 
+    public Rol() {
+        this.permisos=new LinkedList();
+    }
+
+    
     public String getNombre() {
         return nombre;
     }
