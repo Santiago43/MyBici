@@ -77,9 +77,6 @@ CREATE TABLE Direccion (
       ON UPDATE NO ACTION
 );
 
-alter table Persona drop column nombre;
-alter table Persona add column primerNombre varchar(20) NULL;
-alter table Persona add column segundoNombre varchar(20) NULL;
 CREATE TABLE Persona (
   cedula INTEGER UNSIGNED NOT NULL,
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,

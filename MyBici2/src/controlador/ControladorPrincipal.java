@@ -4,10 +4,12 @@ import excepcion.MiExcepcion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import modelo.dao.RolesDao;
 import modelo.dao.UsuariosDao;
-import vista.VistaInventario;
+import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPrincipal;
+import vista.VistaUsuarios;
 
 /**
  *
@@ -18,7 +20,7 @@ public class ControladorPrincipal implements ActionListener {
     VistaPrincipal vista;
     VistaLogin vistaAnterior;
     UsuariosDao usuariosDao;
-    VistaInventario vistaInv;
+    VistaSede vistaInv;
     /**
      * 
      * @param vista
@@ -27,7 +29,7 @@ public class ControladorPrincipal implements ActionListener {
      */
     public ControladorPrincipal(VistaPrincipal vista, VistaLogin vistaAnterior, UsuariosDao usuariosDao) {
         this.vista = vista;
-        this.vista.BtnIventario.addActionListener(this);
+      
         this.vistaAnterior = vistaAnterior;
         this.vistaAnterior.setVisible(false);
         this.usuariosDao = usuariosDao;
@@ -38,10 +40,11 @@ public class ControladorPrincipal implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource().equals(this.vista.BtnIventario)) {
-
-            ControladorInventario cInventario = new ControladorInventario(new VistaInventario(), this.vista, this.usuariosDao);
-        }
+       if(e.getSource().equals(this.vista.itemUsuarios)){
+           
+           ControladorUsuarios controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(),this.usuariosDao, new RolesDao());
+           
+       }
 
     }
 

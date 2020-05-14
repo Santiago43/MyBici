@@ -8,10 +8,10 @@ insert into carrera (numeroCarrera,letraCarrera,bis,este) values
 insert into direccion(Calle_idCalle,Carrera_idCarrera) values
 (1,1);
 
-
+#values(0,1,"admin","","","2000-01-01","Colombiano","n");
 
 #Personas - empleados
-
+call insertarEmpleado(0,1,"admin","","","","2000-01-01","Colombiano","n",1,"Administrador","Gerente",0);
 
 #rol 
 insert into rol(nombreRol) values ("Gerente Designado");

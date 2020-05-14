@@ -14,6 +14,10 @@ public class Usuario {
     /**
      * 
      */
+    private Empleado empleado;
+    /**
+     * 
+     */
     private Rol rol;
     /**
      * 
@@ -60,6 +64,14 @@ public class Usuario {
      */
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
     
 }

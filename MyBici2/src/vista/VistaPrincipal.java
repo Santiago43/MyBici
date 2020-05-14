@@ -27,68 +27,100 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu4 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        BtnIventario = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        itemUsuarios = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        jMenu4.setText("jMenu4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("MYBICI");
 
-        jButton1.setText("Sedes y Talleres");
+        jMenu5.setText("Adiministración");
 
-        BtnIventario.setText("Inventario");
-        BtnIventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIventarioActionPerformed(evt);
-            }
-        });
+        itemUsuarios.setText("Usuarios");
+        jMenu5.add(itemUsuarios);
 
-        jButton3.setText("Empleados");
+        jMenuItem6.setText("Roles");
+        jMenu5.add(jMenuItem6);
+
+        jMenuItem7.setText("Sede");
+        jMenu5.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu1.setText("Sede");
+
+        jMenuItem2.setText("Contabilidad");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Trabajos");
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Mantenimiento Taller");
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Inventario");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Empleados");
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(322, 322, 322))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(BtnIventario)
-                .addGap(101, 101, 101)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(83, 83, 83))
+                .addContainerGap(318, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(308, 308, 308))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(BtnIventario)
-                    .addComponent(jButton3))
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addContainerGap(447, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnIventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnIventarioActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton BtnIventario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }

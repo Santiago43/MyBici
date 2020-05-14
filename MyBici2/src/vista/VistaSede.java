@@ -9,12 +9,12 @@ package vista;
  *
  * @author Santiago Pérez
  */
-public class VistaInventario extends javax.swing.JFrame {
+public class VistaSede extends javax.swing.JFrame {
 
     /**
      * Creates new form VistaPrincipal
      */
-    public VistaInventario() {
+    public VistaSede() {
         initComponents();
     }
 
