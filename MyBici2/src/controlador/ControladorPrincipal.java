@@ -4,6 +4,7 @@ import excepcion.MiExcepcion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import modelo.dao.EmpleadosDao;
 import modelo.dao.RolesDao;
 import modelo.dao.UsuariosDao;
 import vista.VistaSede;
@@ -42,7 +43,7 @@ public class ControladorPrincipal implements ActionListener {
 
        if(e.getSource().equals(this.vista.itemUsuarios)){
            
-           ControladorUsuarios controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(),this.usuariosDao, new RolesDao());
+           ControladorUsuarios controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(),this.usuariosDao, new RolesDao(),new EmpleadosDao());
            
        }
 
