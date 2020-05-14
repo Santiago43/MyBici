@@ -1,8 +1,5 @@
 package modelo.dto;
 
-
-import java.util.*;
-
 /**
  * 
  */
@@ -29,20 +26,30 @@ public class Proveedor {
      */
     private Telefono telefono;
 
-
-
-    /**
-     * 
-     */
-    public void getters() {
-        // TODO implement here
+    public int getIdProveedor() {
+        return idProveedor;
     }
 
-    /**
-     * 
-     */
-    public void setters() {
-        // TODO implement here
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
     }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+    public Telefono getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Telefono telefono) {
+        this.telefono = telefono;
+    }
+
+
 
 }

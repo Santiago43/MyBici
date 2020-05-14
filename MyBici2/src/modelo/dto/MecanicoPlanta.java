@@ -1,8 +1,5 @@
 package modelo.dto;
 
-
-import java.util.*;
-
 /**
  * 
  */

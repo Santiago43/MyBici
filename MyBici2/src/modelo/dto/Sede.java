@@ -35,34 +35,73 @@ public class Sede {
     /**
      * 
      */
-    private Set<Taller> talleres;
+    private LinkedList<Taller> talleres;
 
     /**
      * 
      */
-    private Set<EquipoOficina> equipoOficina;
+    private LinkedList<EquipoOficina> equipoOficina;
 
     /**
      * 
      */
-    private Set<Empleado> emplados;
+    private LinkedList<Empleado> emplados;
 
-
-
-
-
-    /**
-     * 
-     */
-    public void getters() {
-        // TODO implement here
+    public int getIdSede() {
+        return idSede;
     }
 
-    /**
-     * 
-     */
-    public void setters() {
-        // TODO implement here
+    public void setIdSede(int idSede) {
+        this.idSede = idSede;
     }
 
+    public String getNombreSede() {
+        return nombreSede;
+    }
+
+    public void setNombreSede(String nombreSede) {
+        this.nombreSede = nombreSede;
+    }
+
+    public Inventario getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+    public LinkedList<Taller> getTalleres() {
+        return talleres;
+    }
+
+    public void setTalleres(LinkedList<Taller> talleres) {
+        this.talleres = talleres;
+    }
+
+    public LinkedList<EquipoOficina> getEquipoOficina() {
+        return equipoOficina;
+    }
+
+    public void setEquipoOficina(LinkedList<EquipoOficina> equipoOficina) {
+        this.equipoOficina = equipoOficina;
+    }
+
+    public LinkedList<Empleado> getEmplados() {
+        return emplados;
+    }
+
+    public void setEmplados(LinkedList<Empleado> emplados) {
+        this.emplados = emplados;
+    }
+
+    
 }

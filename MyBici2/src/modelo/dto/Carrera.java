@@ -39,6 +39,46 @@ public class Carrera {
      */
     private boolean este;
 
+    public int getIdCarrera() {
+        return idCarrera;
+    }
+
+    public void setIdCarrera(int idCarrera) {
+        this.idCarrera = idCarrera;
+    }
+
+    public int getNumeroCarrera() {
+        return numeroCarrera;
+    }
+
+    public void setNumeroCarrera(int numeroCarrera) {
+        this.numeroCarrera = numeroCarrera;
+    }
+
+    public char getLetraCarrera() {
+        return letraCarrera;
+    }
+
+    public void setLetraCarrera(char letraCarrera) {
+        this.letraCarrera = letraCarrera;
+    }
+
+    public boolean isBis() {
+        return bis;
+    }
+
+    public void setBis(boolean bis) {
+        this.bis = bis;
+    }
+
+    public boolean isEste() {
+        return este;
+    }
+
+    public void setEste(boolean este) {
+        this.este = este;
+    }
+
 
 
 

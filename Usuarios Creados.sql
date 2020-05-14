@@ -9,6 +9,10 @@ insert into direccion(Calle_idCalle,Carrera_idCarrera) values
 (1,1);
 
 
+
+#Personas - empleados
+
+
 #rol 
 insert into rol(nombreRol) values ("Gerente Designado");
 #delete from rol where idRol=1;
