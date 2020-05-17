@@ -59,6 +59,11 @@ public class VistaFC extends javax.swing.JFrame {
         btnAgregar.setText("Agregar");
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("$");
 
@@ -152,6 +157,12 @@ public class VistaFC extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        VistaContabilidad S = new VistaContabilidad();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,9 +199,9 @@ public class VistaFC extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<String> cmbIDfactura;
+    public javax.swing.JComboBox<String> cmbIDfactura;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
