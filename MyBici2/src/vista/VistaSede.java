@@ -27,49 +27,135 @@ public class VistaSede extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        BtnInventario = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtIDsede = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cmbDirecciones = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        txtIDsede1 = new javax.swing.JTextField();
+        btnInsertar = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnListar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSedes = new javax.swing.JTable();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("MYBICI");
+        jLabel2.setText("SEDES");
 
-        jButton1.setText("Sedes y Talleres");
+        jLabel3.setText("ID Sede");
 
-        BtnInventario.setText("Inventario");
+        jLabel4.setText("ID Dirección");
 
-        jButton3.setText("Empleados");
+        jLabel5.setText("Nombre");
+
+        btnInsertar.setText("Insertar");
+
+        btnConsultar.setText("Consultar");
+
+        btnModificar.setText("Modificar");
+
+        btnEliminar.setText("Eliminar");
+
+        btnListar.setText("Listar Todos");
+
+        tblSedes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Sede", "Dirección", "Nombre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblSedes);
+
+        btnRegresar.setText("Regresar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(326, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(322, 322, 322))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(BtnInventario)
-                .addGap(102, 102, 102)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(83, 83, 83))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel2)
+                        .addGap(296, 296, 296))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(54, 54, 54)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtIDsede1)
+                                    .addComponent(cmbDirecciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtIDsede, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(10, 10, 10)
+                                            .addComponent(btnInsertar)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnConsultar)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnModificar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(btnEliminar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(btnListar))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(549, 549, 549)
+                                    .addComponent(btnRegresar))))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(42, 42, 42)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnInventario)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
-                .addContainerGap(391, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(txtIDsede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbDirecciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtIDsede1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInsertar)
+                    .addComponent(btnConsultar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnListar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegresar)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -77,9 +163,20 @@ public class VistaSede extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton BtnInventario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JButton btnConsultar;
+    public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnInsertar;
+    public javax.swing.JButton btnListar;
+    public javax.swing.JButton btnModificar;
+    public javax.swing.JButton btnRegresar;
+    public javax.swing.JComboBox<String> cmbDirecciones;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable tblSedes;
+    public javax.swing.JTextField txtIDsede;
+    public javax.swing.JTextField txtIDsede1;
     // End of variables declaration//GEN-END:variables
 }
