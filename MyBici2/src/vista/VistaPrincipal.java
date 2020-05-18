@@ -32,15 +32,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         itemUsuarios = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        ItemRoles = new javax.swing.JMenuItem();
+        ItemSede = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        ItemContabilidad = new javax.swing.JMenuItem();
+        ItemTrabajos = new javax.swing.JMenuItem();
+        ItemMantenimientoTaller = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        ItemProveedores = new javax.swing.JMenuItem();
+        ItemPeticiones = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu4.setText("jMenu4");
 
@@ -51,37 +52,105 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu5.setText("Adiministración");
 
         itemUsuarios.setText("Usuarios");
+        itemUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemUsuariosMouseClicked(evt);
+            }
+        });
+        itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemUsuariosActionPerformed(evt);
+            }
+        });
         jMenu5.add(itemUsuarios);
 
-        jMenuItem6.setText("Roles");
-        jMenu5.add(jMenuItem6);
+        ItemRoles.setText("Roles");
+        ItemRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemRolesActionPerformed(evt);
+            }
+        });
+        jMenu5.add(ItemRoles);
 
-        jMenuItem7.setText("Sede");
-        jMenu5.add(jMenuItem7);
+        ItemSede.setText("Sede");
+        ItemSede.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ItemSedeMouseClicked(evt);
+            }
+        });
+        ItemSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemSedeActionPerformed(evt);
+            }
+        });
+        jMenu5.add(ItemSede);
 
         jMenuBar1.add(jMenu5);
 
         jMenu1.setText("Sede");
 
-        jMenuItem2.setText("Contabilidad");
-        jMenu1.add(jMenuItem2);
+        ItemContabilidad.setText("Contabilidad");
+        ItemContabilidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ItemContabilidadMouseClicked(evt);
+            }
+        });
+        ItemContabilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemContabilidadActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ItemContabilidad);
 
-        jMenuItem3.setText("Trabajos");
-        jMenu1.add(jMenuItem3);
+        ItemTrabajos.setText("Trabajos");
+        ItemTrabajos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemTrabajosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ItemTrabajos);
 
-        jMenuItem4.setText("Mantenimiento Taller");
-        jMenu1.add(jMenuItem4);
+        ItemMantenimientoTaller.setText("Mantenimiento Taller");
+        ItemMantenimientoTaller.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemMantenimientoTallerActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ItemMantenimientoTaller);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Inventario");
+
+        ItemProveedores.setText("Proveedores");
+        ItemProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemProveedoresActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ItemProveedores);
+
+        ItemPeticiones.setText("Peticiones");
+        ItemPeticiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemPeticionesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ItemPeticiones);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Empleados");
-
-        jMenuItem1.setText("jMenuItem1");
-        jMenu3.add(jMenuItem1);
-
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -106,21 +175,100 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ItemRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemRolesActionPerformed
+        VistaRoles R = new VistaRoles();
+        R.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemRolesActionPerformed
+
+    private void ItemSedeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ItemSedeMouseClicked
+        VistaSede S = new VistaSede();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemSedeMouseClicked
+
+    private void ItemContabilidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ItemContabilidadMouseClicked
+        VistaContabilidad C = new VistaContabilidad();
+        C.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemContabilidadMouseClicked
+
+    private void ItemMantenimientoTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMantenimientoTallerActionPerformed
+        VistaMantenimientoTaller M = new VistaMantenimientoTaller();
+        M.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemMantenimientoTallerActionPerformed
+
+    private void ItemTrabajosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTrabajosActionPerformed
+        VistaTrabajos V = new VistaTrabajos();
+        V.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemTrabajosActionPerformed
+
+    private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
+        VistaUsuarios G = new VistaUsuarios();
+        G.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_itemUsuariosActionPerformed
+
+    private void itemUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemUsuariosMouseClicked
+       VistaUsuarios G = new VistaUsuarios();
+        G.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_itemUsuariosMouseClicked
+
+    private void ItemSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemSedeActionPerformed
+         VistaSede S = new VistaSede();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemSedeActionPerformed
+
+    private void ItemContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemContabilidadActionPerformed
+         VistaContabilidad S = new VistaContabilidad();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemContabilidadActionPerformed
+
+    private void ItemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemProveedoresActionPerformed
+        VistaProveedores S = new VistaProveedores();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemProveedoresActionPerformed
+
+    private void ItemPeticionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemPeticionesActionPerformed
+        VistaPeticiones S = new VistaPeticiones();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_ItemPeticionesActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        VistaEmpleado S = new VistaEmpleado();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        VistaEmpleado S = new VistaEmpleado();
+        S.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_jMenu3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem ItemContabilidad;
+    public javax.swing.JMenuItem ItemMantenimientoTaller;
+    public javax.swing.JMenuItem ItemPeticiones;
+    public javax.swing.JMenuItem ItemProveedores;
+    public javax.swing.JMenuItem ItemRoles;
+    public javax.swing.JMenuItem ItemSede;
+    public javax.swing.JMenuItem ItemTrabajos;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
+    public javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }
