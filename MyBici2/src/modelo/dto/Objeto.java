@@ -32,20 +32,40 @@ public class Objeto {
     /**
      * 
      */
-    private Set<ArrayList> proveedores;
+    private LinkedList<Proveedor> proveedores;
 
-    /**
-     * 
-     */
-    public void getters() {
-        // TODO implement here
+    public int getIdObjeto() {
+        return idObjeto;
     }
 
-    /**
-     * 
-     */
-    public void setters() {
-        // TODO implement here
+    public void setIdObjeto(int idObjeto) {
+        this.idObjeto = idObjeto;
     }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public int getAñosGarantia() {
+        return añosGarantia;
+    }
+
+    public void setAñosGarantia(int añosGarantia) {
+        this.añosGarantia = añosGarantia;
+    }
+
+    public LinkedList<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(LinkedList<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    
 
 }

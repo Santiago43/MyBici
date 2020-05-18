@@ -1,6 +1,7 @@
 drop database if exists mybici;
 create database mybici;
 use mybici;
+
 CREATE TABLE Permiso (
   idPermiso INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nombrePermiso VARCHAR(40) NULL,
@@ -15,9 +16,9 @@ CREATE TABLE Objeto (
 );
 
 CREATE TABLE Telefono (
-  id_telefono INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  id_telefono INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,mantenientobicicleta
   tipo VARCHAR(6) NULL,
-  PRIMARY KEY(id_telefono)
+  PRIMARY KEY(id_telepeticionempleadopersonaempleadopersonapersonafono)
 );
 
 CREATE TABLE Rol (
@@ -42,6 +43,15 @@ CREATE TABLE Calle (
   bis BOOL NULL,
   sur BOOL NULL,
   PRIMARY KEY(idCalle)
+);
+
+CREATE TABLE Bicicleta (
+  marcoSerial VARCHAR(20) NOT NULL,
+  grupoMecanico VARCHAR(20) NOT NULL,
+  color VARCHAR(20) NULL,
+  marca VARCHAR(20) NULL,
+  estado VARCHAR(60) NULL,
+  PRIMARY KEY(marcoSerial)
 );
 
 CREATE TABLE Rol_has_Permiso (
@@ -69,22 +79,19 @@ CREATE TABLE Direccion (
   INDEX Direccion_FKIndex2(Calle_idCalle),
   FOREIGN KEY(Carrera_idCarrera)
     REFERENCES Carrera(idCarrera)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Calle_idCalle)
     REFERENCES Calle(idCalle)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
-alter table Persona drop column nombre;
-alter table Persona add column primerNombre varchar(20) NULL;
-alter table Persona add column segundoNombre varchar(20) NULL;
 CREATE TABLE Persona (
   cedula INTEGER UNSIGNED NOT NULL,
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
-  primerNombre varchar(20) NULL,
-  segundoNombre varchar(20) NULL,
+  primerNombre VARCHAR(20) NULL,
+  segundoNombre VARCHAR(20) NULL,
   primerApellido VARCHAR(20) NULL,
   segundoApellido VARCHAR(20) NULL,
   fechaNacimiento DATE NULL,
@@ -94,6 +101,28 @@ CREATE TABLE Persona (
   INDEX Persona_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
+
+CREATE TABLE EmpresaMantenimiento (
+  id_empresaMantenimiento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
+  nombreEmpresaMantemiento VARCHAR(40) NULL,
+  PRIMARY KEY(id_empresaMantenimiento),
+  INDEX EmpresaMantenimiento_FKIndex1(Direccion_idDireccion),
+  FOREIGN KEY(Direccion_idDireccion)
+    REFERENCES Direccion(idDireccion)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
+
+CREATE TABLE Cliente (
+  Persona_cedula INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(Persona_cedula),
+  INDEX Cliente_FKIndex1(Persona_cedula),
+  FOREIGN KEY(Persona_cedula)
+    REFERENCES Persona(cedula)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -106,8 +135,8 @@ CREATE TABLE Sede (
   INDEX Sede_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Proveedor (
@@ -118,20 +147,8 @@ CREATE TABLE Proveedor (
   INDEX Proveedor_FKIndex1(Direccion_idDireccion),
   FOREIGN KEY(Direccion_idDireccion)
     REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
-);
-
-CREATE TABLE EmpresaMantenimiento (
-  id_empresaMantenimiento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
-  nombreEmpresaMantemiento VARCHAR(40) NULL,
-  PRIMARY KEY(id_empresaMantenimiento),
-  INDEX EmpresaMantenimiento_FKIndex1(Direccion_idDireccion),
-  FOREIGN KEY(Direccion_idDireccion)
-    REFERENCES Direccion(idDireccion)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 CREATE TABLE Inventario (
@@ -162,6 +179,24 @@ CREATE TABLE EmpresaMantenimiento_has_Telefono (
       ON UPDATE cascade
 );
 
+CREATE TABLE EquipoOficina (
+  Objeto_idObjeto INTEGER UNSIGNED NOT NULL,
+  Sede_idSede INTEGER UNSIGNED NOT NULL,
+  descripcion VARCHAR(70) NULL,
+  PUC VARCHAR(10) NULL,
+  PRIMARY KEY(Objeto_idObjeto),
+  INDEX EquipoOficina_FKIndex1(Sede_idSede),
+  INDEX EquipoOficina_FKIndex2(Objeto_idObjeto),
+  FOREIGN KEY(Sede_idSede)
+    REFERENCES Sede(idSede)
+      ON DELETE cascade
+      ON UPDATE cascade,
+  FOREIGN KEY(Objeto_idObjeto)
+    REFERENCES Objeto(idObjeto)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
+
 CREATE TABLE Empleado (
   Persona_cedula INTEGER UNSIGNED NOT NULL,
   Sede_idSede INTEGER UNSIGNED NOT NULL,
@@ -177,58 +212,6 @@ CREATE TABLE Empleado (
       ON UPDATE cascade,
   FOREIGN KEY(Persona_cedula)
     REFERENCES Persona(cedula)
-      ON DELETE cascade
-      ON UPDATE cascade
-);
-
-CREATE TABLE Usuario (
-  usuario VARCHAR(30) NOT NULL,
-  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
-  Rol_idRol INTEGER UNSIGNED NOT NULL,
-  contraseña VARCHAR(30) NULL,
-  PRIMARY KEY(usuario),
-  INDEX Usuario_FKIndex1(Rol_idRol),
-  INDEX Usuario_FKIndex2(Empleado_Persona_cedula),
-  FOREIGN KEY(Rol_idRol)
-    REFERENCES Rol(idRol)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(Empleado_Persona_cedula)
-    REFERENCES Empleado(Persona_cedula)
-      ON DELETE cascade
-      ON UPDATE cascade
-);
-
-CREATE TABLE Usuario_has_Permiso (
-  Usuario_usuario VARCHAR(30) NOT NULL,
-  Permiso_idPermiso INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY(Usuario_usuario, Permiso_idPermiso),
-  INDEX Usuario_has_Permiso_FKIndex1(Usuario_usuario),
-  INDEX Usuario_has_Permiso_FKIndex2(Permiso_idPermiso),
-  FOREIGN KEY(Usuario_usuario)
-    REFERENCES Usuario(usuario)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(Permiso_idPermiso)
-    REFERENCES Permiso(idPermiso)
-      ON DELETE cascade
-      ON UPDATE cascade
-);
-
-CREATE TABLE EquipoOficina (
-  Objeto_idObjeto INTEGER UNSIGNED NOT NULL,
-  Sede_idSede INTEGER UNSIGNED NOT NULL,
-  descripcion VARCHAR(70) NULL,
-  PUC VARCHAR(10) NULL,
-  PRIMARY KEY(Objeto_idObjeto),
-  INDEX EquipoOficina_FKIndex1(Sede_idSede),
-  INDEX EquipoOficina_FKIndex2(Objeto_idObjeto),
-  FOREIGN KEY(Sede_idSede)
-    REFERENCES Sede(idSede)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(Objeto_idObjeto)
-    REFERENCES Objeto(idObjeto)
       ON DELETE cascade
       ON UPDATE cascade
 );
@@ -285,6 +268,26 @@ CREATE TABLE Proveedor_has_Telefono (
       ON UPDATE cascade
 );
 
+CREATE TABLE FacturaVenta (
+  id_fventa INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Cliente_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  iva DOUBLE NULL,
+  totalVenta DOUBLE NULL,
+  fecha DATE NULL,
+  PRIMARY KEY(id_fventa),
+  INDEX FacturaVenta_FKIndex1(Empleado_Persona_cedula),
+  INDEX FacturaVenta_FKIndex2(Cliente_Persona_cedula),
+  FOREIGN KEY(Empleado_Persona_cedula)
+    REFERENCES Empleado(Persona_cedula)
+      ON DELETE cascade
+      ON UPDATE cascade,
+  FOREIGN KEY(Cliente_Persona_cedula)
+    REFERENCES Cliente(Persona_cedula)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
+
 CREATE TABLE Persona_has_Telefono (
   Telefono_id_telefono INTEGER UNSIGNED NOT NULL,
   Persona_cedula INTEGER UNSIGNED NOT NULL,
@@ -315,16 +318,6 @@ CREATE TABLE PeticionEmpleado (
       ON UPDATE cascade
 );
 
-CREATE TABLE Cliente (
-  Persona_cedula INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY(Persona_cedula),
-  INDEX Cliente_FKIndex1(Persona_cedula),
-  FOREIGN KEY(Persona_cedula)
-    REFERENCES Persona(cedula)
-      ON DELETE cascade
-      ON UPDATE cascade
-);
-
 CREATE TABLE Taller (
   idTaller INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Sede_idSede INTEGER UNSIGNED NOT NULL,
@@ -342,6 +335,40 @@ CREATE TABLE MecanicoPlanta (
   jefeMecanico INTEGER UNSIGNED NULL,
   PRIMARY KEY(Empleado_Persona_cedula),
   INDEX MecanicoPlanta_FKIndex1(Empleado_Persona_cedula),
+  FOREIGN KEY(Empleado_Persona_cedula)
+    REFERENCES Empleado(Persona_cedula)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
+
+CREATE TABLE Venta_has_Mercancia (
+  FacturaVenta_id_fventa INTEGER UNSIGNED NOT NULL,
+  Mercancia_Objeto_idObjeto INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(FacturaVenta_id_fventa, Mercancia_Objeto_idObjeto),
+  INDEX Venta_has_Mercancia_FKIndex1(FacturaVenta_id_fventa),
+  INDEX Venta_has_Mercancia_FKIndex2(Mercancia_Objeto_idObjeto),
+  FOREIGN KEY(FacturaVenta_id_fventa)
+    REFERENCES FacturaVenta(id_fventa)
+      ON DELETE cascade
+      ON UPDATE cascade,
+  FOREIGN KEY(Mercancia_Objeto_idObjeto)
+    REFERENCES Mercancia(Objeto_idObjeto)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
+
+CREATE TABLE Usuario (
+  usuario VARCHAR(30) NOT NULL,
+  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Rol_idRol INTEGER UNSIGNED NOT NULL,
+  contraseña VARCHAR(30) NULL,
+  PRIMARY KEY(usuario),
+  INDEX Usuario_FKIndex1(Rol_idRol),
+  INDEX Usuario_FKIndex2(Empleado_Persona_cedula),
+  FOREIGN KEY(Rol_idRol)
+    REFERENCES Rol(idRol)
+      ON DELETE cascade
+      ON UPDATE cascade,
   FOREIGN KEY(Empleado_Persona_cedula)
     REFERENCES Empleado(Persona_cedula)
       ON DELETE cascade
@@ -367,57 +394,38 @@ CREATE TABLE MantenimientoTaller (
       ON UPDATE cascade
 );
 
-CREATE TABLE FacturaVenta (
-  id_fventa INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
-  Cliente_Persona_cedula INTEGER UNSIGNED NOT NULL,
-  iva DOUBLE NULL,
-  totalVenta DOUBLE NULL,
-  fecha DATE NULL,
-  PRIMARY KEY(id_fventa),
-  INDEX FacturaVenta_FKIndex1(Empleado_Persona_cedula),
-  INDEX FacturaVenta_FKIndex2(Cliente_Persona_cedula),
-  FOREIGN KEY(Empleado_Persona_cedula)
-    REFERENCES Empleado(Persona_cedula)
+CREATE TABLE MantenientoBicicleta (
+  idMantenimientoBicicleta INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Bicicleta_marcoSerial VARCHAR(20) NOT NULL,
+  FacturaVenta_id_fventa INTEGER UNSIGNED NOT NULL,
+  descripcion VARCHAR(180) NULL,
+  valorEstimado INTEGER UNSIGNED NULL,
+  fechaEntrega DATE NULL,
+  PRIMARY KEY(idMantenimientoBicicleta),
+  INDEX MantenientoBici_FKIndex1(FacturaVenta_id_fventa),
+  INDEX MantenientoBicicleta_FKIndex2(Bicicleta_marcoSerial),
+  FOREIGN KEY(FacturaVenta_id_fventa)
+    REFERENCES FacturaVenta(id_fventa)
       ON DELETE cascade
       ON UPDATE cascade,
-  FOREIGN KEY(Cliente_Persona_cedula)
-    REFERENCES Cliente(Persona_cedula)
+  FOREIGN KEY(Bicicleta_marcoSerial)
+    REFERENCES Bicicleta(marcoSerial)
       ON DELETE cascade
       ON UPDATE cascade
 );
 
-CREATE TABLE MantenientoBicicleta (
-  idMantenimientoBicicleta INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  FacturaVenta_id_fventa INTEGER UNSIGNED NOT NULL,
-  marcoSerial INTEGER UNSIGNED NULL,
-  descripcion VARCHAR(180) NULL,
-  color VARCHAR(20) NULL,
-  marca VARCHAR(20) NULL,
-  grupoMecánico VARCHAR(20) NULL,
-  valorEstimado INTEGER UNSIGNED NULL,
-  estadoBicicleta VARCHAR(180) NULL,
-  fechaEntrega DATE NULL,
-  PRIMARY KEY(idMantenimientoBicicleta),
-  INDEX MantenientoBici_FKIndex1(FacturaVenta_id_fventa),
-  FOREIGN KEY(FacturaVenta_id_fventa)
-    REFERENCES FacturaVenta(id_fventa)
+CREATE TABLE Usuario_has_Permiso (
+  Usuario_usuario VARCHAR(30) NOT NULL,
+  Permiso_idPermiso INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(Usuario_usuario, Permiso_idPermiso),
+  INDEX Usuario_has_Permiso_FKIndex1(Usuario_usuario),
+  INDEX Usuario_has_Permiso_FKIndex2(Permiso_idPermiso),
+  FOREIGN KEY(Usuario_usuario)
+    REFERENCES Usuario(usuario)
       ON DELETE cascade
-      ON UPDATE NO ACTION
-);
-
-CREATE TABLE Venta_has_Mercancia (
-  FacturaVenta_id_fventa INTEGER UNSIGNED NOT NULL,
-  Mercancia_Objeto_idObjeto INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY(FacturaVenta_id_fventa, Mercancia_Objeto_idObjeto),
-  INDEX Venta_has_Mercancia_FKIndex1(FacturaVenta_id_fventa),
-  INDEX Venta_has_Mercancia_FKIndex2(Mercancia_Objeto_idObjeto),
-  FOREIGN KEY(FacturaVenta_id_fventa)
-    REFERENCES FacturaVenta(id_fventa)
-      ON DELETE cascade
-      ON UPDATE NO ACTION,
-  FOREIGN KEY(Mercancia_Objeto_idObjeto)
-    REFERENCES Mercancia(Objeto_idObjeto)
+      ON UPDATE cascade,
+  FOREIGN KEY(Permiso_idPermiso)
+    REFERENCES Permiso(idPermiso)
       ON DELETE cascade
       ON UPDATE cascade
 );

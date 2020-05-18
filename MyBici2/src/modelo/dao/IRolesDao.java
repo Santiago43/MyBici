@@ -7,5 +7,7 @@ import modelo.dto.Rol;
  * @author Santiago Pérez
  */
 public interface IRolesDao extends IDao<Rol>{
+ 
+    public Rol  consultarPorNombre(String  nombre);
     
 }

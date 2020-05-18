@@ -120,5 +120,10 @@ public class RolesDao implements IRolesDao{
         }
         return roles;
     }
+
+    @Override
+    public Rol consultarPorNombre(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
