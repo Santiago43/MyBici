@@ -3,6 +3,8 @@ package modelo.dao;
 import conexion.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -46,7 +48,27 @@ public class EmpleadosDao implements IEmpleadosDao{
 
     @Override
     public Empleado consultar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = Conexion.conectado();
+        String sql = "select * from emplado where Persona_cedula="+clave;
+        try {
+            Empleado empleado;
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            empleado = new Empleado();
+            if(rs.next()){
+                empleado.setCedula(rs.getInt("Persona_cedula"));
+                empleado.setPrimerNombre(rs.getString("primerNombre"));
+                empleado.setSegundoNombre(rs.getString("segundoNombre"));
+                empleado.setPrimerApellido(rs.getString("primerApellido"));
+                empleado.setSegundoApellido(rs.getString("segundoApellido"));
+                empleado.setFechaNacimiento(rs.getDate("fechaNacimiento").toString());
+            }else{
+                return null;
+            }    
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
