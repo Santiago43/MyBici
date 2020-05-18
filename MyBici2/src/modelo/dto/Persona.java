@@ -14,6 +14,10 @@ public class Persona {
     /**
      * 
      */
+    private Direccion direccion;
+    /**
+     * 
+     */
     private int cedula;
 
     /**
@@ -115,6 +119,12 @@ public class Persona {
         this.genero = genero;
     }
 
-    
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
 
 }
