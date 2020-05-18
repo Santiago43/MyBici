@@ -22,21 +22,24 @@ public class Inventario {
     /**
      * 
      */
-    private Set<Mercancia> mercancia;
+    private LinkedList<Mercancia> mercancia;
 
-
-    /**
-     * 
-     */
-    public void getters() {
-        // TODO implement here
+    public Sede getSede() {
+        return sede;
     }
 
-    /**
-     * 
-     */
-    public void setters() {
-        // TODO implement here
+    public void setSede(Sede sede) {
+        this.sede = sede;
     }
+
+    public LinkedList<Mercancia> getMercancia() {
+        return mercancia;
+    }
+
+    public void setMercancia(LinkedList<Mercancia> mercancia) {
+        this.mercancia = mercancia;
+    }
+
+
 
 }

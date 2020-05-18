@@ -1,14 +1,8 @@
 package modelo.dto;
 
-
-import java.util.*;
-
 /**
  * 
  */
-
-
-/*
 
 public class Empleado extends Persona {
 
@@ -24,7 +18,41 @@ public class Empleado extends Persona {
 
     
     private double salario;
+    
+    private int idSede;
 
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public int getIdSede() {
+        return idSede;
+    }
+
+    public void setIdSede(int idSede) {
+        this.idSede = idSede;
+    }
+    
+    
 }
 
-*/

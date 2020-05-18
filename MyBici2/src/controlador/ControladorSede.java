@@ -7,34 +7,47 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import modelo.dao.SedeDao;
 import modelo.dao.UsuariosDao;
-import vista.VistaInventario;
+import modelo.dto.Sede;
+import vista.VistaSede;
 import vista.VistaPrincipal;
 
 /**
  *
  * @author F. PLAZA
  */
-public class ControladorInventario implements ActionListener{
+public class ControladorSede implements ActionListener{
     /**
      * 
      */
-    VistaInventario vista;
+    VistaSede vista;
     /**
      * 
      */
     VistaPrincipal vistaAnterior;
     UsuariosDao usuariosDao;
+    SedeDao sedeDao;
     /**
      * 
      * @param vista
      * @param vistaAnterior
      * @param usuariosDao 
      */
-    public ControladorInventario(VistaInventario vista, VistaPrincipal vistaAnterior, UsuariosDao usuariosDao) {
+    public ControladorSede(VistaSede vista, VistaPrincipal vistaAnterior, UsuariosDao usuariosDao) {
+        this.sedeDao = new SedeDao();
+        
+        Sede sede = this.sedeDao.consultar("id");
+        LinkedList <Sede> sedes = this.sedeDao.listar();
+        
         this.vista = vista;
         this.vistaAnterior = vistaAnterior;
         this.usuariosDao = usuariosDao;
+        
+        this.vistaAnterior.setVisible(false);
+        
+        this.vista.setVisible(true);
     }
     
     

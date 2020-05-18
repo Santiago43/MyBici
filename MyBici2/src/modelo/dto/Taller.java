@@ -22,26 +22,38 @@ public class Taller {
     /**
      * 
      */
-    //private Set<MantenimientoTaller> mantenimientos;
+    private LinkedList<MantenimientoTaller> mantenimientos;
 
     /**
      * 
      */
     private double totalVentas;
 
-
-    /**
-     * 
-     */
-    public void getters() {
-        // TODO implement here
+    public int getIdTaller() {
+        return idTaller;
     }
 
-    /**
-     * 
-     */
-    public void setters() {
-        // TODO implement here
+    public void setIdTaller(int idTaller) {
+        this.idTaller = idTaller;
     }
+
+    public LinkedList<MantenimientoTaller> getMantenimientos() {
+        return mantenimientos;
+    }
+
+    public void setMantenimientos(LinkedList<MantenimientoTaller> mantenimientos) {
+        this.mantenimientos = mantenimientos;
+    }
+
+    public double getTotalVentas() {
+        return totalVentas;
+    }
+
+    public void setTotalVentas(double totalVentas) {
+        this.totalVentas = totalVentas;
+    }
+    
+    
+    
 
 }
