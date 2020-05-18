@@ -37,6 +37,7 @@ public class VistaRoles extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRoles = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +78,8 @@ public class VistaRoles extends javax.swing.JFrame {
             }
         });
 
+        btnLimpiar.setText("Limpiar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +108,9 @@ public class VistaRoles extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtIDROL, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtIDROL, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimpiar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(182, 182, 182)
                         .addComponent(jLabel3))
@@ -122,7 +127,8 @@ public class VistaRoles extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtIDROL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDROL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpiar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -135,7 +141,7 @@ public class VistaRoles extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegresar)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,6 +190,7 @@ public class VistaRoles extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnInsertar;
+    public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnListar;
     public javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
