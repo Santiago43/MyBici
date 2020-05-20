@@ -37,7 +37,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         ItemContabilidad = new javax.swing.JMenuItem();
         ItemTrabajos = new javax.swing.JMenuItem();
-        ItemMantenimientoTaller = new javax.swing.JMenuItem();
+        itemTrabajos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         ItemProveedores = new javax.swing.JMenuItem();
         ItemPeticiones = new javax.swing.JMenuItem();
@@ -110,13 +110,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(ItemTrabajos);
 
-        ItemMantenimientoTaller.setText("Mantenimiento Taller");
-        ItemMantenimientoTaller.addActionListener(new java.awt.event.ActionListener() {
+        itemTrabajos.setText("Mantenimiento Taller");
+        itemTrabajos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemMantenimientoTallerActionPerformed(evt);
+                itemTrabajosActionPerformed(evt);
             }
         });
-        jMenu1.add(ItemMantenimientoTaller);
+        jMenu1.add(itemTrabajos);
 
         jMenuBar1.add(jMenu1);
 
@@ -193,11 +193,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.hide();
     }//GEN-LAST:event_ItemContabilidadMouseClicked
 
-    private void ItemMantenimientoTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMantenimientoTallerActionPerformed
+    private void itemTrabajosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTrabajosActionPerformed
         VistaMantenimientoTaller M = new VistaMantenimientoTaller();
         M.setVisible(true);
         this.hide();
-    }//GEN-LAST:event_ItemMantenimientoTallerActionPerformed
+    }//GEN-LAST:event_itemTrabajosActionPerformed
 
     private void ItemTrabajosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTrabajosActionPerformed
         VistaTrabajos V = new VistaTrabajos();
@@ -256,12 +256,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem ItemContabilidad;
-    public javax.swing.JMenuItem ItemMantenimientoTaller;
     public javax.swing.JMenuItem ItemPeticiones;
     public javax.swing.JMenuItem ItemProveedores;
     public javax.swing.JMenuItem ItemRoles;
     public javax.swing.JMenuItem ItemSede;
     public javax.swing.JMenuItem ItemTrabajos;
+    public javax.swing.JMenuItem itemTrabajos;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

@@ -16,9 +16,9 @@ CREATE TABLE Objeto (
 );
 
 CREATE TABLE Telefono (
-  id_telefono INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,mantenientobicicleta
+  id_telefono INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   tipo VARCHAR(6) NULL,
-  PRIMARY KEY(id_telepeticionempleadopersonaempleadopersonapersonafono)
+  PRIMARY KEY(id_telefono)
 );
 
 CREATE TABLE Rol (

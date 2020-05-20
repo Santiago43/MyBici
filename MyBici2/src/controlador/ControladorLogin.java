@@ -26,6 +26,7 @@ public class ControladorLogin implements ActionListener {
         this.usuariosDao = usuariosDao;
         this.vista.btnIngresar.addActionListener(this);
         this.vista.setVisible(true);
+        this.vista.setLocationRelativeTo(null);
     }
 
     @Override
