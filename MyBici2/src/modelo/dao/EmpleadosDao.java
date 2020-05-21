@@ -9,34 +9,38 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.dto.Calle;
+import modelo.dto.Carrera;
+import modelo.dto.Direccion;
 import modelo.dto.Empleado;
 
 /**
  * Clase de objeto de acceso a datos de los empleados
+ *
  * @author Santiago Pérez
  * @version 1.0
  * @since 2020-05-14
  */
-public class EmpleadosDao implements IEmpleadosDao{
+public class EmpleadosDao implements IEmpleadosDao {
 
     @Override
     public boolean crear(Empleado empleado) {
         try {
             String sql = "call insertarEmpleado(?,?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = Conexion.conectado();
-            CallableStatement call= conn.prepareCall(sql);
+            CallableStatement call = conn.prepareCall(sql);
             call.setInt("cedula", empleado.getCedula());
-            call.setInt("idDireccion",empleado.getDireccion().getIdDireccion());
-            call.setString("primerNombre",empleado.getPrimerNombre());
+            call.setInt("idDireccion", empleado.getDireccion().getIdDireccion());
+            call.setString("primerNombre", empleado.getPrimerNombre());
             call.setString("segundoNombre", empleado.getSegundoNombre());
             call.setString("primerApellido", empleado.getPrimerApellido());
             call.setString("segundoApellido", empleado.getSegundoApellido());
-            call.setString("fechaNacimiento",empleado.getFechaNacimiento());
+            call.setString("fechaNacimiento", empleado.getFechaNacimiento());
             call.setString("nacionalidad", empleado.getNacionalidad());
-            call.setString("genero", String.valueOf(empleado.getGenero())); 
+            call.setString("genero", String.valueOf(empleado.getGenero()));
             call.setInt("idSede", empleado.getIdSede());
             call.setString("profesion", empleado.getProfesion());
-            call.setString("cargo",empleado.getCargo());
+            call.setString("cargo", empleado.getCargo());
             call.setDouble("salario", empleado.getSalario());
             call.execute();
             return true;
@@ -49,26 +53,56 @@ public class EmpleadosDao implements IEmpleadosDao{
     @Override
     public Empleado consultar(String clave) {
         Connection conn = Conexion.conectado();
-        String sql = "select * from emplado where Persona_cedula="+clave;
+        Empleado empleado = null;
+        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede  from persona as p\n"
+                + "inner join empleado as e on p.cedula=e.Persona_cedula\n"
+                + "where e.Persona_cedula =" + clave;
         try {
-            Empleado empleado;
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            empleado = new Empleado();
-            if(rs.next()){
-                empleado.setCedula(rs.getInt("Persona_cedula"));
-                empleado.setPrimerNombre(rs.getString("primerNombre"));
-                empleado.setSegundoNombre(rs.getString("segundoNombre"));
-                empleado.setPrimerApellido(rs.getString("primerApellido"));
-                empleado.setSegundoApellido(rs.getString("segundoApellido"));
-                empleado.setFechaNacimiento(rs.getDate("fechaNacimiento").toString());
-            }else{
-                return null;
-            }    
+            if (rs.next()) {
+                empleado = new Empleado();
+                empleado.setCedula(rs.getInt("p.cedula"));
+                empleado.setPrimerNombre(rs.getString("p.primerNombre"));
+                empleado.setSegundoNombre(rs.getString("p.segundoNombre"));
+                empleado.setPrimerApellido(rs.getString("p.primerApellido"));
+                empleado.setSegundoApellido(rs.getString("p.segundoApellido"));
+                empleado.setFechaNacimiento(rs.getDate("p.fechaNacimiento").toString());
+                empleado.setProfesion(rs.getString("e.profesion"));
+                empleado.setCargo(rs.getString("e.cargo"));
+                empleado.setSalario(rs.getDouble("e.salario"));
+                empleado.setIdSede(rs.getInt("e.Sede_idSede"));
+                String idDireccion = rs.getString("p.Direccion_idDireccion");
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d\n"
+                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle\n"
+                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera\n"
+                        + "where d.idDireccion =" + idDireccion;
+                PreparedStatement pat2 = conn.prepareStatement(sql2);
+                ResultSet rs2 = pat2.executeQuery();
+                Direccion direccion = new Direccion();
+                Calle calle = new Calle();
+                Carrera carrera = new Carrera();
+                direccion.setIdDireccion(Integer.parseInt(idDireccion));
+                if (rs2.next()) {
+                    calle.setIdCalle(rs.getInt("cal.idCalle"));
+                    calle.setNumeroCalle(rs2.getInt("cal.numeroCalle"));
+                    calle.setLetraCalle(rs2.getString("cal.letraCalle").charAt(0));
+                    calle.setBis(rs2.getBoolean("cal.bis"));
+                    calle.setSur(rs2.getBoolean("cal.sur"));
+                    carrera.setIdCarrera(rs.getInt("car.idCarrera"));
+                    carrera.setNumeroCarrera(rs.getInt("car.numeroCarrera"));
+                    carrera.setLetraCarrera(rs.getString("car.letraCarrera").charAt(0));
+                    carrera.setBis(rs2.getBoolean("car.bis"));
+                    carrera.setEste(rs.getBoolean("car.este"));
+                }
+                direccion.setCalle(calle);
+                direccion.setCarrera(carrera);
+                empleado.setDireccion(direccion);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return empleado;
     }
 
     @Override
@@ -83,7 +117,57 @@ public class EmpleadosDao implements IEmpleadosDao{
 
     @Override
     public LinkedList<Empleado> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Empleado> empleados = new LinkedList();
+        Connection conn = Conexion.conectado();
+        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede  from persona as p\n"
+                + "inner join empleado as e on p.cedula=e.Persona_cedula\n";
+        try {
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Empleado empleado = new Empleado();
+                empleado.setCedula(rs.getInt("p.cedula"));
+                empleado.setPrimerNombre(rs.getString("p.primerNombre"));
+                empleado.setSegundoNombre(rs.getString("p.segundoNombre"));
+                empleado.setPrimerApellido(rs.getString("p.primerApellido"));
+                empleado.setSegundoApellido(rs.getString("p.segundoApellido"));
+                empleado.setFechaNacimiento(rs.getDate("p.fechaNacimiento").toString());
+                empleado.setProfesion(rs.getString("e.profesion"));
+                empleado.setCargo(rs.getString("e.cargo"));
+                empleado.setSalario(rs.getDouble("e.salario"));
+                empleado.setIdSede(rs.getInt("e.Sede_idSede"));
+                String idDireccion = rs.getString("p.Direccion_idDireccion");
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d\n"
+                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle\n"
+                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera\n"
+                        + "where d.idDireccion =" + idDireccion;
+                PreparedStatement pat2 = conn.prepareStatement(sql2);
+                ResultSet rs2 = pat2.executeQuery();
+                Direccion direccion = new Direccion();
+                Calle calle = new Calle();
+                Carrera carrera = new Carrera();
+                direccion.setIdDireccion(Integer.parseInt(idDireccion));
+                if (rs2.next()) {
+                    calle.setIdCalle(rs.getInt("cal.idCalle"));
+                    calle.setNumeroCalle(rs2.getInt("cal.numeroCalle"));
+                    calle.setLetraCalle(rs2.getString("cal.letraCalle").charAt(0));
+                    calle.setBis(rs2.getBoolean("cal.bis"));
+                    calle.setSur(rs2.getBoolean("cal.sur"));
+                    carrera.setIdCarrera(rs.getInt("car.idCarrera"));
+                    carrera.setNumeroCarrera(rs.getInt("car.numeroCarrera"));
+                    carrera.setLetraCarrera(rs.getString("car.letraCarrera").charAt(0));
+                    carrera.setBis(rs2.getBoolean("car.bis"));
+                    carrera.setEste(rs.getBoolean("car.este"));
+                }
+                direccion.setCalle(calle);
+                direccion.setCarrera(carrera);
+                empleado.setDireccion(direccion);
+                empleados.add(empleado);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return empleados;
     }
-    
+
 }
