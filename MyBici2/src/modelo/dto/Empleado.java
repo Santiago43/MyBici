@@ -9,16 +9,10 @@ public class Empleado extends Persona {
     
     public Empleado() {
     }
-
-    
+   
     private String profesion;
-
-    
-    private String cargo;
-
-    
+    private String cargo;   
     private double salario;
-    
     private int idSede;
 
     public String getProfesion() {

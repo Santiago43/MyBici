@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.dto.Empleado;
 import modelo.dto.Rol;
 import modelo.dto.Usuario;
 
@@ -36,6 +37,8 @@ public class UsuariosDao implements IUsuariosDao{
     @Override
     public Usuario consultar(String clave) {
         Usuario usuario = null;
+        Empleado empleado = null;
+        EmpleadosDao dataEmpleado = new EmpleadosDao();
         try {       
             String sql = "select * from usuario where usuario=\""+clave+"\"";
             Connection conn = Conexion.conectado();
@@ -44,9 +47,13 @@ public class UsuariosDao implements IUsuariosDao{
             int idRol=0;
             while(rs.next()){
                 usuario = new Usuario();
+                empleado = new Empleado();
                 usuario.setUsuario(rs.getString("usuario"));
+                empleado.setCedula(rs.getInt("Empleado_Persona_cedula"));
                 usuario.setContraseña(rs.getString("contraseña"));
+                usuario.setEmpleado(empleado);
                 idRol=rs.getInt("Rol_idRol");
+                dataEmpleado.consultar(Integer.toString(usuario.getEmpleado().getCedula()));
             }
             sql = "select * from rol where idRol="+idRol;
             PreparedStatement pat2 = conn.prepareStatement(sql);

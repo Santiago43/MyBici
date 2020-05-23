@@ -10,7 +10,7 @@ public class FacturaVenta {
     private int id;
     private Empleado empleado;
     private Cliente cliente;
-    private double iva;
+    private double iva = 0;
     private double total;
     private String fecha;
 

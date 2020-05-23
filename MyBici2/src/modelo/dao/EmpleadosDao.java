@@ -49,7 +49,7 @@ public class EmpleadosDao implements IEmpleadosDao{
     @Override
     public Empleado consultar(String clave) {
         Connection conn = Conexion.conectado();
-        String sql = "select * from emplado where Persona_cedula="+clave;
+        String sql = "select * from empleado where Persona_cedula="+clave;
         try {
             Empleado empleado;
             PreparedStatement pat = conn.prepareStatement(sql);

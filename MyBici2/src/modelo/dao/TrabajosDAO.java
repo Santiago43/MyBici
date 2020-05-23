@@ -42,10 +42,18 @@ public class TrabajosDAO {
             pat.setString(3, mantenimiento.getDescripccion());
             pat.setInt(4, mantenimiento.getValorEstimado());
             pat.setString(5, mantenimiento.getFechaEntrega());
-            JOptionPane.showMessageDialog(null, "Bicicleta para mantenimiento registrada exitosamente");
+            sql = "insert into FacturaVenta (id_fventa,Empleado_Persona_cedula,Cliente_Persona_cedula,iva,totalVenta,fecha) values (?,?,?,?,?,?)";
+            pat = conn.prepareStatement(sql);
+            pat.setInt(0, factura.getId());
+            pat.setInt(1, factura.getEmpleado().getCedula());
+            pat.setInt(2, factura.getCliente().getCedula());
+            pat.setDouble(3, factura.getIva());
+            pat.setDouble(4, factura.getTotal());
+            pat.setString(5, factura.getFecha());
+            JOptionPane.showMessageDialog(null, "Bicicleta Registrada.\nMantenimiento registrado\nFactura generada");
             return pat.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la incersión de los datos de una bicilceta\n" + ex);
+            JOptionPane.showMessageDialog(null, "Error en la incersión de los datos del mantenimiento\n" + ex);
         }
         return false;
     }
@@ -101,5 +109,31 @@ public class TrabajosDAO {
             JOptionPane.showMessageDialog(null, "Error en consulta de mantenimiento\n" + ex);
         }
         return mantenimiento;
+    }
+
+    public boolean actualiazar(MantenimienroBicicleta mantenimiento) {
+        try {
+  //Dependiendo el rol del usuario los datos a actualizar pueden cambiar <- mejorar ese aspecto
+            String sql = "update MantenientoBicicleta set descripcion = \"" + mantenimiento.getDescripccion() + "\" where id = " + mantenimiento.getId();
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            pat.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la actualización de los datos\n" + ex);
+        }
+        return false;
+    }
+    
+    public boolean eliminar(MantenimienroBicicleta mantenimiento) {
+        try {
+  //Dependiendo el rol del usuario los datos a actualizar pueden cambiar <- mejorar ese aspecto
+            String sql = "delete from MantenientoBicicleta where id = " + mantenimiento.getId();
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            pat.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la eliminación del registro\n" + ex);
+        }
+        return false;
     }
 }

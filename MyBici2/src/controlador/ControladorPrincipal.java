@@ -52,7 +52,7 @@ public class ControladorPrincipal implements ActionListener {
         
         if(e.getSource().equals(this.vista.itemTrabajos)){
             ControladorTrabajos  controladorTrabajos ;
-            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, new RolesDao(), new TrabajosDAO());
+            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, new RolesDao(), new TrabajosDAO(), new EmpleadosDao());
         }
 
     }

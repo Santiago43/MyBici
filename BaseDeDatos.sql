@@ -1,4 +1,4 @@
-drop database if exists mybici;
+##drop database if exists mybici;
 create database mybici;
 use mybici;
 
