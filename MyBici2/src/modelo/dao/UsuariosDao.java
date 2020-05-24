@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.dto.Empleado;
+import modelo.dto.Permiso;
 import modelo.dto.Rol;
 import modelo.dto.Usuario;
 
@@ -21,6 +22,11 @@ import modelo.dto.Usuario;
  */
 public class UsuariosDao implements IUsuariosDao {
 
+    /**
+     *
+     * @param usuario
+     * @return
+     */
     @Override
     public boolean crear(Usuario usuario) {
         try {
@@ -39,6 +45,11 @@ public class UsuariosDao implements IUsuariosDao {
         return false;
     }
 
+    /**
+     *
+     * @param clave
+     * @return
+     */
     @Override
     public Usuario consultar(String clave) {
         Usuario usuario = null;
@@ -54,25 +65,32 @@ public class UsuariosDao implements IUsuariosDao {
                 usuario.setContraseña(rs.getString("contraseña"));
                 idRol = rs.getInt("Rol_idRol");
             }
+            pat.close();
             sql = "select * from rol where idRol=" + idRol;
-            PreparedStatement pat2 = conn.prepareStatement(sql);
-            ResultSet rs2 = pat2.executeQuery();
+            pat = conn.prepareStatement(sql);
+            ResultSet rs2 = pat.executeQuery();
             if (rs2.next()) {
                 Rol rol = new Rol();
                 rol.setId(rs2.getInt("idRol"));
                 rol.setNombre(rs2.getString("nombreRol"));
                 usuario.setRol(rol);
             }
+            sql="select ";
+            ResultSet rs3; 
             rs2.close();
             rs.close();
             pat.close();
-            pat2.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuario;
     }
 
+    /**
+     *
+     * @param usuario
+     * @return
+     */
     @Override
     public boolean actualizar(Usuario usuario) {
         try {
@@ -93,6 +111,11 @@ public class UsuariosDao implements IUsuariosDao {
         return false;
     }
 
+    /**
+     *
+     * @param clave
+     * @return
+     */
     @Override
     public boolean eliminar(String clave) {
         try {
@@ -108,6 +131,10 @@ public class UsuariosDao implements IUsuariosDao {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LinkedList listar() {
         LinkedList<Usuario> usuarios = null;
@@ -144,13 +171,37 @@ public class UsuariosDao implements IUsuariosDao {
         return usuarios;
     }
 
+    /**
+     *
+     * @param permiso
+     * @param usuario
+     * @return
+     */
     @Override
-    public boolean insertarPermiso(String permiso, Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean insertarPermiso(Permiso permiso, Usuario usuario) {
+        try {
+            String sql = "insert into usuario_has_permiso (Usuario_idUsuario,Permiso_idPermiso) values(?,?)";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            pat.setString(1, usuario.getUsuario());
+            pat.setInt(2, permiso.getIdPermiso());
+            boolean insert = pat.execute();
+            pat.close();
+            return insert;
+        } catch (SQLException ex) {
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
+    /**
+     *
+     * @param permiso
+     * @param usuario
+     * @return
+     */
     @Override
-    public boolean removerPermiso(String permiso, Usuario usuario) {
+    public boolean removerPermiso(Permiso permiso, Usuario usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

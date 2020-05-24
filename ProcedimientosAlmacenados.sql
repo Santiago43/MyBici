@@ -98,10 +98,18 @@ end $$
 delimiter $$
 
 create procedure crearCliente (
-in idDireccion int,
-in nombreSede varchar (30)
+in cedula int,
+in idDireccion int, 
+in primerNombre varchar(20),
+in segundoNombre varchar(20),
+in primerApellido varchar(20), 
+in segundoApellido varchar(20),
+in fechaNacimiento date,
+in nacionalidad varchar(15),
+in genero varchar(1)
 )
 begin
-insert into sede (Direccion_idDireccion,nombreSede) values(idDireccion,nombreSede);
-insert into inventario(Sede_idSede) values ((select idSede from sede order by idSede desc limit 1));
+insert into persona (cedula,Direccion_idDireccion,primerNombre,segundoNombre,primerApellido,segundoApellido,fechaNacimiento,nacionalidad,genero)
+values(cedula,idDireccion,primerNombre,segundoNombre,primerApellido,segundoApellido,fechaNacimiento,nacionalidad,genero);
+insert into cliente (Persona_cedula) values (cedula);
 end $$

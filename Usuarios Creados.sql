@@ -44,4 +44,20 @@ insert into taller (Sede_idSede,totalVentas) values(1,0);
 insert into proveedor (Direccion_idDireccion,nombre) values (1,"Frenos LTDA");
 
 
+/*Crear permisos*/
 
+insert into permiso (nombrePermiso) values ("Prueba2");
+/*Agregar permiso al rol*/
+insert into rol_has_permiso(Rol_idRol,Permiso_idPermiso) values(1,1);
+
+
+/*Agregar permiso al usuario*/
+insert into usuario_has_permiso() values();
+
+/*Agregar permiso a rol*/
+insert into rol_has_permiso (Rol_idRol,Permiso_idPermiso) 
+values(1,2);
+
+/*Agregar permiso a usuario*/
+insert into usuario_has_permiso (usuario_usuario,Permiso_idPermiso)
+values (1,1)

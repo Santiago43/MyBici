@@ -6,3 +6,9 @@ delete from usuario where usuario="";
 
 /*Borrar dirección*/
 delete from direccion where idDireccion="";
+
+/*Borrar permiso*/
+delete from permiso where idPermiso="";
+
+delete from rol_has_permiso where Rol_idRol=1 and Permiso_idPermiso=2;
+

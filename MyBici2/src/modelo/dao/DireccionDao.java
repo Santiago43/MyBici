@@ -108,10 +108,10 @@ public class DireccionDao implements IDireccionDao {
             call.setBoolean("_sur", direccion.getCalle().isSur());
             call.setInt("_idCarrera", direccion.getCarrera().getIdCarrera());
             call.setInt("_numeroCarrera", direccion.getCarrera().getNumeroCarrera());
-            call.setString("_letraCarrea", String.valueOf(direccion.getCarrera().getLetraCarrera())); 
+            call.setString("_letraCarrea", String.valueOf(direccion.getCarrera().getLetraCarrera()));
             call.setBoolean("_bisCarrera", direccion.getCarrera().isBis());
             call.setBoolean("_este", direccion.getCarrera().isEste());
-            boolean update=call.execute();
+            boolean update = call.execute();
             call.close();
             return update;
         } catch (SQLException ex) {
@@ -128,12 +128,12 @@ public class DireccionDao implements IDireccionDao {
     @Override
     public boolean eliminar(String clave) {
         try {
-            String sql = "delete from direccion where idDireccion='"+clave+"'";
+            String sql = "delete from direccion where idDireccion='" + clave + "'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            int delete= pat.executeUpdate();
+            int delete = pat.executeUpdate();
             pat.close();
-            return delete>0;                  
+            return delete > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DireccionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,6 +148,26 @@ public class DireccionDao implements IDireccionDao {
     @Override
     public LinkedList<Direccion> listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int consultarIdUltimaDireccion() {
+        try {
+            int idDireccion =0;
+            String sql = "select idDireccion from direccion order by idDireccion desc limit 1";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            if(rs.next()){
+                idDireccion = rs.getInt("idDireccion");
+            }
+            rs.close();
+            pat.close();
+            return idDireccion;
+        } catch (SQLException ex) {
+            Logger.getLogger(DireccionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 
 }

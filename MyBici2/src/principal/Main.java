@@ -5,8 +5,10 @@ import modelo.dao.UsuariosDao;
 import vista.VistaLogin;
 
 /**
- *
- * @author Santiago Pérez
+ * Clase principal
+ * @author Andrés Camilo López, Carlos Antonio Plaza, Santiago Pérez
+ * @version 1.0
+ * @since 2020-05-09
  */
 public class Main {
 

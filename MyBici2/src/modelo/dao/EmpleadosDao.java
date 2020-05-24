@@ -62,20 +62,20 @@ public class EmpleadosDao implements IEmpleadosDao {
             ResultSet rs = pat.executeQuery();
             if (rs.next()) {
                 empleado = new Empleado();
-                empleado.setCedula(rs.getInt("p.cedula"));
-                empleado.setPrimerNombre(rs.getString("p.primerNombre"));
-                empleado.setSegundoNombre(rs.getString("p.segundoNombre"));
-                empleado.setPrimerApellido(rs.getString("p.primerApellido"));
-                empleado.setSegundoApellido(rs.getString("p.segundoApellido"));
-                empleado.setFechaNacimiento(rs.getDate("p.fechaNacimiento").toString());
-                empleado.setProfesion(rs.getString("e.profesion"));
-                empleado.setCargo(rs.getString("e.cargo"));
-                empleado.setSalario(rs.getDouble("e.salario"));
-                empleado.setIdSede(rs.getInt("e.Sede_idSede"));
-                String idDireccion = rs.getString("p.Direccion_idDireccion");
-                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d"
-                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle\n"
-                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera\n"
+                empleado.setCedula(rs.getInt("cedula"));
+                empleado.setPrimerNombre(rs.getString("primerNombre"));
+                empleado.setSegundoNombre(rs.getString("segundoNombre"));
+                empleado.setPrimerApellido(rs.getString("primerApellido"));
+                empleado.setSegundoApellido(rs.getString("segundoApellido"));
+                empleado.setFechaNacimiento(rs.getDate("fechaNacimiento").toString());
+                empleado.setProfesion(rs.getString("profesion"));
+                empleado.setCargo(rs.getString("cargo"));
+                empleado.setSalario(rs.getDouble("salario"));
+                empleado.setIdSede(rs.getInt("Sede_idSede"));
+                String idDireccion = rs.getString("Direccion_idDireccion");
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d"
+                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle"
+                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera"
                         + "where d.idDireccion =" + idDireccion;
                 PreparedStatement pat2 = conn.prepareStatement(sql2);
                 ResultSet rs2 = pat2.executeQuery();
@@ -84,16 +84,16 @@ public class EmpleadosDao implements IEmpleadosDao {
                 Carrera carrera = new Carrera();
                 direccion.setIdDireccion(Integer.parseInt(idDireccion));
                 if (rs2.next()) {
-                    calle.setIdCalle(rs.getInt("cal.idCalle"));
-                    calle.setNumeroCalle(rs2.getInt("cal.numeroCalle"));
-                    calle.setLetraCalle(rs2.getString("cal.letraCalle").charAt(0));
-                    calle.setBis(rs2.getBoolean("cal.bis"));
-                    calle.setSur(rs2.getBoolean("cal.sur"));
-                    carrera.setIdCarrera(rs.getInt("car.idCarrera"));
-                    carrera.setNumeroCarrera(rs.getInt("car.numeroCarrera"));
-                    carrera.setLetraCarrera(rs.getString("car.letraCarrera").charAt(0));
-                    carrera.setBis(rs2.getBoolean("car.bis"));
-                    carrera.setEste(rs.getBoolean("car.este"));
+                    calle.setIdCalle(rs.getInt("idCalle"));
+                    calle.setNumeroCalle(rs2.getInt("numeroCalle"));
+                    calle.setLetraCalle(rs2.getString("letraCalle").charAt(0));
+                    calle.setBis(rs2.getBoolean("bisCalle"));
+                    calle.setSur(rs2.getBoolean("sur"));
+                    carrera.setIdCarrera(rs.getInt("idCarrera"));
+                    carrera.setNumeroCarrera(rs.getInt("numeroCarrera"));
+                    carrera.setLetraCarrera(rs.getString("letraCarrera").charAt(0));
+                    carrera.setBis(rs2.getBoolean("bisCarrera"));
+                    carrera.setEste(rs.getBoolean("este"));
                 }
                 direccion.setCalle(calle);
                 direccion.setCarrera(carrera);
@@ -182,7 +182,7 @@ public class EmpleadosDao implements IEmpleadosDao {
                 empleado.setSalario(rs.getDouble("e.salario"));
                 empleado.setIdSede(rs.getInt("e.Sede_idSede"));
                 String idDireccion = rs.getString("p.Direccion_idDireccion");
-                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d\n"
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d\n"
                         + "inner join calle as cal on cal.idCalle = d.Calle_idCalle\n"
                         + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera\n"
                         + "where d.idDireccion =" + idDireccion;
@@ -193,16 +193,16 @@ public class EmpleadosDao implements IEmpleadosDao {
                 Carrera carrera = new Carrera();
                 direccion.setIdDireccion(Integer.parseInt(idDireccion));
                 if (rs2.next()) {
-                    calle.setIdCalle(rs.getInt("cal.idCalle"));
-                    calle.setNumeroCalle(rs2.getInt("cal.numeroCalle"));
-                    calle.setLetraCalle(rs2.getString("cal.letraCalle").charAt(0));
-                    calle.setBis(rs2.getBoolean("cal.bis"));
-                    calle.setSur(rs2.getBoolean("cal.sur"));
-                    carrera.setIdCarrera(rs.getInt("car.idCarrera"));
-                    carrera.setNumeroCarrera(rs.getInt("car.numeroCarrera"));
-                    carrera.setLetraCarrera(rs.getString("car.letraCarrera").charAt(0));
-                    carrera.setBis(rs2.getBoolean("car.bis"));
-                    carrera.setEste(rs.getBoolean("car.este"));
+                    calle.setIdCalle(rs.getInt("idCalle"));
+                    calle.setNumeroCalle(rs2.getInt("numeroCalle"));
+                    calle.setLetraCalle(rs2.getString("letraCalle").charAt(0));
+                    calle.setBis(rs2.getBoolean("bisCalle"));
+                    calle.setSur(rs2.getBoolean("sur"));
+                    carrera.setIdCarrera(rs.getInt("idCarrera"));
+                    carrera.setNumeroCarrera(rs.getInt("numeroCarrera"));
+                    carrera.setLetraCarrera(rs.getString("letraCarrera").charAt(0));
+                    carrera.setBis(rs2.getBoolean("bisCarrera"));
+                    carrera.setEste(rs.getBoolean("este"));
                 }
                 direccion.setCalle(calle);
                 direccion.setCarrera(carrera);

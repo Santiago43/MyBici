@@ -109,8 +109,8 @@ public class SedeDao implements ISedeDao {
             String sql = "insert into taller (Sede_idSede,totalVentas) values(?,?)";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            pat.setInt(0, taller.getSede().getIdSede());
-            pat.setDouble(1, 0);
+            pat.setInt(1, taller.getSede().getIdSede());
+            pat.setDouble(2, 0);
             boolean insert=pat.execute();
             pat.close();
             return insert;           

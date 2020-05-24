@@ -1,5 +1,6 @@
 package modelo.dao;
 
+import modelo.dto.Permiso;
 import modelo.dto.Rol;
 
 /**
@@ -8,8 +9,27 @@ import modelo.dto.Rol;
  */
 public interface IRolesDao extends IDao<Rol>{
  
-    public Rol  consultarPorNombre(String  nombre);
-    boolean agregarPermiso(String permiso, Rol rol);
-    boolean removerPermiso(String permiso, Rol rol);
+    /**
+     *
+     * @param nombre
+     * @return
+     */
+    public Rol consultarPorNombre(String  nombre);
+
+    /**
+     *
+     * @param permiso
+     * @param rol
+     * @return
+     */
+    boolean agregarPermiso(Permiso permiso, Rol rol);
+
+    /**
+     *
+     * @param permiso
+     * @param rol
+     * @return
+     */
+    boolean removerPermiso(Permiso permiso, Rol rol);
     
 }

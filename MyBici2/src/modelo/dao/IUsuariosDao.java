@@ -1,5 +1,6 @@
 package modelo.dao;
 
+import modelo.dto.Permiso;
 import modelo.dto.Usuario;
 
 /**
@@ -7,6 +8,6 @@ import modelo.dto.Usuario;
  * @author Santiago Pérez
  */
 public interface IUsuariosDao extends IDao<Usuario>{
-    boolean insertarPermiso(String permiso, Usuario usuario);
-    boolean removerPermiso(String permiso, Usuario usuario);
+    boolean insertarPermiso(Permiso permiso, Usuario usuario);
+    boolean removerPermiso(Permiso permiso, Usuario usuario);
 }
