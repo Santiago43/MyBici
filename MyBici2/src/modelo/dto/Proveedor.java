@@ -1,5 +1,7 @@
 package modelo.dto;
 
+import java.util.LinkedList;
+
 /**
  * 
  */
@@ -20,11 +22,15 @@ public class Proveedor {
      * 
      */
     private Direccion direccion;
+    /**
+     * 
+     */
+    private String nombre;
 
     /**
      * 
      */
-    private Telefono telefono;
+    private LinkedList<Telefono> telefono;
 
     public int getIdProveedor() {
         return idProveedor;
@@ -42,11 +48,20 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
-    public Telefono getTelefono() {
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public LinkedList<Telefono> getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Telefono telefono) {
+    public void setTelefono(LinkedList<Telefono> telefono) {
         this.telefono = telefono;
     }
 

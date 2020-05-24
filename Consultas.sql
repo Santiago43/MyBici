@@ -14,3 +14,13 @@ inner join calle as cal on cal.idCalle = d.Calle_idCalle
 inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
 where d.idDireccion = "1";
 
+
+/*Consultar una dirección a partir de un id*/
+select d.idDireccion, d.Calle_idCalle,d.Carrera_idCarrera, cal.idCalle, cal.numeroCalle, cal.letraCalle, cal.bis,cal.sur, car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d 
+inner join calle as cal on cal.idCalle = d.Calle_idCalle
+inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
+where d.idDireccion="1";
+
+/**/
+
+

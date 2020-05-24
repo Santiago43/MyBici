@@ -16,6 +16,11 @@ import modelo.dto.Rol;
  */
 public class RolesDao implements IRolesDao{
 
+    /**
+     *
+     * @param rol
+     * @return
+     */
     @Override
     public boolean crear(Rol rol) {
         try {
@@ -30,6 +35,11 @@ public class RolesDao implements IRolesDao{
         return false;
     }
 
+    /**
+     *
+     * @param clave
+     * @return
+     */
     @Override
     public Rol consultar(String clave) {
         Rol rol=null;
@@ -59,6 +69,11 @@ public class RolesDao implements IRolesDao{
         return rol;
     }
 
+    /**
+     *
+     * @param dto
+     * @return
+     */
     @Override
     public boolean actualizar(Rol dto) {
         try {
@@ -76,6 +91,11 @@ public class RolesDao implements IRolesDao{
         return false;
     }
 
+    /**
+     *
+     * @param clave
+     * @return
+     */
     @Override
     public boolean eliminar(String clave) {
         try {
@@ -89,6 +109,10 @@ public class RolesDao implements IRolesDao{
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LinkedList<Rol> listar() {
         LinkedList<Rol> roles = new LinkedList();
@@ -121,8 +145,35 @@ public class RolesDao implements IRolesDao{
         return roles;
     }
 
+    /**
+     *
+     * @param nombre
+     * @return
+     */
     @Override
     public Rol consultarPorNombre(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     *
+     * @param permiso
+     * @param rol
+     * @return
+     */
+    @Override
+    public boolean agregarPermiso(String permiso, Rol rol) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     *
+     * @param permiso
+     * @param rol
+     * @return
+     */
+    @Override
+    public boolean removerPermiso(String permiso, Rol rol) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

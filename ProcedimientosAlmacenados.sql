@@ -23,8 +23,85 @@ end $$
 
 
 
+/*
+Procedimiento almacenado para insertar direcciones
+*/
+delimiter $$
+
+create procedure insertarDireccion (
+in numeroCalle int,
+in letraCalle varchar(1),
+in bisCalle bool,
+in sur bool,
+in numeroCarrera int,
+in letraCarrera varchar(1),
+in bisCarrera bool,
+in este bool
+)
+begin
+insert into calle (numeroCalle,letraCalle,bis,sur) values
+(numeroCalle,letraCalle,bisCalle, sur);
+insert into carrera (numeroCarrera,letraCarrera,bis,este) values
+(numeroCarrera,letraCarrera,bisCarrera,este);
+insert into direccion(Calle_idCalle,Carrera_idCarrera) values
+((select idCalle from calle order by idCalle desc limit 1),
+(select idCarrera from carrera order by idCarrera desc limit 1));
+end $$
 
 
+/*
+Actualizar dirección
+*/
+delimiter $$
+create procedure actualizarDireccion (
+in _idDireccion int,
+in _idCalle int,
+in _idCarrera int,
+in _numeroCalle int,
+in _letraCalle varchar(1),
+in _bisCalle bool,
+in _sur bool,
+in _numeroCarrera int,
+in _letraCarrera varchar(1),
+in _bisCarrera bool,
+in _este bool
+)
+begin
+update calle 
+set numeroCalle = _numeroCalle, letraCalle = _letraCalle, bis= _bisCalle, sur=_sur 
+where idCalle = _idCalle;
+
+update carrera 
+set numeroCarrera =_numeroCarrera, letraCarrera = _letraCarrera, bis=_bisCarrera, este=_este
+where idCarrera = _idCarrera; 
+
+update direccion
+set Calle_idCalle = _idCalle,Carrera_idCarrera=_idCarrera 
+where idDireccion = _idDireccion;
+end $$
 
 
-#values(0,1,"admin","","","2000-01-01","Colombiano","n");
+/*Crear sede con su inventario*/
+delimiter $$
+
+create procedure crearSede (
+in idDireccion int,
+in nombreSede varchar (30)
+)
+begin
+insert into sede (Direccion_idDireccion,nombreSede) values(idDireccion,nombreSede);
+insert into inventario(Sede_idSede) values ((select idSede from sede order by idSede desc limit 1));
+end $$
+
+
+/*Crear cliente*/
+delimiter $$
+
+create procedure crearCliente (
+in idDireccion int,
+in nombreSede varchar (30)
+)
+begin
+insert into sede (Direccion_idDireccion,nombreSede) values(idDireccion,nombreSede);
+insert into inventario(Sede_idSede) values ((select idSede from sede order by idSede desc limit 1));
+end $$

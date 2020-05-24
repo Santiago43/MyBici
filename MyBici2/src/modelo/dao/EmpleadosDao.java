@@ -13,6 +13,7 @@ import modelo.dto.Calle;
 import modelo.dto.Carrera;
 import modelo.dto.Direccion;
 import modelo.dto.Empleado;
+import modelo.dto.Telefono;
 
 /**
  * Clase de objeto de acceso a datos de los empleados
@@ -22,7 +23,6 @@ import modelo.dto.Empleado;
  * @since 2020-05-14
  */
 public class EmpleadosDao implements IEmpleadosDao {
-
     @Override
     public boolean crear(Empleado empleado) {
         try {
@@ -42,8 +42,8 @@ public class EmpleadosDao implements IEmpleadosDao {
             call.setString("profesion", empleado.getProfesion());
             call.setString("cargo", empleado.getCargo());
             call.setDouble("salario", empleado.getSalario());
-            call.execute();
-            return true;
+            boolean insert = call.execute();
+            return insert;
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,7 +73,7 @@ public class EmpleadosDao implements IEmpleadosDao {
                 empleado.setSalario(rs.getDouble("e.salario"));
                 empleado.setIdSede(rs.getInt("e.Sede_idSede"));
                 String idDireccion = rs.getString("p.Direccion_idDireccion");
-                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d\n"
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis,car.este from direccion as d"
                         + "inner join calle as cal on cal.idCalle = d.Calle_idCalle\n"
                         + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera\n"
                         + "where d.idDireccion =" + idDireccion;
@@ -106,24 +106,69 @@ public class EmpleadosDao implements IEmpleadosDao {
     }
 
     @Override
-    public boolean actualizar(Empleado dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(Empleado empleado) {
+        try {
+            String sql = "update persona"
+                    + "set primerNombre='"+empleado.getPrimerNombre()+"',"
+                    + "segundoNombre='"+empleado.getSegundoNombre()+"',"
+                    + "primerApellido='"+empleado.getPrimerApellido()+"',"
+                    + "segundoApellido="+empleado.getSegundoApellido()+"',"
+                    + "fechaNacimiento="+empleado.getFechaNacimiento()+"',"
+                    + "nacionalidad="+empleado.getNacionalidad()+"',"
+                    + "genero='"+empleado.getGenero()+"',"
+                    + "Direccion_idDireccion="+empleado.getDireccion().getIdDireccion()
+                    + "where persona.cedula ="+empleado.getCedula()+";";
+            String sql2 = "update empleado"
+                    + "set cargo='"+empleado.getCargo()+"',"
+                    + "profesion='"+empleado.getProfesion()+"',"
+                    + "salario="+empleado.getSalario()
+                    + "Sede_idSede="+empleado.getIdSede()
+                    + "where empleado.Persona_cedula='"+empleado.getCedula()+"'";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            int update1=pat.executeUpdate();
+            PreparedStatement pat2 = conn.prepareStatement(sql2);
+            int update2=pat2.executeUpdate();
+            pat.close();
+            pat2.close();
+            if(update1>0){
+                if(update2>0){
+                    return true;
+                }
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public boolean eliminar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "delete from persona where cedula ='"+clave+"'";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            int delete = pat.executeUpdate();
+            pat.close();
+            if(delete>0){
+                return true;
+            }  
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public LinkedList<Empleado> listar() {
-        LinkedList<Empleado> empleados = new LinkedList();
+        LinkedList<Empleado> empleados = null;
         Connection conn = Conexion.conectado();
-        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede  from persona as p\n"
-                + "inner join empleado as e on p.cedula=e.Persona_cedula\n";
+        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede  from persona as p"
+                + "inner join empleado as e on p.cedula=e.Persona_cedula";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
+            empleados= new LinkedList();
             while (rs.next()) {
                 Empleado empleado = new Empleado();
                 empleado.setCedula(rs.getInt("p.cedula"));
@@ -164,10 +209,23 @@ public class EmpleadosDao implements IEmpleadosDao {
                 empleado.setDireccion(direccion);
                 empleados.add(empleado);
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return empleados;
+    }
+
+    /**
+     *
+     * @param clave
+     * @param telefono
+     * @return
+     */
+    @Override
+    public boolean agregarTelefono(String clave, Telefono telefono) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
