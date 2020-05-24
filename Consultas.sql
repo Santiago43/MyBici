@@ -4,6 +4,13 @@ inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso
 inner join rol as r on r.idRol = rp.Rol_idRol
 where r.nombreRol = "Gerente Designado";
 
+/*Consultar los permisos de un usuario*/
+
+select p.* from permiso as p 
+inner join usuario_has_permiso as up on up.Permiso_idPermiso = p.idPermiso
+inner join usuario as u on u.usuario = up.Usuario_usuario
+where u.usuario = "admin";
+
 /*Consultar todos los datos de un empleado*/
 select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario,e.Sede_idSede  from persona as p
 inner join empleado as e on p.cedula=e.Persona_cedula
@@ -31,3 +38,24 @@ where e.Persona_cedula ="0";
 select * from permiso where idPermiso =1;
 
 
+/*Consultar todos los datos de la sede*/
+select * from sede where idSede =1;
+select * from inventario where Sede_idSede=3;
+
+select * from objeto as o 
+inner join mercancia as m on o.idObjeto = m.Objeto_idObjeto
+where m.Inventario_id_inventario=1;
+
+
+
+select * from objeto as o 
+inner join equipooficina as e on o.idObjeto = e.Objeto_idObjeto
+where e.Sede_idSede = 3;
+
+
+select p.* from proveedor as p
+inner join objeto_has_proveedor as op on op.Proveedor_idProveedor = p.idProveedor
+inner join objeto as o on o.idObjeto = op.Objeto_idObjeto
+where o.idObjeto = 1;
+
+select * from objeto;

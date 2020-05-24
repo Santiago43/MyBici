@@ -42,7 +42,7 @@ insert into taller (Sede_idSede,totalVentas) values(1,0);
 
 /*Agregar proveedor*/
 insert into proveedor (Direccion_idDireccion,nombre) values (1,"Frenos LTDA");
-
+insert into proveedor (Direccion_idDireccion,nombre) values (1,"APL");
 
 /*Crear permisos*/
 
@@ -60,4 +60,14 @@ values(1,2);
 
 /*Agregar permiso a usuario*/
 insert into usuario_has_permiso (usuario_usuario,Permiso_idPermiso)
-values (1,1)
+values ("admin",2);
+
+select * from usuario;
+select * from permiso;
+select * from usuario_has_permiso;
+/*Insertar a inventario*/
+call insertarMercanciaAInventario("Ashima",1,1,"Tornillos disco",20500,25000,12,2);
+
+/*Insertar como equipo de oficina*/
+call insertarEquipo
+

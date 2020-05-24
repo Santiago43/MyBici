@@ -12,3 +12,4 @@ delete from permiso where idPermiso="";
 
 delete from rol_has_permiso where Rol_idRol=1 and Permiso_idPermiso=2;
 
+delete from usuario_has_permiso where Usuario_usuario= "admin" and Permiso_idPermiso=2;

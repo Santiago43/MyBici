@@ -113,3 +113,51 @@ insert into persona (cedula,Direccion_idDireccion,primerNombre,segundoNombre,pri
 values(cedula,idDireccion,primerNombre,segundoNombre,primerApellido,segundoApellido,fechaNacimiento,nacionalidad,genero);
 insert into cliente (Persona_cedula) values (cedula);
 end $$
+
+
+/*Insertar a inventario*/
+delimiter $$
+
+create procedure insertarMercanciaAInventario (
+in marca varchar(40),
+in años_garantia int,
+in idInventario int,
+in nombre varchar(40),
+in valor_adq int,
+in precio_venta int,
+in cantidad int,
+in idProveedor int
+)
+begin
+insert into objeto (marca,años_garantia) 
+values (marca,años_garantia);
+
+insert into mercancia(Objeto_idObjeto,Inventario_id_inventario,nombre,valor_adq,precio_venta,cantidad) 
+values ((select idObjeto from objeto order by idObjeto desc limit 1),idInventario,nombre,valor_adq,precio_venta,cantidad);
+
+insert into objeto_has_proveedor (Objeto_idObjeto,Proveedor_idProveedor) 
+values ((select idObjeto from objeto order by idObjeto desc limit 1),idProveedor);
+end $$
+
+
+/*Insertar equipo de oficina*/
+delimiter $$
+
+create procedure insertarEquipoOficina (
+in marca varchar(40),
+in años_garantia int,
+in idSede int,
+in descripcion varchar(70), 
+in PUC varchar(10)
+)
+begin
+insert into objeto (marca,años_garantia) 
+values (marca,años_garantia);
+
+insert into equipooficina (Objeto_idObjeto,Sede_idSede,descripcion,PUC)
+values ((select idObjeto from objeto order by idObjeto desc limit 1),idSede,descripcion,PUC);
+
+insert into objeto_has_proveedor (Objeto_idObjeto,Proveedor_idProveedor) 
+values ((select idObjeto from objeto order by idObjeto desc limit 1),idProveedor);
+
+end $$

@@ -18,6 +18,8 @@ public class Inventario {
      * 
      */
     private Sede sede;
+    
+    private int idInventario;
 
     /**
      * 
@@ -38,6 +40,14 @@ public class Inventario {
 
     public void setMercancia(LinkedList<Mercancia> mercancia) {
         this.mercancia = mercancia;
+    }
+
+    public int getIdInventario() {
+        return idInventario;
+    }
+
+    public void setIdInventario(int idInventario) {
+        this.idInventario = idInventario;
     }
 
 

@@ -14,22 +14,32 @@ import vista.VistaTrabajos;
 import vista.VistaUsuarios;
 
 /**
+ * Clase controlador principal. Aquí se lleva a cabo el control de la
+ * aplicación. Se habilitan o se deshabilitan vistas de acuerdo a los permisos
+ * asignados a un usuario
  *
- * @author Santiago Pérez
+ * @author Santiago Pérez, Andrés Camilo López, Carlos Antonio Plaza
+ * @version 1.0
+ * @since 2020-05-10
  */
 public class ControladorPrincipal implements ActionListener {
-
-    VistaPrincipal vista;
-    VistaLogin vistaAnterior;
-    UsuariosDao usuariosDao;
-    VistaSede vistaInv;
-    Usuario usuario;
+    /**
+     * 
+     */
+    private VistaPrincipal vista;
+    /**
+     * 
+     */
+    private VistaLogin vistaAnterior;
+    private UsuariosDao usuariosDao;
+    private VistaSede vistaInv;
+    private Usuario usuario;
 
     /**
-     *
-     * @param vista
-     * @param vistaAnterior
-     * @param usuariosDao
+     * Constructor de la clase
+     * @param vista que es la vista que usa este controlador
+     * @param vistaAnterior que es la vista login
+     * @param usuariosDao que es el objeto de acceso a datos del controlador
      */
     public ControladorPrincipal(VistaPrincipal vista, VistaLogin vistaAnterior, UsuariosDao usuariosDao, Usuario usuario) {
         this.vista = vista;
@@ -53,9 +63,9 @@ public class ControladorPrincipal implements ActionListener {
             controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(), this.usuariosDao, new RolesDao(), new EmpleadosDao());
 
         }
-        
-        if(e.getSource().equals(this.vista.ItemTrabajos)){
-            ControladorTrabajos  controladorTrabajos ;
+
+        if (e.getSource().equals(this.vista.ItemTrabajos)) {
+            ControladorTrabajos controladorTrabajos;
             controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao());
         }
 

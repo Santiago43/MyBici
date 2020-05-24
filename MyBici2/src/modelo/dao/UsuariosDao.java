@@ -64,6 +64,8 @@ public class UsuariosDao implements IUsuariosDao {
                 usuario.setUsuario(rs.getString("usuario"));
                 usuario.setContraseña(rs.getString("contraseña"));
                 idRol = rs.getInt("Rol_idRol");
+                Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
+                usuario.setEmpleado(empleado);
             }
             pat.close();
             sql = "select * from rol where idRol=" + idRol;
@@ -75,9 +77,7 @@ public class UsuariosDao implements IUsuariosDao {
                 rol.setNombre(rs2.getString("nombreRol"));
                 usuario.setRol(rol);
             }
-            sql="select ";
-            ResultSet rs3; 
-            rs2.close();
+            usuario.setPermisos(traerPermisos(conn,usuario.getUsuario()));
             rs.close();
             pat.close();
         } catch (SQLException ex) {
@@ -95,16 +95,16 @@ public class UsuariosDao implements IUsuariosDao {
     public boolean actualizar(Usuario usuario) {
         try {
             String sql = "update usuario"
-                    + "set Empleado_Persona_cedula = "+usuario.getEmpleado().getCedula()+","
-                    + " Rol_idRol="+usuario.getRol().getId()+","
-                    + "contraseña='"+usuario.getContraseña()+"'"
-                    + "where usuario='"+usuario.getUsuario()+"'; ";
+                    + "set Empleado_Persona_cedula = " + usuario.getEmpleado().getCedula() + ","
+                    + " Rol_idRol=" + usuario.getRol().getId() + ","
+                    + "contraseña='" + usuario.getContraseña() + "'"
+                    + "where usuario='" + usuario.getUsuario() + "'; ";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             int update = pat.executeUpdate();
             pat.close();
-            return update>0;
-            
+            return update > 0;
+
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,12 +119,12 @@ public class UsuariosDao implements IUsuariosDao {
     @Override
     public boolean eliminar(String clave) {
         try {
-            String sql = "delete from usuario where usuario='"+clave+"'";
+            String sql = "delete from usuario where usuario='" + clave + "'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             int delete = pat.executeUpdate();
             pat.close();
-            return delete>0;
+            return delete > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,7 +159,7 @@ public class UsuariosDao implements IUsuariosDao {
                     rol.setNombre(rs2.getString("nombreRol"));
                     usuario.setRol(rol);
                 }
-                EmpleadosDao empleadosDao=new EmpleadosDao();
+                EmpleadosDao empleadosDao = new EmpleadosDao();
                 Empleado empleado = empleadosDao.consultar(rs.getString("Empleado_Persona_cedula"));
                 usuario.setEmpleado(empleado);
                 usuarios.add(usuario);
@@ -202,7 +202,35 @@ public class UsuariosDao implements IUsuariosDao {
      */
     @Override
     public boolean removerPermiso(Permiso permiso, Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "delete from usuario_has_permiso where Usuario_usuario= '" + usuario.getUsuario() + "' and Permiso_idPermiso=" + permiso.getIdPermiso();
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            int delete = pat.executeUpdate();
+            pat.close();
+            return delete > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    private LinkedList<Permiso> traerPermisos(Connection conn,String usuario) throws SQLException {
+        LinkedList <Permiso> permisos=null;
+        String sql = "select p.* from permiso as p "
+                + "inner join usuario_has_permiso as up on up.Permiso_idPermiso = p.idPermiso"
+                + "inner join usuario as u on u.usuario = up.Usuario_usuario"
+                + "where u.usuario = '"+usuario+"';";
+        PreparedStatement pat = conn.prepareStatement(sql);
+        ResultSet rs = pat.executeQuery();
+        permisos=new LinkedList();
+        while(rs.next()){
+            Permiso permiso = new Permiso();
+            permiso.setIdPermiso(rs.getInt("idPermiso"));
+            permiso.setNombrePermiso(rs.getString("nombrePermiso"));
+            permisos.add(permiso);
+        }
+        return permisos;
     }
 
 }
