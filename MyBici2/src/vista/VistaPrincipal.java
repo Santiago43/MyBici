@@ -37,7 +37,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         ItemContabilidad = new javax.swing.JMenuItem();
         ItemTrabajos = new javax.swing.JMenuItem();
-        ItemMantenimientoTaller = new javax.swing.JMenuItem();
+        ItemTMantenimiento = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         ItemProveedores = new javax.swing.JMenuItem();
         ItemPeticiones = new javax.swing.JMenuItem();
@@ -110,13 +110,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(ItemTrabajos);
 
-        ItemMantenimientoTaller.setText("Mantenimiento Taller");
-        ItemMantenimientoTaller.addActionListener(new java.awt.event.ActionListener() {
+        ItemTMantenimiento.setText("Mantenimiento Taller");
+        ItemTMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemMantenimientoTallerActionPerformed(evt);
+                ItemTMantenimientoActionPerformed(evt);
             }
         });
-        jMenu1.add(ItemMantenimientoTaller);
+        jMenu1.add(ItemTMantenimiento);
 
         jMenuBar1.add(jMenu1);
 
@@ -176,91 +176,65 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ItemRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemRolesActionPerformed
-        VistaRoles R = new VistaRoles();
-        R.setVisible(true);
-        this.hide();
+        
     }//GEN-LAST:event_ItemRolesActionPerformed
 
     private void ItemSedeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ItemSedeMouseClicked
-        VistaSede S = new VistaSede();
-        S.setVisible(true);
-        this.hide();
+      
     }//GEN-LAST:event_ItemSedeMouseClicked
 
     private void ItemContabilidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ItemContabilidadMouseClicked
-        VistaContabilidad C = new VistaContabilidad();
-        C.setVisible(true);
-        this.hide();
+        
     }//GEN-LAST:event_ItemContabilidadMouseClicked
 
-    private void ItemMantenimientoTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMantenimientoTallerActionPerformed
-        VistaMantenimientoTaller M = new VistaMantenimientoTaller();
-        M.setVisible(true);
-        this.hide();
-    }//GEN-LAST:event_ItemMantenimientoTallerActionPerformed
+    private void ItemTMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTMantenimientoActionPerformed
+      ;
+    }//GEN-LAST:event_ItemTMantenimientoActionPerformed
 
     private void ItemTrabajosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTrabajosActionPerformed
-        VistaTrabajos V = new VistaTrabajos();
-        V.setVisible(true);
-        this.hide();
+       
     }//GEN-LAST:event_ItemTrabajosActionPerformed
 
     private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        VistaUsuarios G = new VistaUsuarios();
-        G.setVisible(true);
-        this.hide();
+        
     }//GEN-LAST:event_itemUsuariosActionPerformed
 
     private void itemUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemUsuariosMouseClicked
-       VistaUsuarios G = new VistaUsuarios();
-        G.setVisible(true);
-        this.hide();
+       
     }//GEN-LAST:event_itemUsuariosMouseClicked
 
     private void ItemSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemSedeActionPerformed
-         VistaSede S = new VistaSede();
-        S.setVisible(true);
-        this.hide();
+         
     }//GEN-LAST:event_ItemSedeActionPerformed
 
     private void ItemContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemContabilidadActionPerformed
-         VistaContabilidad S = new VistaContabilidad();
-        S.setVisible(true);
-        this.hide();
+        
     }//GEN-LAST:event_ItemContabilidadActionPerformed
 
     private void ItemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemProveedoresActionPerformed
-        VistaProveedores S = new VistaProveedores();
-        S.setVisible(true);
-        this.hide();
+       
     }//GEN-LAST:event_ItemProveedoresActionPerformed
 
     private void ItemPeticionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemPeticionesActionPerformed
-        VistaPeticiones S = new VistaPeticiones();
-        S.setVisible(true);
-        this.hide();
+       
     }//GEN-LAST:event_ItemPeticionesActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
-        VistaEmpleado S = new VistaEmpleado();
-        S.setVisible(true);
-        this.hide();
+       ;
     }//GEN-LAST:event_jMenu3ActionPerformed
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        VistaEmpleado S = new VistaEmpleado();
-        S.setVisible(true);
-        this.hide();
+   
     }//GEN-LAST:event_jMenu3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem ItemContabilidad;
-    public javax.swing.JMenuItem ItemMantenimientoTaller;
     public javax.swing.JMenuItem ItemPeticiones;
     public javax.swing.JMenuItem ItemProveedores;
     public javax.swing.JMenuItem ItemRoles;
     public javax.swing.JMenuItem ItemSede;
+    public javax.swing.JMenuItem ItemTMantenimiento;
     public javax.swing.JMenuItem ItemTrabajos;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;

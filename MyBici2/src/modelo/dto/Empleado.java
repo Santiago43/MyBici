@@ -9,17 +9,12 @@ public class Empleado extends Persona {
     
     public Empleado() {
     }
-
-    
+   
     private String profesion;
-
-    
-    private String cargo;
-
-    
+    private String cargo;   
     private double salario;
-    
     private int idSede;
+    private int cedula;
 
     public String getProfesion() {
         return profesion;
@@ -51,6 +46,16 @@ public class Empleado extends Persona {
 
     public void setIdSede(int idSede) {
         this.idSede = idSede;
+    }
+
+    @Override
+    public int getCedula() {
+        return cedula;
+    }
+
+    @Override
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
     }
     
     

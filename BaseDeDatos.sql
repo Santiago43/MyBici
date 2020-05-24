@@ -1,6 +1,7 @@
-drop database if exists mybici;
+##drop database if exists mybici;
 create database mybici;
 use mybici;
+SET FOREIGN_KEY_CHECKS = 0;
 
 CREATE TABLE Permiso (
   idPermiso INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -105,6 +106,8 @@ CREATE TABLE Persona (
       ON UPDATE cascade
 );
 
+
+
 CREATE TABLE EmpresaMantenimiento (
   id_empresaMantenimiento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
@@ -126,6 +129,7 @@ CREATE TABLE Cliente (
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
 
 CREATE TABLE Sede (
   idSede INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -430,4 +434,4 @@ CREATE TABLE Usuario_has_Permiso (
       ON UPDATE cascade
 );
 
-
+select * from bicicleta;

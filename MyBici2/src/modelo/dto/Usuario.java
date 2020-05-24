@@ -7,26 +7,12 @@ package modelo.dto;
  * @since 2020-05-11
  */
 public class Usuario {
-    /**
-     * 
-     */
+ 
     private String usuario;
-    /**
-     * 
-     */
     private Empleado empleado;
-    /**
-     * 
-     */
     private Rol rol;
-    /**
-     * 
-     */
     private String contraseña;
-    /**
-     * 
-     * @return 
-     */
+
     public String getUsuario() {
         return usuario;
     }

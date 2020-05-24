@@ -26,6 +26,7 @@ public class ControladorLogin implements ActionListener {
         this.usuariosDao = usuariosDao;
         this.vista.btnIngresar.addActionListener(this);
         this.vista.setVisible(true);
+        this.vista.setLocationRelativeTo(null);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ControladorLogin implements ActionListener {
                         throw new MiExcepcion("Contraseña inválida");
                     }
                     else{
-                        ControladorPrincipal cPrincipal = new ControladorPrincipal(new VistaPrincipal(),this.vista,this.usuariosDao);
+                        ControladorPrincipal cPrincipal = new ControladorPrincipal(new VistaPrincipal(),this.vista,this.usuariosDao, usuario);
                     }
                 }
             }
