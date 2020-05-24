@@ -5,10 +5,38 @@
  */
 package modelo.dao;
 
+import java.util.LinkedList;
+import modelo.dto.Bicicleta;
+
 /**
  *
  * @author andre
  */
-public class BicicletaDao {
+public class BicicletaDao implements IBicicletaDao{
+
+    @Override
+    public boolean crear(Bicicleta proveedor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Bicicleta consultar(String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean actualizar(Bicicleta dto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean eliminar(String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public LinkedList<Bicicleta> listar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

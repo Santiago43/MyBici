@@ -5,10 +5,12 @@
  */
 package modelo.dao;
 
+import modelo.dto.Bicicleta;
+
 /**
  *
  * @author andre
  */
-public interface IBicicletaDao {
+public interface IBicicletaDao extends IDao <Bicicleta>{
     
 }
