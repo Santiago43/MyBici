@@ -1,5 +1,7 @@
 package modelo.dto;
 
+import java.sql.Date;
+
 /**
  * Clase factura de ventas
  * @author Santiago Pérez
@@ -12,7 +14,7 @@ public class FacturaVenta {
     private Cliente cliente;
     private double iva = 0;
     private double total;
-    private String fecha;
+    private Date fecha;
 
     public int getId() {
         return id;
@@ -54,11 +56,11 @@ public class FacturaVenta {
         this.total = total;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     

@@ -6,6 +6,7 @@ import modelo.dao.EmpleadosDao;
 import modelo.dao.RolesDao;
 import modelo.dao.TrabajosDAO;
 import modelo.dao.UsuariosDao;
+import modelo.dto.Usuario;
 import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPrincipal;
@@ -22,6 +23,7 @@ public class ControladorPrincipal implements ActionListener {
     VistaLogin vistaAnterior;
     UsuariosDao usuariosDao;
     VistaSede vistaInv;
+    Usuario usuario;
 
     /**
      *
@@ -29,9 +31,11 @@ public class ControladorPrincipal implements ActionListener {
      * @param vistaAnterior
      * @param usuariosDao
      */
-    public ControladorPrincipal(VistaPrincipal vista, VistaLogin vistaAnterior, UsuariosDao usuariosDao) {
+    public ControladorPrincipal(VistaPrincipal vista, VistaLogin vistaAnterior, UsuariosDao usuariosDao, Usuario usuario) {
         this.vista = vista;
-        this.vista.itemTrabajos.addActionListener(this);
+        this.usuario = usuario;
+        this.vista.ItemTrabajos.addActionListener(this);
+        this.vista.ItemTMantenimiento.addActionListener(this);
         this.vistaAnterior = vistaAnterior;
         this.vistaAnterior.setVisible(false);
         this.usuariosDao = usuariosDao;
@@ -50,9 +54,9 @@ public class ControladorPrincipal implements ActionListener {
 
         }
         
-        if(e.getSource().equals(this.vista.itemTrabajos)){
+        if(e.getSource().equals(this.vista.ItemTrabajos)){
             ControladorTrabajos  controladorTrabajos ;
-            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, new RolesDao(), new TrabajosDAO(), new EmpleadosDao());
+            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao());
         }
 
     }

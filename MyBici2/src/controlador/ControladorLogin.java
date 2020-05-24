@@ -43,7 +43,7 @@ public class ControladorLogin implements ActionListener {
                         throw new MiExcepcion("Contraseña inválida");
                     }
                     else{
-                        ControladorPrincipal cPrincipal = new ControladorPrincipal(new VistaPrincipal(),this.vista,this.usuariosDao);
+                        ControladorPrincipal cPrincipal = new ControladorPrincipal(new VistaPrincipal(),this.vista,this.usuariosDao, usuario);
                     }
                 }
             }

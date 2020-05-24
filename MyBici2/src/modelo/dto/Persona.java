@@ -15,45 +15,14 @@ public class Persona {
      * 
      */
     private Direccion direccion;
-    /**
-     * 
-     */
     private int cedula;
-
-    /**
-     * 
-     */
     private String primerNombre;
-
-    /**
-     * 
-     */
     private String segundoNombre;
-
-    /**
-     * 
-     */
     private String primerApellido;
-
-    /**
-     * 
-     */
     private String segundoApellido;
-
-    /**
-     * 
-     */
     private String fechaNacimiento;
-
-    /**
-     * 
-     */
     private String nacionalidad;
-
-    /**
-     * 
-     */
-    private char genero;
+    private String genero;
 
     public int getCedula() {
         return cedula;
@@ -111,11 +80,11 @@ public class Persona {
         this.nacionalidad = nacionalidad;
     }
 
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 

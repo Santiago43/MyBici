@@ -5,13 +5,15 @@
  */
 package modelo.dto;
 
+import java.sql.Date;
+
 /**
  *
  * @author andre
  */
 public class MantenimienroBicicleta {
     private int id;
-    private String fechaEntrega;
+    private Date fechaEntrega;
     private int valorEstimado;
     private String descripccion;
     private FacturaVenta factura;
@@ -25,14 +27,15 @@ public class MantenimienroBicicleta {
         this.id = id;
     }
 
-    public String getFechaEntrega() {
+    public Date getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(String fechaEntrega) {
+    public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 
+   
     public int getValorEstimado() {
         return valorEstimado;
     }

@@ -7,9 +7,12 @@ package modelo.dao;
 
 import conexion.Conexion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dto.Bicicleta;
 import modelo.dto.Cliente;
@@ -28,32 +31,34 @@ public class TrabajosDAO {
             String sql = "insert into Bicicleta (marcoSerial,grupoMecanico,color,marca,estado) values (?,?,?,?,?)";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            pat.setString(0, bici.getMarcoSerial());
-            pat.setString(1, bici.getGrupoMecanico());
-            pat.setString(2, bici.getColor());
-            pat.setString(3, bici.getMarca());
-            pat.setString(4, bici.getEstado());
-            //En caso de error crear pat2
-            sql = "insert into MantenientoBicicleta (idMantenimientoBicicleta,Bicicleta_marcoSerial,FacturaVenta_id_fventa,descripcion,valorEstimado,fechaEntrega) values (?,?,?,?,?,?)";
-            pat = conn.prepareStatement(sql);
-            pat.setInt(0, mantenimiento.getId());
             pat.setString(1, bici.getMarcoSerial());
-            pat.setInt(2, factura.getId());
-            pat.setString(3, mantenimiento.getDescripccion());
-            pat.setInt(4, mantenimiento.getValorEstimado());
-            pat.setString(5, mantenimiento.getFechaEntrega());
+            pat.setString(2, bici.getGrupoMecanico());
+            pat.setString(3, bici.getColor());
+            pat.setString(4, bici.getMarca());
+            pat.setString(5, bici.getEstado());
+            pat.execute();
+            //En caso de error crear pat2
             sql = "insert into FacturaVenta (id_fventa,Empleado_Persona_cedula,Cliente_Persona_cedula,iva,totalVenta,fecha) values (?,?,?,?,?,?)";
             pat = conn.prepareStatement(sql);
-            pat.setInt(0, factura.getId());
-            pat.setInt(1, factura.getEmpleado().getCedula());
-            pat.setInt(2, factura.getCliente().getCedula());
-            pat.setDouble(3, factura.getIva());
-            pat.setDouble(4, factura.getTotal());
-            pat.setString(5, factura.getFecha());
-            JOptionPane.showMessageDialog(null, "Bicicleta Registrada.\nMantenimiento registrado\nFactura generada");
+            pat.setInt(1, factura.getId());
+            pat.setInt(2, factura.getEmpleado().getCedula());
+            pat.setInt(3, factura.getCliente().getCedula());
+            pat.setDouble(4, factura.getIva());
+            pat.setDouble(5, factura.getTotal());
+            pat.setDate(6, factura.getFecha());
+            pat.execute();
+            sql = "insert into MantenientoBicicleta (idMantenimientoBicicleta,Bicicleta_marcoSerial,FacturaVenta_id_fventa,descripcion,valorEstimado,fechaEntrega) values (?,?,?,?,?,?)";
+            pat = conn.prepareStatement(sql);
+            pat.setInt(1, mantenimiento.getId());
+            pat.setString(2, bici.getMarcoSerial());
+            pat.setInt(3, factura.getId());
+            pat.setString(4, mantenimiento.getDescripccion());
+            pat.setInt(5, mantenimiento.getValorEstimado());
+            pat.setDate(6, mantenimiento.getFechaEntrega());
             return pat.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la incersión de los datos del mantenimiento\n" + ex);
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -69,12 +74,12 @@ public class TrabajosDAO {
             int idFactura = 0;
             while (rs.next()) {
                 mantenimiento = new MantenimienroBicicleta();
-                mantenimiento.setId(rs.getInt("idMantenimientoBicicleta"));
+                mantenimiento.setId(idMantenimiento);
                 serial = rs.getString("Bicicleta_marcoSerial");
                 idFactura = rs.getInt("FacturaVenta_id_fventa");
                 mantenimiento.setDescripccion(rs.getString("descripcion"));
                 mantenimiento.setValorEstimado(rs.getInt(("valorEstimado")));
-                mantenimiento.setFechaEntrega(rs.getString("fechaEntrega"));
+                mantenimiento.setFechaEntrega(rs.getDate("fechaEntrega"));
             }
             if (mantenimiento != null) {
                 Bicicleta bici = new Bicicleta();
@@ -87,6 +92,7 @@ public class TrabajosDAO {
                     bici.setColor(rs.getString("color"));
                     bici.setMarca(rs.getString("marca"));
                     bici.setEstado(rs.getString("estado"));
+                    mantenimiento.setBicicleta(bici);
                 }
                 FacturaVenta factura = new FacturaVenta();
                 Empleado empleado = new Empleado();
@@ -101,38 +107,42 @@ public class TrabajosDAO {
                     cliente.setCedula(rs.getInt("Cliente_Persona_cedula"));
                     factura.setCliente(cliente);
                     factura.setIva(rs.getDouble("iva"));
-                    factura.setFecha(rs.getString("fecha"));
+                    factura.setFecha(rs.getDate("fecha"));
+                    mantenimiento.setFactura(factura);
                 }
             }
-
+            return mantenimiento;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en consulta de mantenimiento\n" + ex);
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return mantenimiento;
+        return null;
     }
 
     public boolean actualiazar(MantenimienroBicicleta mantenimiento) {
         try {
-  //Dependiendo el rol del usuario los datos a actualizar pueden cambiar <- mejorar ese aspecto
-            String sql = "update MantenientoBicicleta set descripcion = \"" + mantenimiento.getDescripccion() + "\" where id = " + mantenimiento.getId();
+            //Dependiendo el rol del usuario los datos a actualizar pueden cambiar <- mejorar ese aspecto
+            String sql = "update MantenientoBicicleta set descripcion = \"" + mantenimiento.getDescripccion() + "\" where idMantenimientoBicicleta = " + mantenimiento.getId();
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la actualización de los datos\n" + ex);
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
-    
+
     public boolean eliminar(MantenimienroBicicleta mantenimiento) {
         try {
-  //Dependiendo el rol del usuario los datos a actualizar pueden cambiar <- mejorar ese aspecto
-            String sql = "delete from MantenientoBicicleta where id = " + mantenimiento.getId();
+            //Dependiendo el rol del usuario los datos a actualizar pueden cambiar <- mejorar ese aspecto
+            String sql = "delete from MantenientoBicicleta where idMantenimientoBicicleta = " + mantenimiento.getId();
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la eliminación del registro\n" + ex);
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

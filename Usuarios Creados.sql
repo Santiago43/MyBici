@@ -7,7 +7,8 @@ insert into carrera (numeroCarrera,letraCarrera,bis,este) values
 #direccion
 insert into direccion(Calle_idCalle,Carrera_idCarrera) values
 (1,1);
-
+insert into persona values (10100,1,'a','b','c','d','2020-09-08','c','g');
+insert into cliente values(10100);
 #values(0,1,"admin","","","2000-01-01","Colombiano","n");
 
 #sedes
