@@ -95,7 +95,7 @@ public class ControladorTrabajos implements ActionListener {
                     //Datos cliente
                     cliente.setCedula(Integer.parseInt(this.vista.txtCedulaCliente.getText()));
                     //Datos Empleado
-                    empleado = this.empleadosDao.consultar(Integer.toString(usuario.getEmpleado().getCedula()));
+                    empleado = this.empleadosDao.consultar(Integer.toString((0)));
                     //Datos de la factura
                     factura.setId(Integer.parseInt(this.vista.txtIDFactura.getText()));
                     factura.setCliente(cliente);
