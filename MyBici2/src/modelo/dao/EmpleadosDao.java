@@ -54,9 +54,9 @@ public class EmpleadosDao implements IEmpleadosDao {
     public Empleado consultar(String clave) {
         Connection conn = Conexion.conectado();
         Empleado empleado = null;
-        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede  from persona as p\n"
-                + "inner join empleado as e on p.cedula=e.Persona_cedula\n"
-                + "where e.Persona_cedula =" + clave;
+        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede from persona as p "
+                + "inner join empleado as e on p.cedula=e.Persona_cedula "
+                + "where e.Persona_cedula = " + clave;
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -73,10 +73,11 @@ public class EmpleadosDao implements IEmpleadosDao {
                 empleado.setSalario(rs.getDouble("salario"));
                 empleado.setIdSede(rs.getInt("Sede_idSede"));
                 String idDireccion = rs.getString("Direccion_idDireccion");
-                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d"
-                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle"
-                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera"
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d "
+                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle "
+                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera "
                         + "where d.idDireccion =" + idDireccion;
+                pat.close();
                 PreparedStatement pat2 = conn.prepareStatement(sql2);
                 ResultSet rs2 = pat2.executeQuery();
                 Direccion direccion = new Direccion();
@@ -84,16 +85,16 @@ public class EmpleadosDao implements IEmpleadosDao {
                 Carrera carrera = new Carrera();
                 direccion.setIdDireccion(Integer.parseInt(idDireccion));
                 if (rs2.next()) {
-                    calle.setIdCalle(rs.getInt("idCalle"));
+                    calle.setIdCalle(rs2.getInt("idCalle"));
                     calle.setNumeroCalle(rs2.getInt("numeroCalle"));
                     calle.setLetraCalle(rs2.getString("letraCalle").charAt(0));
                     calle.setBis(rs2.getBoolean("bisCalle"));
                     calle.setSur(rs2.getBoolean("sur"));
-                    carrera.setIdCarrera(rs.getInt("idCarrera"));
-                    carrera.setNumeroCarrera(rs.getInt("numeroCarrera"));
-                    carrera.setLetraCarrera(rs.getString("letraCarrera").charAt(0));
+                    carrera.setIdCarrera(rs2.getInt("idCarrera"));
+                    carrera.setNumeroCarrera(rs2.getInt("numeroCarrera"));
+                    carrera.setLetraCarrera(rs2.getString("letraCarrera").charAt(0));
                     carrera.setBis(rs2.getBoolean("bisCarrera"));
-                    carrera.setEste(rs.getBoolean("este"));
+                    carrera.setEste(rs2.getBoolean("este"));
                 }
                 direccion.setCalle(calle);
                 direccion.setCarrera(carrera);
@@ -219,13 +220,26 @@ public class EmpleadosDao implements IEmpleadosDao {
 
     /**
      *
-     * @param clave
+     * @param empleado
      * @param telefono
      * @return
      */
     @Override
-    public boolean agregarTelefono(String clave, Telefono telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean agregarTelefono(Empleado empleado, Telefono telefono) {
+        try {
+            String sql = "call agregarTelefonoAPersona (?,?,?)";
+            Connection conn = Conexion.conectado();
+            CallableStatement call = conn.prepareCall(sql);
+            call.setString("tipo",telefono.getTipoTelefono());
+            call.setInt("cedula", empleado.getCedula());
+            call.setInt("numeroTelefono", Integer.parseInt(telefono.getNumeroTelefonico()));
+            boolean insert = call.execute();
+            call.close();           
+            return insert;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

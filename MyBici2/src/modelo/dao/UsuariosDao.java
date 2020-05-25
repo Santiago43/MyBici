@@ -218,8 +218,8 @@ public class UsuariosDao implements IUsuariosDao {
     private LinkedList<Permiso> traerPermisos(Connection conn,String usuario) throws SQLException {
         LinkedList <Permiso> permisos=null;
         String sql = "select p.* from permiso as p "
-                + "inner join usuario_has_permiso as up on up.Permiso_idPermiso = p.idPermiso"
-                + "inner join usuario as u on u.usuario = up.Usuario_usuario"
+                + "inner join usuario_has_permiso as up on up.Permiso_idPermiso = p.idPermiso "
+                + "inner join usuario as u on u.usuario = up.Usuario_usuario "
                 + "where u.usuario = '"+usuario+"';";
         PreparedStatement pat = conn.prepareStatement(sql);
         ResultSet rs = pat.executeQuery();

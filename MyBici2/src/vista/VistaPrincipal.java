@@ -27,8 +27,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu4 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         itemUsuarios = new javax.swing.JMenuItem();
@@ -42,47 +42,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ItemProveedores = new javax.swing.JMenuItem();
         ItemPeticiones = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-
-        jMenu4.setText("jMenu4");
+        itemEmpleados = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("MYBICI");
 
+        btnSalir.setText("Salir");
+
         jMenu5.setText("Adiministración");
 
         itemUsuarios.setText("Usuarios");
-        itemUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                itemUsuariosMouseClicked(evt);
-            }
-        });
-        itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemUsuariosActionPerformed(evt);
-            }
-        });
         jMenu5.add(itemUsuarios);
 
         ItemRoles.setText("Roles");
-        ItemRoles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemRolesActionPerformed(evt);
-            }
-        });
         jMenu5.add(ItemRoles);
 
         ItemSede.setText("Sede");
-        ItemSede.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ItemSedeMouseClicked(evt);
-            }
-        });
-        ItemSede.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemSedeActionPerformed(evt);
-            }
-        });
         jMenu5.add(ItemSede);
 
         jMenuBar1.add(jMenu5);
@@ -90,32 +66,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Sede");
 
         ItemContabilidad.setText("Contabilidad");
-        ItemContabilidad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ItemContabilidadMouseClicked(evt);
-            }
-        });
-        ItemContabilidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemContabilidadActionPerformed(evt);
-            }
-        });
         jMenu1.add(ItemContabilidad);
 
         ItemTrabajos.setText("Trabajos");
-        ItemTrabajos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemTrabajosActionPerformed(evt);
-            }
-        });
         jMenu1.add(ItemTrabajos);
 
         ItemTMantenimiento.setText("Mantenimiento Taller");
-        ItemTMantenimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemTMantenimientoActionPerformed(evt);
-            }
-        });
         jMenu1.add(ItemTMantenimiento);
 
         jMenuBar1.add(jMenu1);
@@ -123,34 +79,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Inventario");
 
         ItemProveedores.setText("Proveedores");
-        ItemProveedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemProveedoresActionPerformed(evt);
-            }
-        });
         jMenu2.add(ItemProveedores);
 
         ItemPeticiones.setText("Peticiones");
-        ItemPeticiones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemPeticionesActionPerformed(evt);
-            }
-        });
         jMenu2.add(ItemPeticiones);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Empleados");
-        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu3MouseClicked(evt);
-            }
-        });
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
-            }
-        });
+
+        itemEmpleados.setText("Empleados");
+        jMenu3.add(itemEmpleados);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -159,73 +99,28 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(318, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(308, 308, 308))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(308, 308, 308))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSalir)
+                        .addGap(106, 106, 106))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(77, 77, 77))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ItemRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemRolesActionPerformed
-        
-    }//GEN-LAST:event_ItemRolesActionPerformed
-
-    private void ItemSedeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ItemSedeMouseClicked
-      
-    }//GEN-LAST:event_ItemSedeMouseClicked
-
-    private void ItemContabilidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ItemContabilidadMouseClicked
-        
-    }//GEN-LAST:event_ItemContabilidadMouseClicked
-
-    private void ItemTMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTMantenimientoActionPerformed
-      ;
-    }//GEN-LAST:event_ItemTMantenimientoActionPerformed
-
-    private void ItemTrabajosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemTrabajosActionPerformed
-       
-    }//GEN-LAST:event_ItemTrabajosActionPerformed
-
-    private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        
-    }//GEN-LAST:event_itemUsuariosActionPerformed
-
-    private void itemUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemUsuariosMouseClicked
-       
-    }//GEN-LAST:event_itemUsuariosMouseClicked
-
-    private void ItemSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemSedeActionPerformed
-         
-    }//GEN-LAST:event_ItemSedeActionPerformed
-
-    private void ItemContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemContabilidadActionPerformed
-        
-    }//GEN-LAST:event_ItemContabilidadActionPerformed
-
-    private void ItemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemProveedoresActionPerformed
-       
-    }//GEN-LAST:event_ItemProveedoresActionPerformed
-
-    private void ItemPeticionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemPeticionesActionPerformed
-       
-    }//GEN-LAST:event_ItemPeticionesActionPerformed
-
-    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
-       ;
-    }//GEN-LAST:event_jMenu3ActionPerformed
-
-    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-   
-    }//GEN-LAST:event_jMenu3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,12 +131,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem ItemSede;
     public javax.swing.JMenuItem ItemTMantenimiento;
     public javax.swing.JMenuItem ItemTrabajos;
+    public javax.swing.JButton btnSalir;
+    public javax.swing.JMenuItem itemEmpleados;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables

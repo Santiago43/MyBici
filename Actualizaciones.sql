@@ -15,3 +15,9 @@ where usuario="admin";
 
 /*Dirección*/
 call actualizarDireccion(1,1,1,2,"a",0,0,1,"b",0,0);
+
+
+/*Proveedor*/
+update proveedor
+set Direccion_idDireccion = 1, nombre="Ajá" 
+where idProveedor = 1;

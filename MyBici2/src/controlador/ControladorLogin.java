@@ -1,8 +1,11 @@
 package controlador;
 
+import conexion.Conexion;
 import excepcion.MiExcepcion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import modelo.dao.UsuariosDao;
 import modelo.dto.Usuario;
@@ -12,8 +15,8 @@ import vista.VistaPrincipal;
 /**
  * Clase controlador
  *
- * @author Santiago Pérez
- * @version 1
+ * @author Santiago Pérez, Carlos Plaza
+ * @version 1.0
  * @since 2020-05-11
  */
 public class ControladorLogin implements ActionListener {
@@ -24,6 +27,13 @@ public class ControladorLogin implements ActionListener {
     public ControladorLogin(VistaLogin vista, UsuariosDao usuariosDao) {
         this.vista = vista;
         this.usuariosDao = usuariosDao;
+        this.vista.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                salir(); //To change body of generated methods, choose Tools | Templates.
+            }
+            
+        });
         this.vista.btnIngresar.addActionListener(this);
         this.vista.setVisible(true);
         this.vista.setLocationRelativeTo(null);
@@ -43,14 +53,24 @@ public class ControladorLogin implements ActionListener {
                         throw new MiExcepcion("Contraseña inválida");
                     }
                     else{
+                        this.vista.limpiar();
                         ControladorPrincipal cPrincipal = new ControladorPrincipal(new VistaPrincipal(),this.vista,this.usuariosDao, usuario);
                     }
                 }
             }
         }catch(MiExcepcion ex){
             JOptionPane.showMessageDialog(null, "error: "+ex.getMessage());
+        }catch(NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "error:"+ex.getMessage());
+        }
+        catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "error: "+ex.getMessage());
         }
 
     }
-
+    public void salir(){
+        JOptionPane.showMessageDialog(null, "Gracias por utilizar nuestro servicio. MyBici espera que vuelva pronto");
+        this.vista.dispose();
+        Conexion.desconectar();
+    }
 }

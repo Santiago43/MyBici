@@ -10,5 +10,5 @@ import modelo.dto.Telefono;
  * @since 2020-05-23
  */
 public interface IClientesDao extends IDao<Cliente> {
-    boolean agregarTelefono(String clave, Telefono telefono);
+    boolean agregarTelefono(Cliente cliente, Telefono telefono);
 }

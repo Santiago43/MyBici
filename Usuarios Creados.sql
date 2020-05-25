@@ -69,5 +69,8 @@ select * from usuario_has_permiso;
 call insertarMercanciaAInventario("Ashima",1,1,"Tornillos disco",20500,25000,12,2);
 
 /*Insertar como equipo de oficina*/
-call insertarEquipo
+call insertarEquipo;
 
+/*Agregar telefono a persona*/
+
+call agregarTelefonoAPersona ("fijo",0,7292821);

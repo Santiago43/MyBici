@@ -104,7 +104,15 @@ public class SedeDao implements ISedeDao {
      */
     @Override
     public boolean eliminar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "delete from sede where idSede=" + clave;
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            return pat.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -186,7 +194,13 @@ public class SedeDao implements ISedeDao {
         }
         return false;
     }
-
+    /**
+     * 
+     * @param conn
+     * @param idSede
+     * @return
+     * @throws SQLException 
+     */
     private Inventario traerInventario(Connection conn, int idSede) throws SQLException {
         Inventario inventario = null;
         String sql = "select * from inventario where Sede_idSede=" + idSede;

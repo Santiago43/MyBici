@@ -221,13 +221,30 @@ public class ClienteDao implements IClientesDao {
 
     /**
      *
-     * @param clave
+     * @param cliente
      * @param telefono
      * @return
      */
     @Override
-    public boolean agregarTelefono(String clave, Telefono telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean agregarTelefono(Cliente cliente, Telefono telefono) {
+        /**
+         * create procedure agregarTelefonoAPersona ( in tipo varchar(6), in
+         * cedula int, in numeroTelefono int )
+         */
+        try {
+            String sql = "call agregarTelefonoAPersona (?,?,?)";
+            Connection conn = Conexion.conectado();
+            CallableStatement call = conn.prepareCall(sql);
+            call.setString("tipo",telefono.getTipoTelefono());
+            call.setInt("cedula", cliente.getCedula());
+            call.setInt("numeroTelefono", Integer.parseInt(telefono.getNumeroTelefonico()));
+            boolean insert = call.execute();
+            call.close();           
+            return insert;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

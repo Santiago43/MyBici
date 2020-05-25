@@ -161,3 +161,18 @@ insert into objeto_has_proveedor (Objeto_idObjeto,Proveedor_idProveedor)
 values ((select idObjeto from objeto order by idObjeto desc limit 1),idProveedor);
 
 end $$
+
+/*Agregar telefono a persona*/
+
+delimiter $$
+
+create procedure agregarTelefonoAPersona (
+in tipo varchar(6),
+in cedula int,
+in numeroTelefono int
+)
+begin
+insert into telefono (tipo) values (tipo);
+insert into persona_has_telefono (Telefono_id_telefono,Persona_cedula,numeroTelefono) 
+values((select id_telefono from telefono order by id_telefono desc limit 1),cedula,numeroTelefono);
+end $$

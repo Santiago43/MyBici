@@ -57,8 +57,8 @@ public class RolesDao implements IRolesDao {
                 rol.setNombre(rs.getString("nombre"));
             }
             sql = "select p.nombrePermiso as nombrePermiso from permiso as p "
-                    + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso"
-                    + "inner join rol as r on r.idRol = rp.Rol_idRol"
+                    + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso "
+                    + "inner join rol as r on r.idRol = rp.Rol_idRol "
                     + "where r.nombreRol = '" + rol.getNombre() + "';";
             PreparedStatement pat2 = conn.prepareStatement(sql);
             ResultSet rs2 = pat2.executeQuery();
@@ -134,7 +134,7 @@ public class RolesDao implements IRolesDao {
                 sql = "select p.nombrePermiso as nombrePermiso from permiso as p \n"
                         + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso\n"
                         + "inner join rol as r on r.idRol = rp.Rol_idRol\n"
-                        + "where r.nombreRol = \"" + roles.get(i).getNombre() + "\";";
+                        + "where r.nombreRol = '" + roles.get(i).getNombre() + "';";
                 PreparedStatement pat2 = conn.prepareStatement(sql);
                 ResultSet rs2 = pat2.executeQuery();
                 while (rs.next()) {
@@ -167,8 +167,8 @@ public class RolesDao implements IRolesDao {
                 rol.setNombre(rs.getString("nombre"));
             }
             sql = "select p.nombrePermiso as nombrePermiso from permiso as p "
-                    + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso"
-                    + "inner join rol as r on r.idRol = rp.Rol_idRol"
+                    + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso "
+                    + "inner join rol as r on r.idRol = rp.Rol_idRol "
                     + "where r.nombreRol = '" + rol.getNombre() + "';";
             PreparedStatement pat2 = conn.prepareStatement(sql);
             ResultSet rs2 = pat2.executeQuery();

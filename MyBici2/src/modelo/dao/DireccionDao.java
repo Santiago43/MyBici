@@ -59,8 +59,8 @@ public class DireccionDao implements IDireccionDao {
         Direccion direccion = null;
         try {
             String sql = "select * from direccion as d "
-                    + "inner join calle as cal on cal.idCalle = d.Calle_idCalle"
-                    + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera"
+                    + "inner join calle as cal on cal.idCalle = d.Calle_idCalle "
+                    + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera "
                     + "where d.idDireccion='" + clave + "'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);

@@ -31,7 +31,7 @@ public class Conexion {
         return con;
     }
 
-    public void desconectar() {
+    public static void desconectar() {
         con = null;
         System.out.println("conexion terminada");
     }
