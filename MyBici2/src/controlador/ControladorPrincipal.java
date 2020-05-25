@@ -48,7 +48,7 @@ public class ControladorPrincipal implements ActionListener {
      * @param vista que es la vista que usa este controlador
      * @param vistaAnterior que es la vista login
      * @param usuariosDao que es el objeto de acceso a datos del controlador
-     * @param usuario
+     * @param usuario que es la sesión del usuario
      */
     public ControladorPrincipal(VistaPrincipal vista, VistaLogin vistaAnterior, UsuariosDao usuariosDao, Usuario usuario) {
         this.vista = vista;

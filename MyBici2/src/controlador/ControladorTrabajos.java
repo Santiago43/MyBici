@@ -93,7 +93,7 @@ public class ControladorTrabajos implements ActionListener {
                 MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                 if (mantenimiento == null) {
                     //Datos cliente
-                    cliente.setCedula(Integer.parseInt(this.vista.txtCedulaCliente.getText()));
+                    cliente.setCedula(this.vista.txtCedulaCliente.getText());
                     //Datos Empleado
                     empleado = this.empleadosDao.consultar(Integer.toString((0)));
                     //Datos de la factura
@@ -142,7 +142,7 @@ public class ControladorTrabajos implements ActionListener {
                 MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                 if (mantenimiento != null) {
                     this.vista.txtIDFactura.setText(Integer.toString(mantenimiento.getFactura().getId()));
-                    this.vista.txtCedulaCliente.setText(Integer.toString(mantenimiento.getFactura().getCliente().getCedula()));
+                    this.vista.txtCedulaCliente.setText(mantenimiento.getFactura().getCliente().getCedula());
                     this.vista.txtSerial.setText(mantenimiento.getBicicleta().getMarcoSerial());
                     this.vista.txtMarca.setText(mantenimiento.getBicicleta().getMarca());
                     this.vista.txtColor.setText(mantenimiento.getBicicleta().getColor());

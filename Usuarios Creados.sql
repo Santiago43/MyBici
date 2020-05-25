@@ -14,7 +14,7 @@ select * from direccion;
 
 #Personas - empleados
 call insertarEmpleado(0,1,"admin","","","","2000-01-01","Colombiano","n",1,"Administrador","Gerente",0);
-call insertarEmpleado(1,1,"admin2","","","","2000-01-01","Colombiano","n",1,"Administrador","Gerente",0);
+
 #rol 
 insert into rol(nombreRol) values ("Gerente Designado");
 #delete from rol where idRol=1;
@@ -28,8 +28,6 @@ insert into permiso(nombrePermiso) values("prueba");
 #delete from permiso where idPermiso =2;
 select * from permiso;
 #delete from permiso where nombrePermiso ="prueba";
-insert into rol_has_permiso(Rol_idRol,Permiso_idPermiso) 
-values((select idRol from rol where nombreRol="Gerente Designado"),(select idPermiso from permiso where nombrePermiso="prueba"));
 
 
 
@@ -48,15 +46,15 @@ insert into proveedor (Direccion_idDireccion,nombre) values (1,"APL");
 
 insert into permiso (nombrePermiso) values ("Prueba2");
 /*Agregar permiso al rol*/
-insert into rol_has_permiso(Rol_idRol,Permiso_idPermiso) values(1,1);
-
+insert into rol_has_permiso(Rol_idRol,Permiso_idPermiso) 
+values((select idRol from rol where nombreRol="Gerente Designado"),(select idPermiso from permiso where nombrePermiso="prueba"));
+#insert into rol_has_permiso(Rol_idRol,Permiso_idPermiso) values(1,1);
+/*insert into rol_has_permiso (Rol_idRol,Permiso_idPermiso) 
+values(1,2);*/
 
 /*Agregar permiso al usuario*/
-insert into usuario_has_permiso() values();
+#insert into usuario_has_permiso() values();
 
-/*Agregar permiso a rol*/
-insert into rol_has_permiso (Rol_idRol,Permiso_idPermiso) 
-values(1,2);
 
 /*Agregar permiso a usuario*/
 insert into usuario_has_permiso (usuario_usuario,Permiso_idPermiso)
@@ -69,8 +67,17 @@ select * from usuario_has_permiso;
 call insertarMercanciaAInventario("Ashima",1,1,"Tornillos disco",20500,25000,12,2);
 
 /*Insertar como equipo de oficina*/
-call insertarEquipo;
+#call insertarEquipo;
+
+/*Tipo de telefono*/
+
+insert into telefono (tipo) values ("fijo");
+insert into telefono (tipo) values ("celular");
+insert into telefono (tipo) values ("pbx");
+insert into telefono (tipo) values ("nacional");
 
 /*Agregar telefono a persona*/
 
-call agregarTelefonoAPersona ("fijo",0,7292821);
+call agregarTelefonoAPersona ("fijo","0","7292821");
+
+

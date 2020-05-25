@@ -80,6 +80,8 @@ public class SedeDao implements ISedeDao {
                 sede.setNombreSede(rs.getString("nombreSede"));
                 sede.setInventario(traerInventario(conn, sede.getIdSede()));
                 sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
+                sede.setEquipoOficina(traerEquipoOficina(conn,sede.getIdSede())); 
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,6 +259,10 @@ public class SedeDao implements ISedeDao {
             proveedores.add(proveedor);
         }
         return proveedores;
+    }
+
+    private LinkedList<EquipoOficina> traerEquipoOficina(Connection conn, int idSede) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

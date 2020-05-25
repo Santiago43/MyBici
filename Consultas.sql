@@ -63,10 +63,15 @@ select * from objeto;
 
 
 
-select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d
-inner join calle as cal on cal.idCalle = d.Calle_idCalle
-inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
-where d.idDireccion =1;
-
-
+/*Seleccionar todos los datos de un proveedor*/
 select * from proveedor where idProveedor = 1;
+
+select * from proveedor_has_telefono;
+
+
+/*Seleccionar todos los telefonos de un proveedor*/
+select t.id_telefono,t.tipo,pt.numeroTelefono from telefono as t
+inner join proveedor_has_telefono as pt on pt.Telefono_id_telefono = t.id_telefono
+inner join proveedor as p on p.idProveedor=pt.Proveedor_idProveedor
+where p.idProveedor =1;
+

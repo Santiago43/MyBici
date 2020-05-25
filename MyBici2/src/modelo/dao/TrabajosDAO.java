@@ -41,8 +41,8 @@ public class TrabajosDAO {
             sql = "insert into FacturaVenta (id_fventa,Empleado_Persona_cedula,Cliente_Persona_cedula,iva,totalVenta,fecha) values (?,?,?,?,?,?)";
             pat = conn.prepareStatement(sql);
             pat.setInt(1, factura.getId());
-            pat.setInt(2, factura.getEmpleado().getCedula());
-            pat.setInt(3, factura.getCliente().getCedula());
+            pat.setString(2, factura.getEmpleado().getCedula());
+            pat.setString(3, factura.getCliente().getCedula());
             pat.setDouble(4, factura.getIva());
             pat.setDouble(5, factura.getTotal());
             pat.setDate(6, factura.getFecha());
@@ -102,9 +102,9 @@ public class TrabajosDAO {
                 rs = pat.executeQuery();
                 while (rs.next()) {
                     factura.setId(idFactura);
-                    empleado.setCedula(rs.getInt("Empleado_Persona_cedula"));
+                    empleado.setCedula(rs.getString("Empleado_Persona_cedula"));
                     factura.setEmpleado(empleado);
-                    cliente.setCedula(rs.getInt("Cliente_Persona_cedula"));
+                    cliente.setCedula(rs.getString("Cliente_Persona_cedula"));
                     factura.setCliente(cliente);
                     factura.setIva(rs.getDouble("iva"));
                     factura.setFecha(rs.getDate("fecha"));

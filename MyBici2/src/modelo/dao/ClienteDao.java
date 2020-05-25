@@ -35,7 +35,7 @@ public class ClienteDao implements IClientesDao {
             String sql = "call insertarcliente(?,?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = Conexion.conectado();
             CallableStatement call = conn.prepareCall(sql);
-            call.setInt("cedula", cliente.getCedula());
+            call.setString("cedula", cliente.getCedula());
             call.setInt("idDireccion", cliente.getDireccion().getIdDireccion());
             call.setString("primerNombre", cliente.getPrimerNombre());
             call.setString("segundoNombre", cliente.getSegundoNombre());
@@ -69,7 +69,7 @@ public class ClienteDao implements IClientesDao {
             ResultSet rs = pat.executeQuery();
             if (rs.next()) {
                 cliente = new Cliente();
-                cliente.setCedula(rs.getInt("cedula"));
+                cliente.setCedula(rs.getString("cedula"));
                 cliente.setPrimerNombre(rs.getString("primerNombre"));
                 cliente.setSegundoNombre(rs.getString("segundoNombre"));
                 cliente.setPrimerApellido(rs.getString("primerApellido"));
@@ -177,7 +177,7 @@ public class ClienteDao implements IClientesDao {
             clientes = new LinkedList();
             while (rs.next()) {
                 Cliente cliente = new Cliente();
-                cliente.setCedula(rs.getInt("p.cedula"));
+                cliente.setCedula(rs.getString("p.cedula"));
                 cliente.setPrimerNombre(rs.getString("p.primerNombre"));
                 cliente.setSegundoNombre(rs.getString("p.segundoNombre"));
                 cliente.setPrimerApellido(rs.getString("p.primerApellido"));
@@ -236,7 +236,7 @@ public class ClienteDao implements IClientesDao {
             Connection conn = Conexion.conectado();
             CallableStatement call = conn.prepareCall(sql);
             call.setString("tipo",telefono.getTipoTelefono());
-            call.setInt("cedula", cliente.getCedula());
+            call.setString("cedula", cliente.getCedula());
             call.setInt("numeroTelefono", Integer.parseInt(telefono.getNumeroTelefonico()));
             boolean insert = call.execute();
             call.close();           

@@ -167,12 +167,28 @@ end $$
 delimiter $$
 
 create procedure agregarTelefonoAPersona (
-in tipo varchar(6),
+in _tipo varchar(6),
 in cedula int,
-in numeroTelefono int
+in numeroTelefono varchar(13)
 )
 begin
-insert into telefono (tipo) values (tipo);
 insert into persona_has_telefono (Telefono_id_telefono,Persona_cedula,numeroTelefono) 
-values((select id_telefono from telefono order by id_telefono desc limit 1),cedula,numeroTelefono);
+values((select id_telefono from telefono where tipo = _tipo),cedula,numeroTelefono);
 end $$
+
+
+/**
+Agregar teléfono a proveedor
+*/
+delimiter $$
+
+create procedure agregarTelefonoAProveedor (
+in _tipo varchar(6),
+in idProveedor int,
+in numeroTelefono varchar(13)
+)
+begin
+insert into persona_has_telefono (Telefono_id_telefono,Persona_cedula,numeroTelefono) 
+values((select id_telefono from telefono where tipo = _tipo),cedula,numeroTelefono);
+end $$
+

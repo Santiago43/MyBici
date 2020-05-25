@@ -45,7 +45,7 @@ public class Sede {
     /**
      * 
      */
-    private LinkedList<Empleado> emplados;
+    private LinkedList<Empleado> empleados;
 
     public int getIdSede() {
         return idSede;
@@ -95,12 +95,12 @@ public class Sede {
         this.equipoOficina = equipoOficina;
     }
 
-    public LinkedList<Empleado> getEmplados() {
-        return emplados;
+    public LinkedList<Empleado> getEmpleados() {
+        return empleados;
     }
 
-    public void setEmplados(LinkedList<Empleado> emplados) {
-        this.emplados = emplados;
+    public void setEmpleados(LinkedList<Empleado> empleados) {
+        this.empleados = empleados;
     }
 
     

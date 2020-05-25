@@ -15,7 +15,7 @@ public class Persona {
      * 
      */
     private Direccion direccion;
-    private int cedula;
+    private String cedula;
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
@@ -24,11 +24,11 @@ public class Persona {
     private String nacionalidad;
     private String genero;
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 

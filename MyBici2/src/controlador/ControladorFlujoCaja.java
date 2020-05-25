@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author Santiago Pérez
+ * Controlador que se encarga de mostrar el estado de resultados de la empresa
+ * @author Santiago Pérez 
+ * @version 1.0
+ * @since 2020-05-24
  */
 public class ControladorFlujoCaja implements ActionListener{
 

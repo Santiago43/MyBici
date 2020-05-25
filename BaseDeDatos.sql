@@ -1,4 +1,4 @@
-##drop database if exists mybici;
+drop database if exists mybici;
 create database mybici;
 use mybici;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -18,7 +18,7 @@ CREATE TABLE Objeto (
 
 CREATE TABLE Telefono (
   id_telefono INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  tipo VARCHAR(6) NULL,
+  tipo VARCHAR(10) NULL,
   PRIMARY KEY(id_telefono)
 );
 
@@ -89,7 +89,7 @@ CREATE TABLE Direccion (
 );
 
 CREATE TABLE Persona (
-  cedula INTEGER UNSIGNED NOT NULL,
+  cedula varchar(18) NOT NULL,
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
   primerNombre VARCHAR(20) NULL,
   segundoNombre VARCHAR(20) NULL,
@@ -121,7 +121,7 @@ CREATE TABLE EmpresaMantenimiento (
 );
 
 CREATE TABLE Cliente (
-  Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Persona_cedula varchar(18) NOT NULL,
   PRIMARY KEY(Persona_cedula),
   INDEX Cliente_FKIndex1(Persona_cedula),
   FOREIGN KEY(Persona_cedula)
@@ -169,7 +169,7 @@ CREATE TABLE Inventario (
 CREATE TABLE EmpresaMantenimiento_has_Telefono (
   Telefono_id_telefono INTEGER UNSIGNED NOT NULL,
   EmpresaMantenimiento_id_empresaMantenimiento INTEGER UNSIGNED NOT NULL,
-  numeroTelefono INTEGER UNSIGNED NULL,
+  numeroTelefono varchar(13) NULL,
   PRIMARY KEY(Telefono_id_telefono, EmpresaMantenimiento_id_empresaMantenimiento),
   INDEX EmpresaMantenimiento_has_Telefono_FKIndex1(EmpresaMantenimiento_id_empresaMantenimiento),
   INDEX EmpresaMantenimiento_has_Telefono_FKIndex2(Telefono_id_telefono),
@@ -202,7 +202,7 @@ CREATE TABLE EquipoOficina (
 );
 
 CREATE TABLE Empleado (
-  Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Persona_cedula varchar(18) NOT NULL,
   Sede_idSede INTEGER UNSIGNED NOT NULL,
   profesion VARCHAR(20) NULL,
   cargo VARCHAR(20) NULL,
@@ -259,6 +259,7 @@ CREATE TABLE Mercancia (
 CREATE TABLE Proveedor_has_Telefono (
   Telefono_id_telefono INTEGER UNSIGNED NOT NULL,
   Proveedor_idProveedor INTEGER UNSIGNED NOT NULL,
+  numeroTelefono varchar(13) NULL,
   PRIMARY KEY(Telefono_id_telefono, Proveedor_idProveedor),
   INDEX Telefono_has_Proveedor_FKIndex1(Telefono_id_telefono),
   INDEX Telefono_has_Proveedor_FKIndex2(Proveedor_idProveedor),
@@ -272,10 +273,11 @@ CREATE TABLE Proveedor_has_Telefono (
       ON UPDATE cascade
 );
 
+
 CREATE TABLE FacturaVenta (
   id_fventa INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
-  Cliente_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Empleado_Persona_cedula varchar(18) NOT NULL,
+  Cliente_Persona_cedula varchar(18) NOT NULL,
   iva DOUBLE NULL,
   totalVenta DOUBLE NULL,
   fecha DATE NULL,
@@ -294,8 +296,8 @@ CREATE TABLE FacturaVenta (
 
 CREATE TABLE Persona_has_Telefono (
   Telefono_id_telefono INTEGER UNSIGNED NOT NULL,
-  Persona_cedula INTEGER UNSIGNED NOT NULL,
-  numeroTelefono INTEGER UNSIGNED NULL,
+  Persona_cedula varchar(18) NOT NULL,
+  numeroTelefono varchar(13) NULL,
   PRIMARY KEY(Telefono_id_telefono, Persona_cedula),
   INDEX Persona_has_Telefono_FKIndex1(Persona_cedula),
   INDEX Persona_has_Telefono_FKIndex2(Telefono_id_telefono),
@@ -311,7 +313,7 @@ CREATE TABLE Persona_has_Telefono (
 
 CREATE TABLE PeticionEmpleado (
   idPeticionEmpleado INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Empleado_Persona_cedula varchar(18) NOT NULL,
   peticion VARCHAR(40) NULL,
   aprobado BOOL NULL,
   PRIMARY KEY(idPeticionEmpleado),
@@ -335,7 +337,7 @@ CREATE TABLE Taller (
 );
 
 CREATE TABLE MecanicoPlanta (
-  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Empleado_Persona_cedula varchar(18) NOT NULL,
   jefeMecanico INTEGER UNSIGNED NULL,
   PRIMARY KEY(Empleado_Persona_cedula),
   INDEX MecanicoPlanta_FKIndex1(Empleado_Persona_cedula),
@@ -363,7 +365,7 @@ CREATE TABLE Venta_has_Mercancia (
 
 CREATE TABLE Usuario (
   usuario VARCHAR(30) NOT NULL,
-  Empleado_Persona_cedula INTEGER UNSIGNED NOT NULL,
+  Empleado_Persona_cedula varchar(18) NOT NULL,
   Rol_idRol INTEGER UNSIGNED NOT NULL,
   contraseña VARCHAR(30) NULL,
   PRIMARY KEY(usuario),
@@ -434,4 +436,3 @@ CREATE TABLE Usuario_has_Permiso (
       ON UPDATE cascade
 );
 
-select * from bicicleta;

@@ -29,7 +29,7 @@ public class EmpleadosDao implements IEmpleadosDao {
             String sql = "call insertarEmpleado(?,?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = Conexion.conectado();
             CallableStatement call = conn.prepareCall(sql);
-            call.setInt("cedula", empleado.getCedula());
+            call.setString("cedula", empleado.getCedula());
             call.setInt("idDireccion", empleado.getDireccion().getIdDireccion());
             call.setString("primerNombre", empleado.getPrimerNombre());
             call.setString("segundoNombre", empleado.getSegundoNombre());
@@ -62,7 +62,7 @@ public class EmpleadosDao implements IEmpleadosDao {
             ResultSet rs = pat.executeQuery();
             if (rs.next()) {
                 empleado = new Empleado();
-                empleado.setCedula(rs.getInt("cedula"));
+                empleado.setCedula(rs.getString("cedula"));
                 empleado.setPrimerNombre(rs.getString("primerNombre"));
                 empleado.setSegundoNombre(rs.getString("segundoNombre"));
                 empleado.setPrimerApellido(rs.getString("primerApellido"));
@@ -172,7 +172,7 @@ public class EmpleadosDao implements IEmpleadosDao {
             empleados= new LinkedList();
             while (rs.next()) {
                 Empleado empleado = new Empleado();
-                empleado.setCedula(rs.getInt("p.cedula"));
+                empleado.setCedula(rs.getString("p.cedula"));
                 empleado.setPrimerNombre(rs.getString("p.primerNombre"));
                 empleado.setSegundoNombre(rs.getString("p.segundoNombre"));
                 empleado.setPrimerApellido(rs.getString("p.primerApellido"));
@@ -231,7 +231,7 @@ public class EmpleadosDao implements IEmpleadosDao {
             Connection conn = Conexion.conectado();
             CallableStatement call = conn.prepareCall(sql);
             call.setString("tipo",telefono.getTipoTelefono());
-            call.setInt("cedula", empleado.getCedula());
+            call.setString("cedula", empleado.getCedula());
             call.setInt("numeroTelefono", Integer.parseInt(telefono.getNumeroTelefonico()));
             boolean insert = call.execute();
             call.close();           
