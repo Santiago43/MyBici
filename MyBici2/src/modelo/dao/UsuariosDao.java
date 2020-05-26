@@ -77,16 +77,16 @@ public class UsuariosDao implements IUsuariosDao {
     public boolean actualizar(Usuario usuario) {
         try {
             String sql = "update usuario"
-                    + "set Empleado_Persona_cedula = "+usuario.getEmpleado().getCedula()+","
-                    + " Rol_idRol="+usuario.getRol().getId()+","
-                    + "contraseña='"+usuario.getContraseña()+"'"
-                    + "where usuario='"+usuario.getUsuario()+"'; ";
+                    + "set Empleado_Persona_cedula = " + usuario.getEmpleado().getCedula() + ","
+                    + " Rol_idRol=" + usuario.getRol().getId() + ","
+                    + "contraseña='" + usuario.getContraseña() + "'"
+                    + "where usuario='" + usuario.getUsuario() + "'; ";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             int update = pat.executeUpdate();
             pat.close();
-            return update>0;
-            
+            return update > 0;
+
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,12 +96,12 @@ public class UsuariosDao implements IUsuariosDao {
     @Override
     public boolean eliminar(String clave) {
         try {
-            String sql = "delete from usuario where usuario='"+clave+"'";
+            String sql = "delete from usuario where usuario='" + clave + "'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             int delete = pat.executeUpdate();
             pat.close();
-            return delete>0;
+            return delete > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,7 +132,7 @@ public class UsuariosDao implements IUsuariosDao {
                     rol.setNombre(rs2.getString("nombreRol"));
                     usuario.setRol(rol);
                 }
-                EmpleadosDao empleadosDao=new EmpleadosDao();
+                EmpleadosDao empleadosDao = new EmpleadosDao();
                 Empleado empleado = empleadosDao.consultar(rs.getString("Empleado_Persona_cedula"));
                 usuario.setEmpleado(empleado);
                 usuarios.add(usuario);

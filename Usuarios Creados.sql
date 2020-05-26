@@ -20,7 +20,7 @@ insert into rol(nombreRol) values ("Gerente Designado");
 #delete from rol where idRol=1;
 #usuario
 insert into usuario(usuario,Empleado_Persona_cedula,Rol_idRol,contraseña) values ("admin",0,1,"1234");
-
+insert into Valores_Financieros values (0.19);
 
 set SQL_SAFE_UPDATES =0;
 #permisos

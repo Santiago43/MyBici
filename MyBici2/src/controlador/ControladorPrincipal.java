@@ -6,7 +6,9 @@ import modelo.dao.EmpleadosDao;
 import modelo.dao.RolesDao;
 import modelo.dao.TrabajosDAO;
 import modelo.dao.UsuariosDao;
+import modelo.dao.ValoresFinancierosDao;
 import modelo.dto.Usuario;
+import modelo.dto.ValoresFinancieros;
 import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPrincipal;
@@ -24,6 +26,8 @@ public class ControladorPrincipal implements ActionListener {
     UsuariosDao usuariosDao;
     VistaSede vistaInv;
     Usuario usuario;
+    ValoresFinancierosDao valoresFinancierosDao = new ValoresFinancierosDao();
+    ValoresFinancieros valoresFinancieros;
 
     /**
      *
@@ -53,10 +57,11 @@ public class ControladorPrincipal implements ActionListener {
             controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(), this.usuariosDao, new RolesDao(), new EmpleadosDao());
 
         }
-        
-        if(e.getSource().equals(this.vista.ItemTrabajos)){
-            ControladorTrabajos  controladorTrabajos ;
-            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao());
+
+        if (e.getSource().equals(this.vista.ItemTrabajos)) {
+            valoresFinancieros = valoresFinancierosDao.consultar("aclxrd");
+            ControladorTrabajos controladorTrabajos;
+            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao(), valoresFinancieros);
         }
 
     }

@@ -434,4 +434,10 @@ CREATE TABLE Usuario_has_Permiso (
       ON UPDATE cascade
 );
 
-select * from bicicleta;
+CREATE TABLE Valores_Financieros (
+	iva double,
+    smlv double,
+    auxTrans double
+);
+
+
