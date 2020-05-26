@@ -148,99 +148,164 @@ public class ControladorEmpleados implements ActionListener {
         } else {
             throw new MiExcepcion("esa sede no existe");
         }
-        if(this.empleadoDao.consultar(empleado.getCedula())!=null){
+        if (this.empleadoDao.consultar(empleado.getCedula()) != null) {
             throw new MiExcepcion("ese empleado ya existe");
-        }
-        else{
-            if(this.empleadoDao.crear(empleado)){
+        } else {
+            if (this.empleadoDao.crear(empleado)) {
                 JOptionPane.showMessageDialog(null, "Empleado creado satisfactoriamente");
-            }
-            else{
+            } else {
                 throw new MiExcepcion("error al crear empleado");
             }
         }
     }
 
     private void consultarEmpleado() throws MiExcepcion {
-       Empleado empleado = this.empleadoDao.consultar(MiExcepcion.capturaString(this.vista.txtCedula));
-       if(empleado==null){
-           throw new MiExcepcion("ese empleado no existe");
-       }
-       else{
-           this.vista.txtCedula.setText(empleado.getCedula());
-           this.vista.txtPrimerNombre.setText(empleado.getPrimerNombre());
-           this.vista.txtSegundoNombre.setText(empleado.getSegundoNombre());
-           this.vista.txtPrimerApellido.setText(empleado.getPrimerApellido());
-           this.vista.txtSegundoApellido.setText(empleado.getSegundoApellido());
-           this.vista.txtNacionalidad.setText(empleado.getNacionalidad());
-           ((JTextField)this.vista.FecNacimiento.getDateEditor().getUiComponent()).setText(empleado.getFechaNacimiento());
-           Sede sede = this.sedeDao.consultar(String.valueOf(empleado.getIdSede()));
-           this.vista.comboSedes.setSelectedItem(sede.getNombreSede());
-           this.vista.txtProfesion.setText(empleado.getProfesion());
-           this.vista.txtCargo.setText(empleado.getCargo());
-           this.vista.txtSalario.setText(String.valueOf(empleado.getSalario()));
-           switch (empleado.getGenero().charAt(0)) {
-               case 'm':
-                   this.vista.radioHombre.setSelected(true);
-                   break;
-               case 'f':
-                   this.vista.radioMujer.setSelected(true);
-                   break;
-               case 'n':
-                   this.vista.radioOtro.setSelected(true);
-                   break;
-               default:
-                   break;
-           }
-           
-           Direccion direccion = empleado.getDireccion();
-           this.vista.txtCalle.setText(String.valueOf(direccion.getCalle().getNumeroCalle()));
-           this.vista.txtLetraCalle.setText(String.valueOf(direccion.getCalle().getLetraCalle()));
-           if(direccion.getCalle().isBis()){
-               this.vista.radioBisTrueCalle.setSelected(true);
-           }else{
-               this.vista.radioBisFalseCalle.setSelected(true);
-           }
-           
-           if(direccion.getCalle().isSur()){
-               this.vista.radioSur.setSelected(true);
-           }else{
-               this.vista.radioNorte.setSelected(true);
-           }
-           
-           this.vista.txtCarrera.setText(String.valueOf(direccion.getCarrera().getNumeroCarrera()));
-           this.vista.txtLetraCarrera.setText(String.valueOf(direccion.getCarrera().getLetraCarrera()));
-           if(direccion.getCarrera().isBis()){
-               this.vista.radioBisTrueCarrera.setSelected(true);
-           }
-           else{
-               this.vista.radioBisFalseCarrera.setSelected(true);
-           }
-           if(direccion.getCarrera().isEste()){
-               this.vista.radioEste.setSelected(true);
-           }else{
-               this.vista.radioOeste.setSelected(true);
-           }
-       }
+        Empleado empleado = this.empleadoDao.consultar(MiExcepcion.capturaString(this.vista.txtCedula));
+        if (empleado == null) {
+            throw new MiExcepcion("ese empleado no existe");
+        } else {
+            this.vista.txtCedula.setText(empleado.getCedula());
+            this.vista.txtPrimerNombre.setText(empleado.getPrimerNombre());
+            this.vista.txtSegundoNombre.setText(empleado.getSegundoNombre());
+            this.vista.txtPrimerApellido.setText(empleado.getPrimerApellido());
+            this.vista.txtSegundoApellido.setText(empleado.getSegundoApellido());
+            this.vista.txtNacionalidad.setText(empleado.getNacionalidad());
+            ((JTextField) this.vista.FecNacimiento.getDateEditor().getUiComponent()).setText(empleado.getFechaNacimiento());
+            Sede sede = this.sedeDao.consultar(String.valueOf(empleado.getIdSede()));
+            this.vista.comboSedes.setSelectedItem(sede.getNombreSede());
+            this.vista.txtProfesion.setText(empleado.getProfesion());
+            this.vista.txtCargo.setText(empleado.getCargo());
+            this.vista.txtSalario.setText(String.valueOf(empleado.getSalario()));
+            switch (empleado.getGenero().charAt(0)) {
+                case 'm':
+                    this.vista.radioHombre.setSelected(true);
+                    break;
+                case 'f':
+                    this.vista.radioMujer.setSelected(true);
+                    break;
+                case 'n':
+                    this.vista.radioOtro.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
+
+            Direccion direccion = empleado.getDireccion();
+            this.vista.txtCalle.setText(String.valueOf(direccion.getCalle().getNumeroCalle()));
+            this.vista.txtLetraCalle.setText(String.valueOf(direccion.getCalle().getLetraCalle()));
+            if (direccion.getCalle().isBis()) {
+                this.vista.radioBisTrueCalle.setSelected(true);
+            } else {
+                this.vista.radioBisFalseCalle.setSelected(true);
+            }
+
+            if (direccion.getCalle().isSur()) {
+                this.vista.radioSur.setSelected(true);
+            } else {
+                this.vista.radioNorte.setSelected(true);
+            }
+
+            this.vista.txtCarrera.setText(String.valueOf(direccion.getCarrera().getNumeroCarrera()));
+            this.vista.txtLetraCarrera.setText(String.valueOf(direccion.getCarrera().getLetraCarrera()));
+            if (direccion.getCarrera().isBis()) {
+                this.vista.radioBisTrueCarrera.setSelected(true);
+            } else {
+                this.vista.radioBisFalseCarrera.setSelected(true);
+            }
+            if (direccion.getCarrera().isEste()) {
+                this.vista.radioEste.setSelected(true);
+            } else {
+                this.vista.radioOeste.setSelected(true);
+            }
+        }
     }
 
-    private void actualizarEmpleado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void actualizarEmpleado() throws MiExcepcion {
+        String cedula = MiExcepcion.capturaString(this.vista.txtCedula);
+        Empleado empleado = this.empleadoDao.consultar(cedula);
+        if(empleado==null){
+            throw new MiExcepcion("Ese empleado no existe");
+        }
+        empleado.setCedula(MiExcepcion.capturaString(this.vista.txtCedula));
+        empleado.setPrimerNombre(MiExcepcion.capturaString(this.vista.txtPrimerNombre));
+        empleado.setSegundoNombre(this.vista.txtSegundoNombre.getText());
+        empleado.setPrimerApellido(MiExcepcion.capturaString(this.vista.txtPrimerApellido));
+        empleado.setSegundoApellido(MiExcepcion.capturaString(this.vista.txtSegundoApellido));
+        empleado.setFechaNacimiento(MiExcepcion.capturaString((JTextField) this.vista.FecNacimiento.getDateEditor().getUiComponent()));
+        empleado.setCargo(MiExcepcion.capturaString(this.vista.txtCargo));
+        empleado.setNacionalidad(MiExcepcion.capturaString(this.vista.txtNacionalidad));
+        char genero = '1';
+        if (this.vista.radioHombre.isSelected()) {
+            genero = 'm';
+        } else if (this.vista.radioMujer.isSelected()) {
+            genero = 'f';
+        } else if (this.vista.radioOtro.isSelected()) {
+            genero = 'n';
+        } else {
+            throw new MiExcepcion("Debe seleccionar un género");
+        }
+        empleado.setGenero(String.valueOf(genero));
+        Direccion direccion = this.direccionDao.consultar(String.valueOf(empleado.getDireccion().getIdDireccion()));
+        Calle calle = direccion.getCalle();
+        Carrera carrera = direccion.getCarrera();
+        calle.setNumeroCalle(MiExcepcion.capturaEntero(this.vista.txtCalle));
+        calle.setLetraCalle(this.vista.txtLetraCalle.getText().charAt(0));
+        if (!this.vista.radioBisFalseCalle.isSelected() && !this.vista.radioBisTrueCalle.isSelected()) {
+            throw new MiExcepcion("debe elegir si su dirección tiene bis en 'calle'");
+        } else {
+            calle.setBis(this.vista.radioBisTrueCalle.isSelected());
+        }
+        if (!this.vista.radioSur.isSelected() && !this.vista.radioNorte.isSelected()) {
+            throw new MiExcepcion("debe elegir si la dirección está en el norte o en el sur");
+        } else {
+            calle.setSur(this.vista.radioSur.isSelected());
+        }
+        carrera.setNumeroCarrera(MiExcepcion.capturaEntero(this.vista.txtCarrera));
+        carrera.setLetraCarrera(this.vista.txtLetraCalle.getText().charAt(0));
+        if (!this.vista.radioBisFalseCarrera.isSelected() && !this.vista.radioBisTrueCalle.isSelected()) {
+            throw new MiExcepcion("debe elegir si su dirección tiene un bis en 'carrera'");
+        } else {
+            carrera.setBis(this.vista.radioBisTrueCarrera.isSelected());
+        }
+        if (!this.vista.radioEste.isSelected() && !this.vista.radioOeste.isSelected()) {
+            throw new MiExcepcion("Debe elegir si la dirección está en el norte o en el sur");
+        } else {
+            carrera.setEste(this.vista.radioEste.isSelected());
+        }
+        direccion.setCalle(calle);
+        direccion.setCarrera(carrera);
+        if(this.direccionDao.actualizar(direccion)){
+            
+        }
+        
+        Sede sede = this.sedeDao.consultarPorNombre(this.vista.comboSedes.getSelectedItem().toString());
+        if (sede != null) {
+            empleado.setIdSede(sede.getIdSede());
+        } else {
+            throw new MiExcepcion("esa sede no existe");
+        }
+        if (this.empleadoDao.consultar(empleado.getCedula()) != null) {
+            throw new MiExcepcion("ese empleado ya existe");
+        } else {
+            if (this.empleadoDao.actualizar(empleado)) {
+                JOptionPane.showMessageDialog(null, "Empleado creado satisfactoriamente");
+            } else {
+                throw new MiExcepcion("error al crear empleado");
+            }
+        }
     }
 
     private void eliminarEmpleado() throws MiExcepcion {
         String cedulaEmpleado = MiExcepcion.capturaString(this.vista.txtCedula);
         Empleado empleado = this.empleadoDao.consultar(cedulaEmpleado);
-        if(empleado==null){
+        if (empleado == null) {
             throw new MiExcepcion("Ese empleado no existe");
-        }
-        else{
-            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar al empleado" +empleado.getPrimerNombre()+" "+empleado.getPrimerApellido());
-            if(opc==JOptionPane.YES_OPTION){
-                if(this.empleadoDao.eliminar(cedulaEmpleado)){
-                    JOptionPane.showMessageDialog(null, "Empleado "+empleado.getPrimerNombre()+" "+empleado.getPrimerApellido()+" eliminado");
-                }
-                else{
+        } else {
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar al empleado" + empleado.getPrimerNombre() + " " + empleado.getPrimerApellido());
+            if (opc == JOptionPane.YES_OPTION) {
+                if (this.empleadoDao.eliminar(cedulaEmpleado)) {
+                    JOptionPane.showMessageDialog(null, "Empleado " + empleado.getPrimerNombre() + " " + empleado.getPrimerApellido() + " eliminado");
+                } else {
                     throw new MiExcepcion("Error al eliminar empleado");
                 }
             }
@@ -248,7 +313,7 @@ public class ControladorEmpleados implements ActionListener {
     }
 
     private void listarEmpleados() {
-        ControladorListaEmpleados controlador = new ControladorListaEmpleados(new VistaListaEmpleados(),this.vista,this.empleadoDao,this.sedeDao);
+        ControladorListaEmpleados controlador = new ControladorListaEmpleados(new VistaListaEmpleados(), this.vista, this.empleadoDao, this.sedeDao);
     }
 
     private void cargarCombo() {

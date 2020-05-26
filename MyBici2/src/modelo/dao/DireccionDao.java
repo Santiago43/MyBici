@@ -108,7 +108,7 @@ public class DireccionDao implements IDireccionDao {
             call.setBoolean("_sur", direccion.getCalle().isSur());
             call.setInt("_idCarrera", direccion.getCarrera().getIdCarrera());
             call.setInt("_numeroCarrera", direccion.getCarrera().getNumeroCarrera());
-            call.setString("_letraCarrea", String.valueOf(direccion.getCarrera().getLetraCarrera()));
+            call.setString("_letraCarrera", String.valueOf(direccion.getCarrera().getLetraCarrera()));
             call.setBoolean("_bisCarrera", direccion.getCarrera().isBis());
             call.setBoolean("_este", direccion.getCarrera().isEste());
             boolean update = call.execute();

@@ -13,13 +13,11 @@ where u.usuario = "admin";
 
 /*Consultar todos los datos de un empleado*/
 select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario,e.Sede_idSede  from persona as p
-inner join empleado as e on p.cedula=e.Persona_cedula
-where e.Persona_cedula =0; 
+inner join empleado as e on p.cedula=e.Persona_cedula; 
 
 select cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d
 inner join calle as cal on cal.idCalle = d.Calle_idCalle
-inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
-where d.idDireccion = "1";
+inner join carrera as car on car.idCarrera = d.Carrera_idCarrera;
 
 
 /*Consultar una dirección a partir de un id*/
@@ -93,3 +91,9 @@ select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,ca
 inner join calle as cal on cal.idCalle = d.Calle_idCalle
 inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
 where d.idDireccion = 1;
+
+
+select * from valores_financieros;
+select * from mantenientobicicleta;
+select * from facturaventa;
+select * from bicicleta;
