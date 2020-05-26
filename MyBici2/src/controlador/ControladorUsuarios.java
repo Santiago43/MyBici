@@ -15,16 +15,18 @@ import vista.VistaPrincipal;
 import vista.VistaUsuarios;
 
 /**
- *
+ * Clase controlador de usuarios
  * @author F. PLAZA
+ * @version 1.0
+ * @since 2020-05-25
  */
 public class ControladorUsuarios implements ActionListener {
 
-    VistaPrincipal vistaAnterior;
-    VistaUsuarios vista;
-    UsuariosDao usuariosDao;
-    RolesDao rolesDao;
-    EmpleadosDao empleadosDao;
+    private final VistaPrincipal vistaAnterior;
+    private final VistaUsuarios vista;
+    private final UsuariosDao usuariosDao;
+    private final RolesDao rolesDao;
+    private final EmpleadosDao empleadosDao;
 
     public ControladorUsuarios(VistaPrincipal vistaAnterior, VistaUsuarios vista, UsuariosDao usuariosDao, RolesDao rolesDao, EmpleadosDao empleadosDao) {
         this.vistaAnterior = vistaAnterior;
@@ -37,7 +39,6 @@ public class ControladorUsuarios implements ActionListener {
         this.vista.btnInsertar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnModificar.addActionListener(this);
-        this.vista.btnListar.addActionListener(this);
         this.vista.btnRegresar.addActionListener(this);
 
         this.vistaAnterior.setVisible(false);
@@ -63,8 +64,6 @@ public class ControladorUsuarios implements ActionListener {
             } else if (ae.getSource().equals(this.vista.btnModificar)) {
 
             } else if (ae.getSource().equals(this.vista.btnEliminar)) {
-
-            } else if (ae.getSource().equals(this.vista.btnListar)) {
 
             } else if (ae.getSource().equals(this.vista.btnRegresar)) {
 

@@ -59,7 +59,7 @@ public class ProveedoresDao implements IProveedoresDao {
                 proveedor = new Proveedor();
                 proveedor.setNombre(rs.getString("nombre"));
                 proveedor.setDireccion(new DireccionDao().consultar(String.valueOf(rs.getInt("Direccion_idDireccion"))));
-                //proveedor.setTelefono(obtenerTelefonos(proveedor.getIdProveedor()));
+                proveedor.setTelefono(obtenerTelefonos(conn, proveedor.getIdProveedor()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProveedoresDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +112,7 @@ public class ProveedoresDao implements IProveedoresDao {
      */
     @Override
     public LinkedList<Proveedor> listar() {
-        LinkedList <Proveedor> proveedores=null;
+        LinkedList<Proveedor> proveedores = null;
         try {
             String sql = "select * from proveedor ";
             Connection conn = Conexion.conectado();
@@ -121,9 +121,10 @@ public class ProveedoresDao implements IProveedoresDao {
             proveedores = new LinkedList();
             while (rs.next()) {
                 Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt("idProveedor"));
                 proveedor.setNombre(rs.getString("nombre"));
                 proveedor.setDireccion(new DireccionDao().consultar(String.valueOf(rs.getInt("Direccion_idDireccion"))));
-                //proveedor.setTelefono(obtenerTelefonos(proveedor.getIdProveedor()));
+                proveedor.setTelefono(obtenerTelefonos(conn,proveedor.getIdProveedor()));
                 proveedores.add(proveedor);
             }
         } catch (SQLException ex) {
@@ -132,8 +133,23 @@ public class ProveedoresDao implements IProveedoresDao {
         return proveedores;
     }
 
-    private LinkedList<Telefono> obtenerTelefonos(int idProveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private LinkedList<Telefono> obtenerTelefonos(Connection conn, int idProveedor) throws SQLException {
+        LinkedList<Telefono> telefonos = null;
+        String sql = "select t.id_telefono,t.tipo,pt.numeroTelefono from telefono as t\n"
+                + "inner join proveedor_has_telefono as pt on pt.Telefono_id_telefono = t.id_telefono\n"
+                + "inner join proveedor as p on p.idProveedor=pt.Proveedor_idProveedor\n"
+                + "where p.idProveedor ="+idProveedor;
+        PreparedStatement pat = conn.prepareStatement(sql);
+        ResultSet rs = pat.executeQuery();
+        telefonos=new LinkedList();
+        while(rs.next()){
+            Telefono telefono = new Telefono ();
+            telefono.setIdTelefono(rs.getInt("id_telefono"));
+            telefono.setTipoTelefono(rs.getString("tipo"));
+            telefono.setNumeroTelefonico(rs.getString("numeroTelefono"));
+            telefonos.add(telefono);
+        }
+        return telefonos;
     }
 
 }

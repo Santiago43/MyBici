@@ -214,7 +214,13 @@ public class UsuariosDao implements IUsuariosDao {
         }
         return false;
     }
-
+    /**
+     * 
+     * @param conn
+     * @param usuario
+     * @return
+     * @throws SQLException 
+     */
     private LinkedList<Permiso> traerPermisos(Connection conn,String usuario) throws SQLException {
         LinkedList <Permiso> permisos=null;
         String sql = "select p.* from permiso as p "

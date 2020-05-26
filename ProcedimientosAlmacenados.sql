@@ -147,15 +147,18 @@ create procedure insertarEquipoOficina (
 in marca varchar(40),
 in años_garantia int,
 in idSede int,
-in descripcion varchar(70), 
-in PUC varchar(10)
+in descripcion varchar(140), 
+in PUC varchar(10),
+in valorAdquisicion double,
+in fechaAdquisicion date,
+in idProveedor int
 )
 begin
 insert into objeto (marca,años_garantia) 
 values (marca,años_garantia);
 
-insert into equipooficina (Objeto_idObjeto,Sede_idSede,descripcion,PUC)
-values ((select idObjeto from objeto order by idObjeto desc limit 1),idSede,descripcion,PUC);
+insert into equipooficina (Objeto_idObjeto,Sede_idSede,descripcion,PUC,valorAdquisicion,depreciacion,fechaAdquisicion)
+values ((select idObjeto from objeto order by idObjeto desc limit 1),idSede,descripcion,PUC,valorAdquisicion,0,fechaAdquisicion);
 
 insert into objeto_has_proveedor (Objeto_idObjeto,Proveedor_idProveedor) 
 values ((select idObjeto from objeto order by idObjeto desc limit 1),idProveedor);

@@ -9,5 +9,5 @@ import modelo.dto.Permiso;
  * @since 2020-05-24
  */
 public interface IPermisosDao extends IDao<Permiso>{
-    
+    Permiso consultarPorNombre(String nombrePermiso);
 }

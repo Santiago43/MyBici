@@ -1,5 +1,6 @@
 package controlador;
 
+import funciones.Verificador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -13,6 +14,7 @@ import modelo.dto.Usuario;
 import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPrincipal;
+import vista.VistaRoles;
 import vista.VistaTrabajos;
 import vista.VistaUsuarios;
 
@@ -63,7 +65,12 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.itemEmpleados.addActionListener(this);
         this.vista.itemUsuarios.addActionListener(this);
         this.vista.btnSalir.addActionListener(this);
-
+        this.vista.menuAdministracion.setVisible(Verificador.tienePermiso(usuario, "administración"));
+        this.vista.menuEmpleados.setVisible(Verificador.tienePermiso(usuario, "empleados"));
+        this.vista.menuSede.setVisible(Verificador.tienePermiso(usuario, "sede"));
+        this.vista.menuInventario.setVisible(Verificador.tienePermiso(usuario, "inventario"));
+        this.vista.lblRol.setText("Rol: "+usuario.getRol().getNombre());
+        this.vista.lblUsuario.setText("Usuario: "+usuario.getUsuario());
         this.vista.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -101,7 +108,7 @@ public class ControladorPrincipal implements ActionListener {
             
         }
         else if(e.getSource().equals(this.vista.ItemRoles)){
-            
+            ControladorRoles controladorRoles = new ControladorRoles(this.vista,new VistaRoles(),new RolesDao(),this.usuario);
         }
         else if(e.getSource().equals(this.vista.ItemSede)){
             

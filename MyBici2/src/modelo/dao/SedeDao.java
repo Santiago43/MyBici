@@ -57,18 +57,6 @@ public class SedeDao implements ISedeDao {
     public Sede consultar(String clave) {
         Sede sede = null;
         try {
-            /*select * from sede where idSede =1;
-            select * from inventario where Sede_idSede=3;
-            
-            select * from objeto as o
-            inner join mercancia as m on o.idObjeto = m.Objeto_idObjeto
-            where m.Inventario_id_inventario=1;
-            
-            select * from objeto as o
-            inner join equipooficina as e on o.idObjeto = e.Objeto_idObjeto
-            where e.Sede_idSede = 3;
-            
-             */
             String sql = "select * from sede where idSede=" + clave;
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -80,8 +68,8 @@ public class SedeDao implements ISedeDao {
                 sede.setNombreSede(rs.getString("nombreSede"));
                 sede.setInventario(traerInventario(conn, sede.getIdSede()));
                 sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
-                sede.setEquipoOficina(traerEquipoOficina(conn,sede.getIdSede())); 
-                
+                sede.setEquipoOficina(traerEquipoOficina(conn, sede.getIdSede()));
+                sede.setEmpleados(new EmpleadosDao().listar());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,8 +131,26 @@ public class SedeDao implements ISedeDao {
      * @return
      */
     @Override
-    public boolean agregarEquipoOficina(EquipoOficina equipoOficina) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean agregarEquipoOficina(Sede sede, EquipoOficina equipoOficina) {
+        try {
+            Connection conn = Conexion.conectado();
+            String sql = "call insertarEquipoOficina(?,?,?,?,?,?,?,?)";
+            CallableStatement call = conn.prepareCall(sql);
+            call.setString("marca", equipoOficina.getMarca());
+            call.setInt("años_garantia", equipoOficina.getAñosGarantia());
+            call.setInt("idSede", sede.getIdSede());
+            call.setString("descripcion", equipoOficina.getDescripcion());
+            call.setString("PUC", equipoOficina.getPuc());
+            call.setDouble("valorAdquisicion", equipoOficina.getValorAdquisicion());
+            call.setString("fechaAdquisicion", equipoOficina.getFechaAdquisicion());
+            call.setInt("idProveedor", equipoOficina.getProveedores().get(0).getIdProveedor());
+            call.execute();
+            call.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -196,12 +202,13 @@ public class SedeDao implements ISedeDao {
         }
         return false;
     }
+
     /**
-     * 
+     *
      * @param conn
      * @param idSede
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     private Inventario traerInventario(Connection conn, int idSede) throws SQLException {
         Inventario inventario = null;
@@ -243,15 +250,15 @@ public class SedeDao implements ISedeDao {
      * @return
      */
     private LinkedList<Proveedor> buscarProveedores(Connection conn, int idObjeto) throws SQLException {
-        LinkedList <Proveedor> proveedores= null;
+        LinkedList<Proveedor> proveedores = null;
         String sql = "select p.* from proveedor as p"
                 + "inner join objeto_has_proveedor as op on op.Proveedor_idProveedor = p.idProveedor"
                 + "inner join objeto as o on o.idObjeto = op.Objeto_idObjeto"
-                + "where o.idObjeto ="+idObjeto;
+                + "where o.idObjeto =" + idObjeto;
         PreparedStatement pat = conn.prepareStatement(sql);
         ResultSet rs = pat.executeQuery();
-        proveedores=new LinkedList();
-        while(rs.next()){
+        proveedores = new LinkedList();
+        while (rs.next()) {
             Proveedor proveedor = new Proveedor();
             proveedor.setIdProveedor(rs.getInt("idProveedor"));
             proveedor.setDireccion(new DireccionDao().consultar(String.valueOf(rs.getInt("Direccion_idDireccion"))));
@@ -260,9 +267,37 @@ public class SedeDao implements ISedeDao {
         }
         return proveedores;
     }
-
-    private LinkedList<EquipoOficina> traerEquipoOficina(Connection conn, int idSede) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * 
+     * @param conn
+     * @param idSede
+     * @return
+     * @throws SQLException 
+     */
+    private LinkedList<EquipoOficina> traerEquipoOficina(Connection conn, int idSede) throws SQLException {
+        LinkedList<EquipoOficina> equiposOficina=null;
+        String sql = "select o.*,eo.*,p.* from equipoOficina as eo\n"
+                + "inner join sede as s on s.idSede = eo.Sede_idSede\n"
+                + "inner join objeto as o on o.idObjeto=eo.Objeto_idObjeto\n"
+                + "inner join objeto_has_proveedor as op on o.idObjeto=op.Objeto_idObjeto\n"
+                + "inner join proveedor as p on p.idProveedor=op.Proveedor_idProveedor\n"
+                + "where s.idSede = "+idSede;
+        PreparedStatement pat = conn.prepareStatement(sql);
+        ResultSet rs = pat.executeQuery();
+        while(rs.next()){
+            EquipoOficina equipoOficina = new EquipoOficina();
+            equipoOficina.setIdObjeto(rs.getInt("idObjeto"));
+            equipoOficina.setAñosGarantia(rs.getInt("años_garantia"));
+            equipoOficina.setMarca(rs.getString("marca"));
+            equipoOficina.setPuc(rs.getString("PUC"));
+            equipoOficina.setValorAdquisicion(rs.getDouble("valorAdquisicion"));
+            equipoOficina.setDepreciacion(rs.getDouble("depreciacion"));
+            equipoOficina.setFechaAdquisicion(rs.getString("fechaAdquisicion"));
+            equipoOficina.setProveedores(this.buscarProveedores(conn, equipoOficina.getIdObjeto()));
+            equipoOficina.setDescripcion(rs.getString("descripcion"));
+            equiposOficina.add(equipoOficina);
+        }
+        return equiposOficina;
     }
 
 }

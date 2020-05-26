@@ -82,10 +82,18 @@ public class Taller {
         this.totalVentas = totalVentas;
     }
 
+    /**
+     *
+     * @return
+     */
     public Sede getSede() {
         return sede;
     }
 
+    /**
+     *
+     * @param sede
+     */
     public void setSede(Sede sede) {
         this.sede = sede;
     }

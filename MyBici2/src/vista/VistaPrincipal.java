@@ -29,20 +29,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        lblUsuario = new javax.swing.JLabel();
+        lblRol = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
+        menuAdministracion = new javax.swing.JMenu();
         itemUsuarios = new javax.swing.JMenuItem();
         ItemRoles = new javax.swing.JMenuItem();
         ItemSede = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuSede = new javax.swing.JMenu();
         ItemContabilidad = new javax.swing.JMenuItem();
         ItemTrabajos = new javax.swing.JMenuItem();
         ItemTMantenimiento = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuInventario = new javax.swing.JMenu();
         ItemProveedores = new javax.swing.JMenuItem();
         ItemPeticiones = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuEmpleados = new javax.swing.JMenu();
         itemEmpleados = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,48 +54,59 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         btnSalir.setText("Salir");
 
-        jMenu5.setText("Adiministración");
+        lblUsuario.setText("Usuario:");
+
+        lblRol.setText("Rol: ");
+
+        menuAdministracion.setText("Adiministración");
 
         itemUsuarios.setText("Usuarios");
-        jMenu5.add(itemUsuarios);
+        menuAdministracion.add(itemUsuarios);
 
         ItemRoles.setText("Roles");
-        jMenu5.add(ItemRoles);
+        menuAdministracion.add(ItemRoles);
 
         ItemSede.setText("Sede");
-        jMenu5.add(ItemSede);
+        menuAdministracion.add(ItemSede);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(menuAdministracion);
 
-        jMenu1.setText("Sede");
+        menuSede.setText("Sede");
 
         ItemContabilidad.setText("Contabilidad");
-        jMenu1.add(ItemContabilidad);
+        menuSede.add(ItemContabilidad);
 
         ItemTrabajos.setText("Trabajos");
-        jMenu1.add(ItemTrabajos);
+        menuSede.add(ItemTrabajos);
 
         ItemTMantenimiento.setText("Mantenimiento Taller");
-        jMenu1.add(ItemTMantenimiento);
+        menuSede.add(ItemTMantenimiento);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuSede);
 
-        jMenu2.setText("Inventario");
+        menuInventario.setText("Inventario");
 
         ItemProveedores.setText("Proveedores");
-        jMenu2.add(ItemProveedores);
+        menuInventario.add(ItemProveedores);
 
         ItemPeticiones.setText("Peticiones");
-        jMenu2.add(ItemPeticiones);
+        menuInventario.add(ItemPeticiones);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuInventario);
 
-        jMenu3.setText("Empleados");
+        menuEmpleados.setText("Empleados");
 
         itemEmpleados.setText("Empleados");
-        jMenu3.add(itemEmpleados);
+        menuEmpleados.add(itemEmpleados);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuEmpleados);
+
+        menuClientes.setText("Clientes");
+
+        jMenuItem1.setText("Clientes");
+        menuClientes.add(jMenuItem1);
+
+        jMenuBar1.add(menuClientes);
 
         setJMenuBar(jMenuBar1);
 
@@ -106,7 +121,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(308, 308, 308))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSalir)
+                        .addComponent(lblRol)
+                        .addGap(119, 119, 119))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblUsuario)
+                            .addComponent(btnSalir))
                         .addGap(106, 106, 106))))
         );
         layout.setVerticalGroup(
@@ -114,7 +134,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(lblUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRol)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(77, 77, 77))
         );
@@ -135,10 +159,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemEmpleados;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    public javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    public javax.swing.JLabel lblRol;
+    public javax.swing.JLabel lblUsuario;
+    public javax.swing.JMenu menuAdministracion;
+    private javax.swing.JMenu menuClientes;
+    public javax.swing.JMenu menuEmpleados;
+    public javax.swing.JMenu menuInventario;
+    public javax.swing.JMenu menuSede;
     // End of variables declaration//GEN-END:variables
 }

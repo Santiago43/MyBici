@@ -38,17 +38,18 @@ public class VistaSede extends javax.swing.JFrame {
         btnConsultar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnListar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSedes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel2.setText("SEDES");
 
         jLabel3.setText("ID Sede");
+
+        txtIDsede.setEditable(false);
 
         jLabel4.setText("ID Dirección");
 
@@ -61,8 +62,6 @@ public class VistaSede extends javax.swing.JFrame {
         btnModificar.setText("Modificar");
 
         btnEliminar.setText("Eliminar");
-
-        btnListar.setText("Listar Todos");
 
         tblSedes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,25 +115,23 @@ public class VistaSede extends javax.swing.JFrame {
                                     .addComponent(txtIDsede, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLimpiar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(10, 10, 10)
-                                            .addComponent(btnInsertar)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(btnConsultar)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(btnModificar)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnEliminar)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnListar))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGap(549, 549, 549)
-                                    .addComponent(btnRegresar))))))
+                                    .addComponent(btnRegresar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(btnInsertar)
+                                    .addGap(60, 60, 60)
+                                    .addComponent(btnConsultar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnModificar)
+                                    .addGap(81, 81, 81)
+                                    .addComponent(btnEliminar)
+                                    .addGap(78, 78, 78))))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -160,8 +157,7 @@ public class VistaSede extends javax.swing.JFrame {
                     .addComponent(btnInsertar)
                     .addComponent(btnConsultar)
                     .addComponent(btnModificar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnListar))
+                    .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,7 +180,6 @@ public class VistaSede extends javax.swing.JFrame {
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnInsertar;
     public javax.swing.JButton btnLimpiar;
-    public javax.swing.JButton btnListar;
     public javax.swing.JButton btnModificar;
     public javax.swing.JButton btnRegresar;
     public javax.swing.JComboBox<String> cmbDirecciones;

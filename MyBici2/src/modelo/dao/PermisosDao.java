@@ -126,5 +126,26 @@ public class PermisosDao implements IPermisosDao{
         return permisos;
     }
 
+    @Override
+    public Permiso consultarPorNombre(String nombrePermiso) {
+        Permiso permiso =null;
+        try {            
+            String sql = "select * from permiso where nombrePermiso ='"+nombrePermiso+"';";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            permiso = new Permiso();
+            if(rs.next()){
+                permiso.setIdPermiso(rs.getInt("idPermiso"));
+                permiso.setNombrePermiso(rs.getString("nombrePermiso"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PermisosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return permiso;
+    }
+
    
 }

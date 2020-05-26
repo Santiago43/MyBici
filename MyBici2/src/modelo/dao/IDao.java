@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @param <DTO>
  */
 public interface IDao <DTO>{
-    boolean crear(DTO proveedor);
+    boolean crear(DTO dto);
     DTO consultar(String clave);
     boolean actualizar(DTO dto);
     boolean eliminar(String clave);

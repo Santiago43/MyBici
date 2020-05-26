@@ -25,6 +25,7 @@ CREATE TABLE Telefono (
 CREATE TABLE Rol (
   idRol INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nombreRol VARCHAR(30) NULL,
+  nombreCorto varchar(10) null,
   PRIMARY KEY(idRol)
 );
 
@@ -186,8 +187,11 @@ CREATE TABLE EmpresaMantenimiento_has_Telefono (
 CREATE TABLE EquipoOficina (
   Objeto_idObjeto INTEGER UNSIGNED NOT NULL,
   Sede_idSede INTEGER UNSIGNED NOT NULL,
-  descripcion VARCHAR(70) NULL,
+  descripcion VARCHAR(140) NULL,
   PUC VARCHAR(10) NULL,
+  valorAdquisicion double null,
+  depreciacion double null,
+  fechaAdquisicion date null,
   PRIMARY KEY(Objeto_idObjeto),
   INDEX EquipoOficina_FKIndex1(Sede_idSede),
   INDEX EquipoOficina_FKIndex2(Objeto_idObjeto),
@@ -310,7 +314,20 @@ CREATE TABLE Persona_has_Telefono (
       ON DELETE cascade
       ON UPDATE cascade
 );
-
+CREATE TABLE Nomina (
+  idNomina INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Empleado_Persona_cedula VARCHAR(18) NOT NULL,
+  horasExtra INTEGER UNSIGNED NULL,
+  fechaNomina DATE NULL,
+  auxilioTransporte BOOL NULL,
+  descuento DOUBLE NULL,
+  PRIMARY KEY(idNomina),
+  INDEX Nomina_FKIndex1(Empleado_Persona_cedula),
+  FOREIGN KEY(Empleado_Persona_cedula)
+    REFERENCES Empleado(Persona_cedula)
+      ON DELETE cascade
+      ON UPDATE cascade
+);
 CREATE TABLE PeticionEmpleado (
   idPeticionEmpleado INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Empleado_Persona_cedula varchar(18) NOT NULL,

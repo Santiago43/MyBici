@@ -13,6 +13,7 @@ import modelo.dto.Rol;
 
 /**
  * Clase de objeto de acceso a datos de los roles
+ *
  * @author Santiago Pérez
  * @version 1.0
  * @since 2020-05-24
@@ -30,8 +31,9 @@ public class RolesDao implements IRolesDao {
             String sql = "insert into rol (nombreRol) values (?)";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            pat.setString(0, rol.getNombre());
-            return pat.execute();
+            pat.setString(1, rol.getNombre());
+            pat.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,17 +57,24 @@ public class RolesDao implements IRolesDao {
                 rol = new Rol();
                 rol.setId(rs.getInt("idRol"));
                 rol.setNombre(rs.getString("nombre"));
+                rol.setNombreCorto(rs.getString("nombreCorto"));
             }
-            sql = "select p.nombrePermiso as nombrePermiso from permiso as p "
+            pat.close();
+            rs.close();
+            sql = "select p.* as nombrePermiso from permiso as p "
                     + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso "
                     + "inner join rol as r on r.idRol = rp.Rol_idRol "
                     + "where r.nombreRol = '" + rol.getNombre() + "';";
             PreparedStatement pat2 = conn.prepareStatement(sql);
             ResultSet rs2 = pat2.executeQuery();
             while (rs2.next()) {
-                String permiso = rs.getString("nombrePermiso");
+                Permiso permiso = new Permiso();
+                permiso.setIdPermiso(rs2.getInt("idPermiso"));
+                permiso.setNombrePermiso(rs2.getString("nombrePermiso"));
                 rol.getPermisos().add(permiso);
             }
+            rs2.close();
+            pat2.close();
         } catch (SQLException ex) {
             Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -127,20 +136,21 @@ public class RolesDao implements IRolesDao {
             while (rs.next()) {
                 Rol rol = new Rol();
                 rol.setId(rs.getInt("idRol"));
-                rol.setNombre(rs.getString("nombre"));
-                roles.add(rol);
-            }
-            for (int i = 0; i < roles.size(); i++) {
-                sql = "select p.nombrePermiso as nombrePermiso from permiso as p \n"
+                rol.setNombre(rs.getString("nombreRol"));
+                rol.setNombreCorto(rs.getString("nombreCorto"));
+                sql = "select p.* from permiso as p \n"
                         + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso\n"
                         + "inner join rol as r on r.idRol = rp.Rol_idRol\n"
-                        + "where r.nombreRol = '" + roles.get(i).getNombre() + "';";
+                        + "where r.nombreRol = '" + rol.getNombre() + "';";
                 PreparedStatement pat2 = conn.prepareStatement(sql);
                 ResultSet rs2 = pat2.executeQuery();
-                while (rs.next()) {
-                    String permiso = rs.getString("nombrePermiso");
-                    roles.get(i).getPermisos().add(permiso);
+                while (rs2.next()) {
+                    Permiso permiso = new Permiso();
+                    permiso.setIdPermiso(rs2.getInt("idPermiso"));
+                    permiso.setNombrePermiso(rs2.getString("nombrePermiso"));
+                    rol.getPermisos().add(permiso);
                 }
+                roles.add(rol);
             }
         } catch (SQLException ex) {
             Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,19 +171,24 @@ public class RolesDao implements IRolesDao {
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 rol = new Rol();
                 rol.setId(rs.getInt("idRol"));
-                rol.setNombre(rs.getString("nombre"));
+                rol.setNombre(rs.getString("nombreRol"));
+                rol.setNombreCorto(rs.getString("nombreCorto"));
+            }else{
+                return rol;
             }
-            sql = "select p.nombrePermiso as nombrePermiso from permiso as p "
+            sql = "select p.* from permiso as p "
                     + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso "
                     + "inner join rol as r on r.idRol = rp.Rol_idRol "
                     + "where r.nombreRol = '" + rol.getNombre() + "';";
             PreparedStatement pat2 = conn.prepareStatement(sql);
             ResultSet rs2 = pat2.executeQuery();
             while (rs2.next()) {
-                String permiso = rs.getString("nombrePermiso");
+                Permiso permiso = new Permiso();
+                permiso.setIdPermiso(rs2.getInt("idPermiso"));
+                permiso.setNombrePermiso(rs2.getString("nombrePermiso"));
                 rol.getPermisos().add(permiso);
             }
         } catch (SQLException ex) {
@@ -196,9 +211,9 @@ public class RolesDao implements IRolesDao {
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.setInt(1, rol.getId());
             pat.setInt(2, permiso.getIdPermiso());
-            boolean insert = pat.execute();
+            pat.execute();
             pat.close();
-            return insert;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }

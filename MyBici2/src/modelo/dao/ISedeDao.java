@@ -31,10 +31,11 @@ public interface ISedeDao extends IDao <Sede> {
 
     /**
      *
+     * @param sede
      * @param equipoOficina
      * @return
      */
-    boolean agregarEquipoOficina(EquipoOficina equipoOficina);
+    boolean agregarEquipoOficina(Sede sede,EquipoOficina equipoOficina);
     
     /**
      *

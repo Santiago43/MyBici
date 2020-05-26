@@ -40,11 +40,12 @@ insert into taller (Sede_idSede,totalVentas) values(1,0);
 
 /*Agregar proveedor*/
 insert into proveedor (Direccion_idDireccion,nombre) values (1,"Frenos LTDA");
-insert into proveedor (Direccion_idDireccion,nombre) values (1,"APL");
+insert into proveedor (Direccion_idDireccion,nombre) values (1,"Amoblando");
 
 /*Crear permisos*/
 
 insert into permiso (nombrePermiso) values ("Prueba2");
+insert into permiso (nombrePermiso) values ("*");
 /*Agregar permiso al rol*/
 insert into rol_has_permiso(Rol_idRol,Permiso_idPermiso) 
 values((select idRol from rol where nombreRol="Gerente Designado"),(select idPermiso from permiso where nombrePermiso="prueba"));
@@ -58,7 +59,7 @@ values(1,2);*/
 
 /*Agregar permiso a usuario*/
 insert into usuario_has_permiso (usuario_usuario,Permiso_idPermiso)
-values ("admin",2);
+values ("admin",(select idPermiso from permiso where nombrePermiso="*"));
 
 select * from usuario;
 select * from permiso;
@@ -66,8 +67,16 @@ select * from usuario_has_permiso;
 /*Insertar a inventario*/
 call insertarMercanciaAInventario("Ashima",1,1,"Tornillos disco",20500,25000,12,2);
 
-/*Insertar como equipo de oficina*/
-#call insertarEquipo;
+/*Insertar como equipo de oficina
+in marca varchar(40),
+in años_garantia int,
+in idSede int,
+in descripcion varchar(70), 
+in PUC varchar(10),
+in valorAdquisicion double,
+in fechaAdquisicion date
+*/
+call insertarEquipoOficina("Berloni",1,1,"Moderna mesa de centro con cuatro cajones y dos puff de asiento tapizado","152405",1398000,"2020-05-25",3);
 
 /*Tipo de telefono*/
 

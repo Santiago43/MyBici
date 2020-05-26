@@ -37,7 +37,6 @@ where e.Persona_cedula ="0";
 
 select * from permiso where idPermiso =1;
 
-
 /*Consultar todos los datos de la sede*/
 select * from sede where idSede =1;
 select * from inventario where Sede_idSede=3;
@@ -75,3 +74,15 @@ inner join proveedor_has_telefono as pt on pt.Telefono_id_telefono = t.id_telefo
 inner join proveedor as p on p.idProveedor=pt.Proveedor_idProveedor
 where p.idProveedor =1;
 
+
+/*Seleccionar todo el equipo de oficina de una sede*/
+select o.*,eo.*,p.* from equipoOficina as eo
+inner join sede as s on s.idSede = eo.Sede_idSede
+inner join objeto as o on o.idObjeto=eo.Objeto_idObjeto
+inner join objeto_has_proveedor as op on o.idObjeto=op.Objeto_idObjeto
+inner join proveedor as p on p.idProveedor=op.Proveedor_idProveedor
+where s.idSede = 1;
+
+select * from rol;
+
+update rol set nombreCorto = "MecJ" where nombreRol= "Jefe mecánico";
