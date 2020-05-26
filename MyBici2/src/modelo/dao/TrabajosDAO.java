@@ -93,9 +93,7 @@ public class TrabajosDAO {
             pat.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la actualización de los datos\n" + ex);
-            Logger
-                    .getLogger(RolesDao.class
-                            .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
