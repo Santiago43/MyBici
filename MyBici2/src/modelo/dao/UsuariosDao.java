@@ -30,15 +30,16 @@ public class UsuariosDao implements IUsuariosDao {
     @Override
     public boolean crear(Usuario usuario) {
         try {
-            String sql = "insert into usuario (usuario,Rol_idRol,contraseña) values (?,?,?)";
+            String sql = "insert into usuario (usuario,Empleado_Persona_cedula,Rol_idRol,contraseña) values (?,?,?,?)";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            pat.setString(0, usuario.getUsuario());
-            pat.setInt(1, usuario.getRol().getId());
-            pat.setString(2, usuario.getContraseña());
-            boolean insert = pat.execute();
+            pat.setString(1, usuario.getUsuario());
+            pat.setString(2, usuario.getEmpleado().getCedula());
+            pat.setInt(3, usuario.getRol().getId());
+            pat.setString(4, usuario.getContraseña());
+            pat.execute();
             pat.close();
-            return insert;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,13 +60,15 @@ public class UsuariosDao implements IUsuariosDao {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             int idRol = 0;
-            while (rs.next()) {
+            if (rs.next()) {
                 usuario = new Usuario();
                 usuario.setUsuario(rs.getString("usuario"));
                 usuario.setContraseña(rs.getString("contraseña"));
                 idRol = rs.getInt("Rol_idRol");
                 Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
                 usuario.setEmpleado(empleado);
+            }else{
+                return usuario;
             }
             pat.close();
             sql = "select * from rol where idRol=" + idRol;
@@ -101,9 +104,9 @@ public class UsuariosDao implements IUsuariosDao {
                     + "where usuario='" + usuario.getUsuario() + "'; ";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            int update = pat.executeUpdate();
+            pat.executeUpdate();
             pat.close();
-            return update > 0;
+            return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,9 +125,9 @@ public class UsuariosDao implements IUsuariosDao {
             String sql = "delete from usuario where usuario='" + clave + "'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            int delete = pat.executeUpdate();
+            pat.executeUpdate();
             pat.close();
-            return delete > 0;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -237,6 +240,44 @@ public class UsuariosDao implements IUsuariosDao {
             permisos.add(permiso);
         }
         return permisos;
+    }
+
+    @Override
+    public Usuario consultarPorCedula(String cedula) {
+        Usuario usuario = null;
+        try {
+            String sql = "select * from usuario where Empleado_Persona_cedula='" + cedula + "'";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            int idRol = 0;
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setUsuario(rs.getString("usuario"));
+                usuario.setContraseña(rs.getString("contraseña"));
+                idRol = rs.getInt("Rol_idRol");
+                Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
+                usuario.setEmpleado(empleado);
+            }else{
+                return usuario;
+            }
+            pat.close();
+            sql = "select * from rol where idRol=" + idRol;
+            pat = conn.prepareStatement(sql);
+            ResultSet rs2 = pat.executeQuery();
+            if (rs2.next()) {
+                Rol rol = new Rol();
+                rol.setId(rs2.getInt("idRol"));
+                rol.setNombre(rs2.getString("nombreRol"));
+                usuario.setRol(rol);
+            }
+            usuario.setPermisos(traerPermisos(conn,usuario.getUsuario()));
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuario;
     }
 
 }

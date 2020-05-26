@@ -1,7 +1,7 @@
 delimiter $$
 
 create procedure insertarEmpleado (
-in cedula int,
+in cedula varchar(18),
 in idDireccion int, 
 in primerNombre varchar(20),
 in segundoNombre varchar(20),
@@ -18,7 +18,7 @@ in salario double
 begin
 insert into persona (cedula,Direccion_idDireccion,primerNombre,segundoNombre,primerApellido,segundoApellido,fechaNacimiento,nacionalidad,genero)
 values(cedula,idDireccion,primerNombre,segundoNombre,primerApellido,segundoApellido,fechaNacimiento,nacionalidad,genero);
-insert into empleado (Persona_cedula, Sede_idSede, profesion,cargo,salario) values (cedula, idDireccion,profesion,cargo,salario);
+insert into empleado (Persona_cedula, Sede_idSede, profesion,cargo,salario) values (cedula, idSede,profesion,cargo,salario);
 end $$
 
 
@@ -194,4 +194,5 @@ begin
 insert into persona_has_telefono (Telefono_id_telefono,Persona_cedula,numeroTelefono) 
 values((select id_telefono from telefono where tipo = _tipo),cedula,numeroTelefono);
 end $$
+
 

@@ -182,9 +182,11 @@ public class VistaUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    public void limpiar(){
+        this.txtCedula.setText("");
+        this.txtPassword.setText("");
+        this.txtUsuario.setText("");
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

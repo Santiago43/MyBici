@@ -30,8 +30,8 @@ where d.idDireccion="1";
 
 /*Consultar clientes*/
 select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero from persona as p
-inner join cliente as c on c.cedula=c.Persona_cedula
-where e.Persona_cedula ="0"; 
+inner join cliente as c on p.cedula=c.Persona_cedula
+where c.Persona_cedula ="0"; 
 
 /*Consultar permisos (general)*/
 
@@ -86,3 +86,10 @@ where s.idSede = 1;
 select * from rol;
 
 update rol set nombreCorto = "MecJ" where nombreRol= "Jefe mecánico";
+
+
+
+select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d
+inner join calle as cal on cal.idCalle = d.Calle_idCalle
+inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
+where d.idDireccion = 1;

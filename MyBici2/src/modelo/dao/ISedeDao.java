@@ -43,4 +43,6 @@ public interface ISedeDao extends IDao <Sede> {
      * @return
      */
     boolean agregarTaller(Taller taller);
+    
+    Sede consultarPorNombre(String nombreSede);
 }

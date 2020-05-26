@@ -100,11 +100,11 @@ public class ControladorRoles implements ActionListener {
                 throw new MiExcepcion("Ya existe un nombre con ese rol");
             } else {
                 Rol rol = new Rol();
-                rol.setNombre(nombreRol);
-                limpiarTabla();
+                rol.setNombre(nombreRol);               
                 if (this.rolesDao.crear(rol)) {
                     JOptionPane.showMessageDialog(null, "Rol creado satisfactoriamente");
                 }
+                limpiarTabla();
                 listarRoles();
             }
         }

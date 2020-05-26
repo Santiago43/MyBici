@@ -79,6 +79,21 @@ public class Carrera {
         this.este = este;
     }
 
+    @Override
+    public String toString() {
+        String parteCarrera=numeroCarrera+ " "+letraCarrera;
+        if(bis){
+            parteCarrera+="bis";
+        }
+        if(este){
+            parteCarrera+="este";
+        }
+        else{
+            parteCarrera+="oeste";
+        }
+        return parteCarrera;
+    }
+
 
 
 

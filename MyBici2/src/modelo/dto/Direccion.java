@@ -13,6 +13,11 @@ public class Direccion {
      */
     public Direccion() {
     }
+
+    @Override
+    public String toString() {
+        return "CL " + calle.toString() + " CR" + carrera.toString() ;
+    }
     /**
      * 
      */

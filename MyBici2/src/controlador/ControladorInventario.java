@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  * @version 1.0
  * @since 
  */
-public class ControladorSedeUnica implements ActionListener{
+public class ControladorInventario implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {

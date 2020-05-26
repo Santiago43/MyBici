@@ -6,11 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import modelo.dao.DireccionDao;
 import modelo.dao.EmpleadosDao;
 import modelo.dao.RolesDao;
+import modelo.dao.SedeDao;
 import modelo.dao.TrabajosDAO;
 import modelo.dao.UsuariosDao;
 import modelo.dto.Usuario;
+import vista.VistaEmpleado;
 import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPrincipal;
@@ -114,7 +117,8 @@ public class ControladorPrincipal implements ActionListener {
             
         }
         else if(e.getSource().equals(this.vista.itemEmpleados)){
-            
+            ControladorEmpleados controladorEmpleados;
+            controladorEmpleados=new ControladorEmpleados(new VistaEmpleado(), this.vista, new EmpleadosDao(),new DireccionDao(),new SedeDao());
         }
         else if(e.getSource().equals(this.vista.ItemTMantenimiento)){
             

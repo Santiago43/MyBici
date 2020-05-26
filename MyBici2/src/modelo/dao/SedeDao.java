@@ -64,7 +64,7 @@ public class SedeDao implements ISedeDao {
             if (rs.next()) {
                 sede = new Sede();
                 sede.setIdSede(rs.getInt("idSede"));
-                int idDireccion = rs.getInt("idDireccion");
+                int idDireccion = rs.getInt("Direccion_idDireccion");
                 sede.setNombreSede(rs.getString("nombreSede"));
                 sede.setInventario(traerInventario(conn, sede.getIdSede()));
                 sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
@@ -111,7 +111,29 @@ public class SedeDao implements ISedeDao {
      */
     @Override
     public LinkedList<Sede> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList <Sede> sedes = null;
+        Sede sede = null;
+        try {
+            String sql = "select * from sede" ;
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            sedes = new LinkedList();
+            while(rs.next()) {
+                sede = new Sede();
+                sede.setIdSede(rs.getInt("idSede"));
+                int idDireccion = rs.getInt("Direccion_idDireccion");
+                sede.setNombreSede(rs.getString("nombreSede"));
+                sede.setInventario(traerInventario(conn, sede.getIdSede()));
+                sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
+                sede.setEquipoOficina(traerEquipoOficina(conn, sede.getIdSede()));
+                sede.setEmpleados(new EmpleadosDao().listar());
+                sedes.add(sede);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sedes;
     }
 
     /**
@@ -219,9 +241,9 @@ public class SedeDao implements ISedeDao {
             inventario = new Inventario();
             inventario.setIdInventario(rs.getInt("id_inventario"));
             pat.close();
-            sql = "select * from objeto as o"
-                    + "inner join mercancia as m on o.idObjeto = m.Objeto_idObjeto"
-                    + "where m.Inventario_id_inventario=" + inventario.getIdInventario();
+            sql = "select * from objeto as o \n"
+                    + "inner join mercancia as m on o.idObjeto = m.Objeto_idObjeto\n"
+                    + "where m.Inventario_id_inventario="+inventario.getIdInventario();
             pat = conn.prepareStatement(sql);
             ResultSet rs2 = pat.executeQuery();
             LinkedList<Mercancia> mercancias = new LinkedList();
@@ -233,7 +255,7 @@ public class SedeDao implements ISedeDao {
                 mercancia.setNombre(rs2.getString("nombre"));
                 mercancia.setValorAdquisicion(rs2.getDouble("valor_adq"));
                 mercancia.setPrecioVenta(rs2.getDouble("precio_venta"));
-                mercancia.setCantidad(rs.getInt("cantidad"));
+                mercancia.setCantidad(rs2.getInt("cantidad"));
                 mercancia.setProveedores(buscarProveedores(conn, mercancia.getIdObjeto()));
                 mercancias.add(mercancia);
             }
@@ -251,9 +273,9 @@ public class SedeDao implements ISedeDao {
      */
     private LinkedList<Proveedor> buscarProveedores(Connection conn, int idObjeto) throws SQLException {
         LinkedList<Proveedor> proveedores = null;
-        String sql = "select p.* from proveedor as p"
-                + "inner join objeto_has_proveedor as op on op.Proveedor_idProveedor = p.idProveedor"
-                + "inner join objeto as o on o.idObjeto = op.Objeto_idObjeto"
+        String sql = "select p.* from proveedor as p "
+                + "inner join objeto_has_proveedor as op on op.Proveedor_idProveedor = p.idProveedor "
+                + "inner join objeto as o on o.idObjeto = op.Objeto_idObjeto "
                 + "where o.idObjeto =" + idObjeto;
         PreparedStatement pat = conn.prepareStatement(sql);
         ResultSet rs = pat.executeQuery();
@@ -267,24 +289,26 @@ public class SedeDao implements ISedeDao {
         }
         return proveedores;
     }
+
     /**
-     * 
+     *
      * @param conn
      * @param idSede
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     private LinkedList<EquipoOficina> traerEquipoOficina(Connection conn, int idSede) throws SQLException {
-        LinkedList<EquipoOficina> equiposOficina=null;
+        LinkedList<EquipoOficina> equiposOficina = null;
         String sql = "select o.*,eo.*,p.* from equipoOficina as eo\n"
                 + "inner join sede as s on s.idSede = eo.Sede_idSede\n"
                 + "inner join objeto as o on o.idObjeto=eo.Objeto_idObjeto\n"
                 + "inner join objeto_has_proveedor as op on o.idObjeto=op.Objeto_idObjeto\n"
                 + "inner join proveedor as p on p.idProveedor=op.Proveedor_idProveedor\n"
-                + "where s.idSede = "+idSede;
+                + "where s.idSede = " + idSede;
         PreparedStatement pat = conn.prepareStatement(sql);
         ResultSet rs = pat.executeQuery();
-        while(rs.next()){
+        equiposOficina=new LinkedList();
+        while (rs.next()) {
             EquipoOficina equipoOficina = new EquipoOficina();
             equipoOficina.setIdObjeto(rs.getInt("idObjeto"));
             equipoOficina.setAñosGarantia(rs.getInt("años_garantia"));
@@ -298,6 +322,30 @@ public class SedeDao implements ISedeDao {
             equiposOficina.add(equipoOficina);
         }
         return equiposOficina;
+    }
+
+    @Override
+    public Sede consultarPorNombre(String nombreSede) {
+        Sede sede = null;
+        try {
+            String sql = "select * from sede where nombreSede='" + nombreSede+"'";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            if (rs.next()) {
+                sede = new Sede();
+                sede.setIdSede(rs.getInt("idSede"));
+                int idDireccion = rs.getInt("Direccion_idDireccion");
+                sede.setNombreSede(rs.getString("nombreSede"));
+                sede.setInventario(traerInventario(conn, sede.getIdSede()));
+                sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
+                sede.setEquipoOficina(traerEquipoOficina(conn, sede.getIdSede()));
+                sede.setEmpleados(new EmpleadosDao().listar());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sede;
     }
 
 }

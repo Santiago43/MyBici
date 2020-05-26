@@ -10,4 +10,5 @@ import modelo.dto.Usuario;
 public interface IUsuariosDao extends IDao<Usuario>{
     boolean insertarPermiso(Permiso permiso, Usuario usuario);
     boolean removerPermiso(Permiso permiso, Usuario usuario);
+    Usuario consultarPorCedula(String cedula);
 }

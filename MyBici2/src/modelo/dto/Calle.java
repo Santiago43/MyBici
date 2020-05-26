@@ -19,6 +19,19 @@ public class Calle {
      */
     private int idCalle;
 
+    @Override
+    public String toString() {
+        String parteCalle=numeroCalle+" "+letraCalle;
+        if(bis){
+            parteCalle+="bis";
+        }
+        if(sur){
+            parteCalle+="sur";
+        }
+        
+        return parteCalle;
+    }
+
     /**
      * 
      */
