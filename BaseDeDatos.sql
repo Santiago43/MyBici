@@ -453,3 +453,9 @@ CREATE TABLE Usuario_has_Permiso (
       ON UPDATE cascade
 );
 
+CREATE TABLE Valores_Financieros (
+	iva double,
+    smlv double,
+    auxTrans double
+);
+

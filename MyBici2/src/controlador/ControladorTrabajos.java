@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dao.EmpleadosDao;
-import modelo.dao.RolesDao;
 import modelo.dao.UsuariosDao;
 import modelo.dao.TrabajosDAO;
 import modelo.dto.Bicicleta;
@@ -26,6 +25,7 @@ import modelo.dto.Empleado;
 import modelo.dto.FacturaVenta;
 import modelo.dto.MantenimienroBicicleta;
 import modelo.dto.Usuario;
+import modelo.dto.ValoresFinancieros;
 import vista.VistaPrincipal;
 import vista.VistaTrabajos;
 
@@ -50,6 +50,7 @@ public class ControladorTrabajos implements ActionListener {
     TrabajosDAO trabajosDAO;
     Usuario usuario;
     UsuariosDao usuariosDao;
+    ValoresFinancieros valoresFinancieros;
 
     //Objetos para ultilidades
     Calendar fecha = new GregorianCalendar();
@@ -63,13 +64,14 @@ public class ControladorTrabajos implements ActionListener {
     String fechV = dia + "/" + mes + "/" + año;
     Date date1;
 
-    ControladorTrabajos(VistaPrincipal vista, VistaTrabajos vistaTrabajos, UsuariosDao usuariosDao, Usuario usuario, TrabajosDAO trabajosDAO, EmpleadosDao empleadosDao) {
+    ControladorTrabajos(VistaPrincipal vista, VistaTrabajos vistaTrabajos, UsuariosDao usuariosDao, Usuario usuario, TrabajosDAO trabajosDAO, EmpleadosDao empleadosDao, ValoresFinancieros valoresFinancieros) {
         this.vista = vistaTrabajos;
         this.vistaPrincipal = vista;
         this.empleadosDao = empleadosDao;
         this.usuario = usuario;
         this.usuariosDao = usuariosDao;
         this.trabajosDAO = trabajosDAO;
+        this.valoresFinancieros = valoresFinancieros;
         this.vista.btnInsertar.addActionListener(this);
         this.vista.btnConsultar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
@@ -95,7 +97,7 @@ public class ControladorTrabajos implements ActionListener {
                     //Datos cliente
                     cliente.setCedula(this.vista.txtCedulaCliente.getText());
                     //Datos Empleado
-                    empleado = this.empleadosDao.consultar(Integer.toString((0)));
+                    empleado = this.empleadosDao.consultar((usuario.getEmpleado().getCedula()));
                     //Datos de la factura
                     factura.setId(Integer.parseInt(this.vista.txtIDFactura.getText()));
                     factura.setCliente(cliente);
@@ -105,7 +107,7 @@ public class ControladorTrabajos implements ActionListener {
                     sendD = new java.sql.Date(d);
                     factura.setFecha(sendD);
                     if (this.vista.rbtnSiIVA.isSelected() == true) {
-                        factura.setIva(0.19);
+                        factura.setIva(valoresFinancieros.getIva());
                     }
                     factura.setTotal(Integer.parseInt(this.vista.txtValorMantenimiento.getText()));
                     //Datos del mantenimiento
@@ -172,8 +174,9 @@ public class ControladorTrabajos implements ActionListener {
                     //Desabilitar o abilitar los campos que se pueden editar, esto dependiendo de los persmosos del usuario 
                     mantenimiento.setDescripccion(this.vista.txtDescripcion.getText());
                     //Mejorar metodo actualizar en el dao
-                    this.trabajosDAO.actualiazar(mantenimiento);
-                    JOptionPane.showMessageDialog(null, "Datos del mantenimineto " + this.vista.txtIDMantenimiento.getText() + " actualizados correctamente!");
+                    if (this.trabajosDAO.actualiazar(mantenimiento)) {
+                        JOptionPane.showMessageDialog(null, "Datos del mantenimineto " + this.vista.txtIDMantenimiento.getText() + " actualizados correctamente!");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "El mantenimiento con ID " + this.vista.txtIDMantenimiento.getText() + " no existe");
                 }
@@ -188,15 +191,17 @@ public class ControladorTrabajos implements ActionListener {
                 MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                 if (mantenimiento != null) {
                     //Mejorar metodo eliminar en el dao
-                    this.trabajosDAO.eliminar(mantenimiento);
+                    if (this.trabajosDAO.eliminar(mantenimiento)) {
+                        JOptionPane.showMessageDialog(null, "Registro de mantenimiento eliminado exitosamente");
+                    }
                     limpiar();
-                    JOptionPane.showMessageDialog(null, "Registro de mantenimiento eliminado exitosamente");
                 }
             } catch (MiExcepcion ex) {
-                JOptionPane.showMessageDialog(null, "Ingresa un ID de mantenimiento para poder eliminarlo");
+                JOptionPane.showMessageDialog(null, "Identificador del mantenimiento no fue encontrado");
                 Logger.getLogger(ControladorTrabajos.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
         if (e.getSource().equals(this.vista.btnListar)) {
 
         }

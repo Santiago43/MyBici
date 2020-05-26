@@ -12,8 +12,10 @@ import modelo.dao.RolesDao;
 import modelo.dao.SedeDao;
 import modelo.dao.TrabajosDAO;
 import modelo.dao.UsuariosDao;
+import modelo.dao.ValoresFinancierosDao;
 import modelo.dto.Usuario;
 import vista.VistaEmpleado;
+import modelo.dto.ValoresFinancieros;
 import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPrincipal;
@@ -46,6 +48,10 @@ public class ControladorPrincipal implements ActionListener {
     private final UsuariosDao usuariosDao;
     private VistaSede vistaInv;
     private Usuario usuario;
+    
+    ValoresFinancierosDao valoresFinancierosDao = new ValoresFinancierosDao();
+    ValoresFinancieros valoresFinancieros;
+
 
     /**
      * Constructor de la clase
@@ -97,10 +103,10 @@ public class ControladorPrincipal implements ActionListener {
         if (e.getSource().equals(this.vista.itemUsuarios)) {
             ControladorUsuarios controladorUsuarios;
             controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(), this.usuariosDao, new RolesDao(), new EmpleadosDao());
-
-        } else if (e.getSource().equals(this.vista.ItemTrabajos)) {
+        }  else if (e.getSource().equals(this.vista.ItemTrabajos)) {
+            valoresFinancieros = valoresFinancierosDao.consultar("aclxrd");
             ControladorTrabajos controladorTrabajos;
-            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao());
+            controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao(), valoresFinancieros);
         } else if (e.getSource().equals(this.vista.ItemContabilidad)) {
             ControladorContabilidad controladorContabilidad;
             controladorContabilidad = new ControladorContabilidad();
@@ -126,7 +132,7 @@ public class ControladorPrincipal implements ActionListener {
         else if (e.getSource().equals(this.vista.btnSalir)) {
             salir();
         }
-
+       
     }
 
     public void salir() {

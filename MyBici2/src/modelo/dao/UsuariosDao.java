@@ -128,6 +128,7 @@ public class UsuariosDao implements IUsuariosDao {
             pat.executeUpdate();
             pat.close();
             return true;
+
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
