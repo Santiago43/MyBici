@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
  * Clase controlador para el manejo de inventarios
  * @author Santiago Pérez
  * @version 1.0
- * @since 
+ * @since 2020-05-26
  */
 public class ControladorInventario implements ActionListener{
 
