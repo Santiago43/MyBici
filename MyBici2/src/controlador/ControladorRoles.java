@@ -30,7 +30,7 @@ public class ControladorRoles implements ActionListener {
     public RolesDao rolesDao;
     public Usuario usuario;
     public DefaultTableModel modeloTablaRoles;
-    
+
     public ControladorRoles(VistaPrincipal vistaAnterior, VistaRoles vista, RolesDao rolesDao, Usuario usuario) {
         this.vistaAnterior = vistaAnterior;
         this.vista = vista;
@@ -52,17 +52,20 @@ public class ControladorRoles implements ActionListener {
 
         this.vista.setVisible(true);
     }
+
     /**
-     * 
-     * @param e 
+     *
+     * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource().equals(this.vista.btnInsertar)) {
                 crearRol();
+            } else if (e.getSource().equals(this.vista.btnEliminar)) {
+                eliminarRol();
             } else if (e.getSource().equals(this.vista.btnModificarPermisos)) {
-                ControladorModificarPermisosRol cModificarPermiso = new ControladorModificarPermisosRol(this.vista,new VistaModificarPermisoRol(),this.rolesDao,new PermisosDao());
+                ControladorModificarPermisosRol cModificarPermiso = new ControladorModificarPermisosRol(this.vista, new VistaModificarPermisoRol(), this.rolesDao, new PermisosDao());
             } else if (e.getSource().equals(this.vista.btnRegresar)) {
                 salir();
             }
@@ -79,40 +82,66 @@ public class ControladorRoles implements ActionListener {
         this.vista.dispose();
         this.vistaAnterior.setVisible(true);
     }
+
     /**
-     * 
+     *
      */
     private void listarRoles() {
         //Lista los roles en la tabla
         LinkedList<Rol> roles = rolesDao.listar();
         for (Rol rol : roles) {
-            Object fila[] = {rol.getId(), rol.getNombre()};
+            Object fila[] = {rol.getId(), rol.getNombre(),rol.getNombreCorto()};
             modeloTablaRoles.addRow(fila);
         }
     }
 
     private void crearRol() throws MiExcepcion {
-        String nombreRol = JOptionPane.showInputDialog("Ingrese el nombre del rol que desea crear");
+        Rol rol = new Rol();
+        rol.setNombre(MiExcepcion.capturaString(this.vista.txtNombreRol));
+        rol.setNombreCorto(MiExcepcion.capturaString(this.vista.txtNombreCorto));
+        if (this.rolesDao.consultarPorNombre(rol.getNombre()) != null) {
+            throw new MiExcepcion("Ya existe un nombre con ese rol");
+        } else {
+            if (this.rolesDao.crear(rol)) {
+                JOptionPane.showMessageDialog(null, "Rol creado satisfactoriamente");
+                limpiarTabla();
+                listarRoles();
+                this.vista.limpiar();
+            }else{
+                throw new MiExcepcion("Error al crear rol");
+            }
+
+        }
+
+    }
+
+    public void limpiarTabla() {
+        while(this.modeloTablaRoles.getRowCount()>0){
+            this.modeloTablaRoles.removeRow(0);
+        }
+    }
+
+    private void eliminarRol() throws MiExcepcion {
+        String nombreRol = JOptionPane.showInputDialog("Ingrese el nombre del rol que desea eliminar");
         if (nombreRol.equals("")) {
             throw new MiExcepcion("No puede dejar ese campo vacío");
         } else {
-            if (this.rolesDao.consultarPorNombre(nombreRol) != null) {
-                throw new MiExcepcion("Ya existe un nombre con ese rol");
+            Rol rol = this.rolesDao.consultarPorNombre(nombreRol);
+            if (rol == null) {
+                throw new MiExcepcion("Ese rol no existe");
             } else {
-                Rol rol = new Rol();
-                rol.setNombre(nombreRol);               
-                if (this.rolesDao.crear(rol)) {
-                    JOptionPane.showMessageDialog(null, "Rol creado satisfactoriamente");
+                int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar el rol " + rol.getNombre());
+                if (opc == JOptionPane.YES_OPTION) {
+                    if (this.rolesDao.eliminar(String.valueOf(rol.getId()))) {
+                        JOptionPane.showMessageDialog(null, "Rol creado satisfactoriamente");
+                    } else {
+                        throw new MiExcepcion("Error al eliminar rol");
+                    }
+                    limpiarTabla();
+                    listarRoles();
                 }
-                limpiarTabla();
-                listarRoles();
+
             }
-        }
-    }
-    public void limpiarTabla(){
-        LinkedList <Rol> roles = rolesDao.listar();
-        for (int i = 0; i < roles.size(); i++) {
-            this.modeloTablaRoles.removeRow(0);
         }
     }
 }

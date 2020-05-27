@@ -96,6 +96,8 @@ public class ControladorEmpleados implements ActionListener {
         empleado.setFechaNacimiento(MiExcepcion.capturaString((JTextField) this.vista.FecNacimiento.getDateEditor().getUiComponent()));
         empleado.setCargo(MiExcepcion.capturaString(this.vista.txtCargo));
         empleado.setNacionalidad(MiExcepcion.capturaString(this.vista.txtNacionalidad));
+        empleado.setProfesion(MiExcepcion.capturaString(this.vista.txtProfesion));
+        empleado.setSalario(MiExcepcion.capturaDouble(this.vista.txtSalario));
         char genero = '1';
         if (this.vista.radioHombre.isSelected()) {
             genero = 'm';
@@ -223,7 +225,7 @@ public class ControladorEmpleados implements ActionListener {
     private void actualizarEmpleado() throws MiExcepcion {
         String cedula = MiExcepcion.capturaString(this.vista.txtCedula);
         Empleado empleado = this.empleadoDao.consultar(cedula);
-        if(empleado==null){
+        if (empleado == null) {
             throw new MiExcepcion("Ese empleado no existe");
         }
         empleado.setCedula(MiExcepcion.capturaString(this.vista.txtCedula));
@@ -234,6 +236,8 @@ public class ControladorEmpleados implements ActionListener {
         empleado.setFechaNacimiento(MiExcepcion.capturaString((JTextField) this.vista.FecNacimiento.getDateEditor().getUiComponent()));
         empleado.setCargo(MiExcepcion.capturaString(this.vista.txtCargo));
         empleado.setNacionalidad(MiExcepcion.capturaString(this.vista.txtNacionalidad));
+        empleado.setProfesion(MiExcepcion.capturaString(this.vista.txtProfesion));
+        empleado.setSalario(MiExcepcion.capturaDouble(this.vista.txtSalario));
         char genero = '1';
         if (this.vista.radioHombre.isSelected()) {
             genero = 'm';
@@ -274,24 +278,20 @@ public class ControladorEmpleados implements ActionListener {
         }
         direccion.setCalle(calle);
         direccion.setCarrera(carrera);
-        if(this.direccionDao.actualizar(direccion)){
-            
+        if (this.direccionDao.actualizar(direccion)) {
+
         }
-        
+
         Sede sede = this.sedeDao.consultarPorNombre(this.vista.comboSedes.getSelectedItem().toString());
         if (sede != null) {
             empleado.setIdSede(sede.getIdSede());
         } else {
             throw new MiExcepcion("esa sede no existe");
         }
-        if (this.empleadoDao.consultar(empleado.getCedula()) != null) {
-            throw new MiExcepcion("ese empleado ya existe");
+        if (this.empleadoDao.actualizar(empleado)) {
+            JOptionPane.showMessageDialog(null, "Empleado creado satisfactoriamente");
         } else {
-            if (this.empleadoDao.actualizar(empleado)) {
-                JOptionPane.showMessageDialog(null, "Empleado creado satisfactoriamente");
-            } else {
-                throw new MiExcepcion("error al crear empleado");
-            }
+            throw new MiExcepcion("error al modificar empleado");
         }
     }
 

@@ -92,8 +92,12 @@ inner join calle as cal on cal.idCalle = d.Calle_idCalle
 inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
 where d.idDireccion = 1;
 
-
+/**
+*/
 select * from valores_financieros;
+/*Mantenimientos*/
 select * from mantenientobicicleta;
+/*Facturas*/
 select * from facturaventa;
+/*Bicicletas*/
 select * from bicicleta;

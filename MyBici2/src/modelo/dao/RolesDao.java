@@ -28,10 +28,11 @@ public class RolesDao implements IRolesDao {
     @Override
     public boolean crear(Rol rol) {
         try {
-            String sql = "insert into rol (nombreRol) values (?)";
+            String sql = "insert into rol (nombreRol,nombreCorto) values (?,?)";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.setString(1, rol.getNombre());
+            pat.setString(2, rol.getNombreCorto());
             pat.execute();
             return true;
         } catch (SQLException ex) {

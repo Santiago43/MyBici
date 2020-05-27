@@ -67,10 +67,11 @@ public class EmpleadosDao implements IEmpleadosDao {
                 empleado.setSegundoNombre(rs.getString("segundoNombre"));
                 empleado.setPrimerApellido(rs.getString("primerApellido"));
                 empleado.setSegundoApellido(rs.getString("segundoApellido"));
-                empleado.setFechaNacimiento(rs.getDate("fechaNacimiento").toString());
+                empleado.setFechaNacimiento(rs.getString("fechaNacimiento"));
                 empleado.setProfesion(rs.getString("profesion"));
                 empleado.setCargo(rs.getString("cargo"));
                 empleado.setSalario(rs.getDouble("salario"));
+                empleado.setNacionalidad(rs.getString("nacionalidad")); 
                 empleado.setGenero(rs.getString("genero"));
                 empleado.setIdSede(rs.getInt("Sede_idSede"));
                 String idDireccion = rs.getString("Direccion_idDireccion");
@@ -110,22 +111,22 @@ public class EmpleadosDao implements IEmpleadosDao {
     @Override
     public boolean actualizar(Empleado empleado) {
         try {
-            String sql = "update persona"
-                    + "set primerNombre='"+empleado.getPrimerNombre()+"',"
-                    + "segundoNombre='"+empleado.getSegundoNombre()+"',"
-                    + "primerApellido='"+empleado.getPrimerApellido()+"',"
-                    + "segundoApellido="+empleado.getSegundoApellido()+"',"
-                    + "fechaNacimiento="+empleado.getFechaNacimiento()+"',"
-                    + "nacionalidad="+empleado.getNacionalidad()+"',"
-                    + "genero='"+empleado.getGenero()+"',"
-                    + "Direccion_idDireccion="+empleado.getDireccion().getIdDireccion()
-                    + "where persona.cedula ="+empleado.getCedula()+";";
-            String sql2 = "update empleado"
-                    + "set cargo='"+empleado.getCargo()+"',"
-                    + "profesion='"+empleado.getProfesion()+"',"
-                    + "salario="+empleado.getSalario()
-                    + "Sede_idSede="+empleado.getIdSede()
-                    + "where empleado.Persona_cedula='"+empleado.getCedula()+"'";
+            String sql = "update persona "
+                    + "set primerNombre='"+empleado.getPrimerNombre()+"', "
+                    + "segundoNombre='"+empleado.getSegundoNombre()+"', "
+                    + "primerApellido='"+empleado.getPrimerApellido()+"', "
+                    + "segundoApellido='"+empleado.getSegundoApellido()+"', "
+                    + "fechaNacimiento='"+empleado.getFechaNacimiento()+"', "
+                    + "nacionalidad='"+empleado.getNacionalidad()+"', "
+                    + "genero='"+empleado.getGenero()+"', "
+                    + "Direccion_idDireccion="+empleado.getDireccion().getIdDireccion()+" "
+                    + "where cedula ='"+empleado.getCedula()+"';";
+            String sql2 = "update empleado "
+                    + "set cargo='"+empleado.getCargo()+"', "
+                    + "profesion='"+empleado.getProfesion()+"', "
+                    + "salario="+empleado.getSalario()+", "
+                    + "Sede_idSede="+empleado.getIdSede()+" "
+                    + "where Persona_cedula='"+empleado.getCedula()+"'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             int update1=pat.executeUpdate();

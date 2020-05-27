@@ -83,13 +83,13 @@ public class Carrera {
     public String toString() {
         String parteCarrera=numeroCarrera+ " "+letraCarrera;
         if(bis){
-            parteCarrera+="bis";
+            parteCarrera+=" bis ";
         }
         if(este){
-            parteCarrera+="este";
+            parteCarrera+=" este ";
         }
         else{
-            parteCarrera+="oeste";
+            parteCarrera+=" oeste ";
         }
         return parteCarrera;
     }

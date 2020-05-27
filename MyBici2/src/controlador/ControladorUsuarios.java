@@ -135,7 +135,7 @@ public class ControladorUsuarios implements ActionListener {
         Empleado empleado = this.empleadosDao.consultar(cedula);
         usuario.setEmpleado(empleado);
         usuario.setContraseña(MiExcepcion.capturaString((JTextField) this.vista.txtPassword));
-        String nombreUsuario = MiExcepcion.capturaString(this.vista.txtCedula);
+        String nombreUsuario = MiExcepcion.capturaString(this.vista.txtUsuario);
         usuario.setUsuario(nombreUsuario);
         if (this.usuariosDao.consultar(usuario.getUsuario()) != null) {
             if (this.usuariosDao.actualizar(usuario)) {

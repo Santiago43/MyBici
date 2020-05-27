@@ -23,10 +23,10 @@ public class Calle {
     public String toString() {
         String parteCalle=numeroCalle+" "+letraCalle;
         if(bis){
-            parteCalle+="bis";
+            parteCalle+=" bis ";
         }
         if(sur){
-            parteCalle+="sur";
+            parteCalle+=" sur ";
         }
         
         return parteCalle;
