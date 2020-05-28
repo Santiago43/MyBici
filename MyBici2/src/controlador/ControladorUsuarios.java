@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import modelo.dao.EmpleadosDao;
 import modelo.dao.RolesDao;
 import modelo.dao.UsuariosDao;
@@ -31,6 +32,7 @@ public class ControladorUsuarios implements ActionListener {
     private final UsuariosDao usuariosDao;
     private final RolesDao rolesDao;
     private final EmpleadosDao empleadosDao;
+    private final DefaultTableModel modeloTabla;
 
     public ControladorUsuarios(VistaPrincipal vistaAnterior, VistaUsuarios vista, UsuariosDao usuariosDao, RolesDao rolesDao, EmpleadosDao empleadosDao) {
         this.vistaAnterior = vistaAnterior;
@@ -44,6 +46,7 @@ public class ControladorUsuarios implements ActionListener {
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnModificar.addActionListener(this);
         this.vista.btnRegresar.addActionListener(this);
+        this.modeloTabla = (DefaultTableModel)this.vista.tblUsuarios.getModel();
         this.vista.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -52,6 +55,7 @@ public class ControladorUsuarios implements ActionListener {
 
         });
         listarRoles();
+        listarUsuarios();
         this.vistaAnterior.setVisible(false);
         this.vista.setVisible(true);
     }
@@ -97,12 +101,14 @@ public class ControladorUsuarios implements ActionListener {
         }
         usuario.setEmpleado(empleado);
         usuario.setContraseña(MiExcepcion.capturaString((JTextField) this.vista.txtPassword));
-        String nombreUsuario = rol.getNombreCorto() + cedula.substring(cedula.length() - 5, cedula.length() - 1);
+        String nombreUsuario = rol.getNombreCorto() + cedula.substring(cedula.length() - 4, cedula.length());
         usuario.setUsuario(nombreUsuario);
         if (this.usuariosDao.consultar(usuario.getUsuario()) == null||this.usuariosDao.consultarPorCedula(cedula)==null) {
             if (this.usuariosDao.crear(usuario)) {
                 JOptionPane.showMessageDialog(null, "Usuario " + usuario.getUsuario() + " creado satisfactoriamente");
                 this.vista.limpiar();
+                this.vaciarTabla();
+                this.listarUsuarios();
             }
         } else {
             throw new MiExcepcion("Ese usuario ya existe");
@@ -141,6 +147,8 @@ public class ControladorUsuarios implements ActionListener {
             if (this.usuariosDao.actualizar(usuario)) {
                 JOptionPane.showMessageDialog(null, "Usuario " + usuario.getUsuario() + " actualizado satisfactoriamente");
                 this.vista.limpiar();
+                this.vaciarTabla();
+                this.listarUsuarios();
             }
         } else {
             throw new MiExcepcion("Ese usuario no existe");
@@ -157,6 +165,8 @@ public class ControladorUsuarios implements ActionListener {
             } else {
                 if (this.usuariosDao.eliminar(nombreUsuario)) {
                     JOptionPane.showMessageDialog(null, "Usuario " + nombreUsuario + " elimnado");
+                    this.vaciarTabla();
+                    this.listarUsuarios();
                 }
             }
         }
@@ -167,4 +177,18 @@ public class ControladorUsuarios implements ActionListener {
         this.vistaAnterior.setVisible(true);
     }
 
+    private void listarUsuarios() {
+        LinkedList <Usuario> usuarios = this.usuariosDao.listar();
+        for(Usuario usuario: usuarios){
+            Object fila [] = {usuario.getUsuario(),usuario.getEmpleado().getCedula(),usuario.getRol().getNombre()};
+            this.modeloTabla.addRow(fila);
+        }
+        
+    }
+
+    private void vaciarTabla(){
+        while(this.modeloTabla.getRowCount()>0){
+            this.modeloTabla.removeRow(0);
+        }
+    }
 }

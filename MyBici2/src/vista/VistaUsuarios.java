@@ -203,7 +203,7 @@ public class VistaUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblUsuarios;
+    public javax.swing.JTable tblUsuarios;
     public javax.swing.JTextField txtCedula;
     public javax.swing.JPasswordField txtPassword;
     public javax.swing.JTextField txtUsuario;
