@@ -95,6 +95,7 @@ public class ControladorModificarPermisosRol implements ActionListener {
                     if (permisoDao.crear(permiso)) {
                         JOptionPane.showMessageDialog(null, "Permiso creado satisfactoriamente");
                     }
+                    this.recargarCombos();
                     this.limpiarTablas();
                     this.cargarTablaPermisos();
                 }else{
@@ -112,8 +113,9 @@ public class ControladorModificarPermisosRol implements ActionListener {
                         if (opc == JOptionPane.YES_OPTION) {
                             if (permisoDao.eliminar(String.valueOf(permiso.getIdPermiso()))) {
                                 JOptionPane.showMessageDialog(null, "Permiso eliminado satisfactoriamente");
+                                this.recargarCombos();
                                 this.limpiarTablas();
-                                this.cargarTablaPermisos();
+                                this.cargarTablaPermisos();                               
                             }
                             else{
                                 throw new MiExcepcion("Error al eliminar");
@@ -128,7 +130,7 @@ public class ControladorModificarPermisosRol implements ActionListener {
                 salir();
             } else if (e.getSource().equals(this.vista.comboRoles)) {
                 limpiarTablas();
-                cargarTablaPermisos();
+                cargarTablaPermisos();           
             }
         } catch (MiExcepcion ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -174,5 +176,13 @@ public class ControladorModificarPermisosRol implements ActionListener {
             this.vista.comboPermisos.addItem(permisos.get(i).getNombrePermiso());
         }
 
+    }
+
+    private void recargarCombos() {
+        this.vista.comboRoles.removeActionListener(this);
+        this.vista.comboPermisos.removeAllItems();
+        this.vista.comboRoles.removeAllItems();
+        cargarCombos();
+        this.vista.comboRoles.addActionListener(this);
     }
 }
