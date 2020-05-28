@@ -50,6 +50,7 @@ public class ControladorModificarPermisosRol implements ActionListener {
         });
         this.modeloTablaPermisos = (DefaultTableModel) this.vista.tblPermisos.getModel();
         this.modeloTablaPermisosRol = (DefaultTableModel) this.vista.tblPermisosRol.getModel();
+        this.vistaAnterior.setVisible(false);
         this.vista.setVisible(true);
         cargarCombos();
         cargarTablaPermisos();
