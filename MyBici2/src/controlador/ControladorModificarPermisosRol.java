@@ -97,6 +97,8 @@ public class ControladorModificarPermisosRol implements ActionListener {
                     }
                     this.limpiarTablas();
                     this.cargarTablaPermisos();
+                }else{
+                    throw new MiExcepcion("Ese permiso ya existe");
                 }
             } else if (e.getSource().equals(this.vista.btnEliminarPermiso)) {
                 String permisoARemover = JOptionPane.showInputDialog("Escriba el nombre del permiso que desea eliminar. "

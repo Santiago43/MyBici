@@ -29,9 +29,8 @@ public class PermisosDao implements IPermisosDao{
             String sql= "insert into permiso (nombrePermiso) values ('"+permiso.getNombrePermiso()+"');";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
-            boolean insert=pat.execute();
-            pat.close();
-            return insert;
+            pat.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(PermisosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,8 +133,8 @@ public class PermisosDao implements IPermisosDao{
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            permiso = new Permiso();
             if(rs.next()){
+                permiso = new Permiso();
                 permiso.setIdPermiso(rs.getInt("idPermiso"));
                 permiso.setNombrePermiso(rs.getString("nombrePermiso"));
             }

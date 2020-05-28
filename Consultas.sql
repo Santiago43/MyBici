@@ -10,7 +10,6 @@ select p.* from permiso as p
 inner join usuario_has_permiso as up on up.Permiso_idPermiso = p.idPermiso
 inner join usuario as u on u.usuario = up.Usuario_usuario
 where u.usuario = "admin";
-
 /*Consultar todos los datos de un empleado*/
 select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario,e.Sede_idSede  from persona as p
 inner join empleado as e on p.cedula=e.Persona_cedula; 
