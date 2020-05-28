@@ -93,4 +93,7 @@ insert into telefono (tipo) values ("nacional");
 
 call agregarTelefonoAPersona ("fijo","0","7292821");
 
+/*Insertar petición*/
+insert into peticionempleado(Empleado_Persona_cedula,peticion,aprobado) 
+values("1000853623","Test",false);
 

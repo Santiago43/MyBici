@@ -21,3 +21,8 @@ call actualizarDireccion(1,1,1,2,"a",0,0,1,"b",0,0);
 update proveedor
 set Direccion_idDireccion = 1, nombre="Ajá" 
 where idProveedor = 1;
+
+/*Petición*/
+update peticionempleado
+set Empleado_Persona_cedula = 1000853623,aprobado = true,peticion=""
+where idPeticionEmpleado=1;

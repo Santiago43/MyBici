@@ -108,3 +108,6 @@ select v.* from facturaventa as v
 inner join empleado as e on v.Empleado_Persona_cedula=e.Persona_cedula
 inner join Sede as s on e.Sede_idSede=s.idSede
 where s.idSede = 1 and v.fecha between "2020-05-01" and "2020-05-31";
+
+/*Consultar peticiones por id*/
+select * from peticionempleado where idPeticionEmpleado =1;

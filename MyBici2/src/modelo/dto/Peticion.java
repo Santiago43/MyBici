@@ -8,9 +8,9 @@ package modelo.dto;
  */
 public class Peticion {
     private int idPeticionEmpleado;
-    private String cedula;
     private String peticion;
     private boolean aprobado;
+    private Empleado empleado;
 
     public int getIdPeticionEmpleado() {
         return idPeticionEmpleado;
@@ -18,14 +18,6 @@ public class Peticion {
 
     public void setIdPeticionEmpleado(int idPeticionEmpleado) {
         this.idPeticionEmpleado = idPeticionEmpleado;
-    }
-
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
     }
 
     public String getPeticion() {
@@ -42,6 +34,14 @@ public class Peticion {
 
     public void setAprobado(boolean aprobado) {
         this.aprobado = aprobado;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
     
 }
