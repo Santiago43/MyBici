@@ -14,10 +14,10 @@ import java.sql.Date;
 public class MantenimienroBicicleta {
     private int id;
     private Date fechaEntrega;
-    private int valorEstimado;
     private String descripccion;
     private FacturaVenta factura;
     private Bicicleta bicicleta;
+    private boolean estado;
 
     public int getId() {
         return id;
@@ -34,16 +34,7 @@ public class MantenimienroBicicleta {
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
-
-   
-    public int getValorEstimado() {
-        return valorEstimado;
-    }
-
-    public void setValorEstimado(int valorEstimado) {
-        this.valorEstimado = valorEstimado;
-    }
-
+    
     public String getDescripccion() {
         return descripccion;
     }
@@ -66,6 +57,14 @@ public class MantenimienroBicicleta {
 
     public void setBicicleta(Bicicleta bicicleta) {
         this.bicicleta = bicicleta;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     

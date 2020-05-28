@@ -36,15 +36,16 @@ public class TrabajosDAO {
         try {
             if (bicicletaDao.crear(bici)) {
                 if (facturaV.crear(factura)) {
-                    sql = "insert into MantenientoBicicleta (idMantenimientoBicicleta,Bicicleta_marcoSerial,FacturaVenta_id_fventa,descripcion,valorEstimado,fechaEntrega) values (?,?,?,?,?,?)";
+                    sql = "insert into MantenientoBicicleta (idMantenimientoBicicleta,Bicicleta_marcoSerial,FacturaVenta_id_fventa,descripcion,valorEstimado,fechaEntrega,estado) values (?,?,?,?,?,?,?)";
                     pat = conn.prepareStatement(sql);
                     pat.setInt(1, mantenimiento.getId());
                     pat.setString(2, bici.getMarcoSerial());
                     pat.setInt(3, factura.getId());
                     pat.setString(4, mantenimiento.getDescripccion());
-                    pat.setInt(5, mantenimiento.getValorEstimado());
-                    pat.setDate(6, mantenimiento.getFechaEntrega());
-                    return pat.execute();
+                    pat.setDate(5, mantenimiento.getFechaEntrega());
+                    pat.setBoolean(6, mantenimiento.isEstado());
+                    pat.execute();
+                    return true;
                 }
             }
         } catch (SQLException ex) {
@@ -69,12 +70,17 @@ public class TrabajosDAO {
                 serial = rs.getString("Bicicleta_marcoSerial");
                 idFactura = rs.getInt("FacturaVenta_id_fventa");
                 mantenimiento.setDescripccion(rs.getString("descripcion"));
-                mantenimiento.setValorEstimado(rs.getInt(("valorEstimado")));
                 mantenimiento.setFechaEntrega(rs.getDate("fechaEntrega"));
+                mantenimiento.setEstado(rs.getBoolean("estado"));
                 bicicletaDao.consultar(serial);
                 mantenimiento.setBicicleta(bici);
                 facturaV.consultar(Integer.toString(idFactura));
                 mantenimiento.setFactura(factura);
+                if(bici == null){
+                    JOptionPane.showMessageDialog(null, "Error, no se encontro una bicicleta asociada al mantenimiento");
+                } else if( factura == null){
+                    JOptionPane.showMessageDialog(null, "Error, no se encontro una factura asociada al mantenimiento");
+                }
             }
             return mantenimiento;
         } catch (SQLException ex) {
