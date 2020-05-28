@@ -137,7 +137,7 @@ public class ControladorEstadoResultados implements ActionListener {
 
     private double calcularMantenimientos(Sede sede) {
        
-       
+       return 0;
     }
 
 }
