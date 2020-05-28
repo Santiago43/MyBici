@@ -67,7 +67,7 @@ public class UsuariosDao implements IUsuariosDao {
                 idRol = rs.getInt("Rol_idRol");
                 Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
                 usuario.setEmpleado(empleado);
-            }else{
+            } else {
                 return usuario;
             }
             pat.close();
@@ -79,8 +79,9 @@ public class UsuariosDao implements IUsuariosDao {
                 rol.setId(rs2.getInt("idRol"));
                 rol.setNombre(rs2.getString("nombreRol"));
                 usuario.setRol(rol);
+                rol.setPermisos(traerPermisosRol(conn, rol));
             }
-            usuario.setPermisos(traerPermisos(conn,usuario.getUsuario()));
+            usuario.setPermisos(traerPermisos(conn, usuario.getUsuario()));
             rs.close();
             pat.close();
         } catch (SQLException ex) {
@@ -162,6 +163,7 @@ public class UsuariosDao implements IUsuariosDao {
                     rol.setId(rs2.getInt("idRol"));
                     rol.setNombre(rs2.getString("nombreRol"));
                     usuario.setRol(rol);
+                    rol.setPermisos(traerPermisosRol(conn, rol));
                 }
                 EmpleadosDao empleadosDao = new EmpleadosDao();
                 Empleado empleado = empleadosDao.consultar(rs.getString("Empleado_Persona_cedula"));
@@ -189,9 +191,9 @@ public class UsuariosDao implements IUsuariosDao {
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.setString(1, usuario.getUsuario());
             pat.setInt(2, permiso.getIdPermiso());
-            boolean insert = pat.execute();
+            pat.execute();
             pat.close();
-            return insert;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(RolesDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -218,23 +220,24 @@ public class UsuariosDao implements IUsuariosDao {
         }
         return false;
     }
+
     /**
-     * 
+     *
      * @param conn
      * @param usuario
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
-    private LinkedList<Permiso> traerPermisos(Connection conn,String usuario) throws SQLException {
-        LinkedList <Permiso> permisos=null;
+    private LinkedList<Permiso> traerPermisos(Connection conn, String usuario) throws SQLException {
+        LinkedList<Permiso> permisos = null;
         String sql = "select p.* from permiso as p "
                 + "inner join usuario_has_permiso as up on up.Permiso_idPermiso = p.idPermiso "
                 + "inner join usuario as u on u.usuario = up.Usuario_usuario "
-                + "where u.usuario = '"+usuario+"';";
+                + "where u.usuario = '" + usuario + "';";
         PreparedStatement pat = conn.prepareStatement(sql);
         ResultSet rs = pat.executeQuery();
-        permisos=new LinkedList();
-        while(rs.next()){
+        permisos = new LinkedList();
+        while (rs.next()) {
             Permiso permiso = new Permiso();
             permiso.setIdPermiso(rs.getInt("idPermiso"));
             permiso.setNombrePermiso(rs.getString("nombrePermiso"));
@@ -259,7 +262,7 @@ public class UsuariosDao implements IUsuariosDao {
                 idRol = rs.getInt("Rol_idRol");
                 Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
                 usuario.setEmpleado(empleado);
-            }else{
+            } else {
                 return usuario;
             }
             pat.close();
@@ -272,13 +275,33 @@ public class UsuariosDao implements IUsuariosDao {
                 rol.setNombre(rs2.getString("nombreRol"));
                 usuario.setRol(rol);
             }
-            usuario.setPermisos(traerPermisos(conn,usuario.getUsuario()));
+            usuario.setPermisos(traerPermisos(conn, usuario.getUsuario()));
             rs.close();
             pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuario;
+    }
+
+    private LinkedList<Permiso> traerPermisosRol(Connection conn, Rol rol) throws SQLException {
+        LinkedList<Permiso> permisos = null;
+        String sql = "select p.* from permiso as p "
+                + "inner join rol_has_permiso as rp on rp.Permiso_idPermiso = p.idPermiso "
+                + "inner join rol as r on r.idRol = rp.Rol_idRol "
+                + "where r.nombreRol = '" + rol.getNombre() + "';";
+        PreparedStatement pat2 = conn.prepareStatement(sql);
+        ResultSet rs2 = pat2.executeQuery();
+        permisos = new LinkedList();
+        while (rs2.next()) {
+            Permiso permiso = new Permiso();
+            permiso.setIdPermiso(rs2.getInt("idPermiso"));
+            permiso.setNombrePermiso(rs2.getString("nombrePermiso"));
+            permisos.add(permiso);
+        }
+        rs2.close();
+        pat2.close();
+        return permisos;
     }
 
 }

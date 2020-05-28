@@ -83,6 +83,7 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.menuEmpleados.setVisible(Verificador.tienePermiso(usuario, "empleados"));
         this.vista.menuSede.setVisible(Verificador.tienePermiso(usuario, "sede"));
         this.vista.menuInventario.setVisible(Verificador.tienePermiso(usuario, "inventario"));
+        this.vista.itemClientes.setVisible(Verificador.tienePermiso(usuario,"clientes"));
         this.vista.lblRol.setText("Rol: "+usuario.getRol().getNombre());
         this.vista.lblUsuario.setText("Usuario: "+usuario.getUsuario());
         this.vista.addWindowListener(new WindowAdapter() {
