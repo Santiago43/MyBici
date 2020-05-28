@@ -321,6 +321,7 @@ CREATE TABLE Nomina (
   fechaNomina DATE NULL,
   auxilioTransporte BOOL NULL,
   descuento DOUBLE NULL,
+  diasAusencia int,
   PRIMARY KEY(idNomina),
   INDEX Nomina_FKIndex1(Empleado_Persona_cedula),
   FOREIGN KEY(Empleado_Persona_cedula)
