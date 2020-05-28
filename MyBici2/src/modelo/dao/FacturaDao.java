@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import modelo.dto.Cliente;
 import modelo.dto.Empleado;
 import modelo.dto.FacturaVenta;
+import modelo.dto.Sede;
 
 /**
  *
@@ -86,6 +87,36 @@ public class FacturaDao implements IFacturaDao {
     @Override
     public LinkedList<FacturaVenta> listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public LinkedList<FacturaVenta> listarPorFecha(String fechaInicio, String fechaFinal, Sede sede) {
+        LinkedList<FacturaVenta> facturasVenta=null;
+        try {
+            String sql = "select v.* from facturaventa as v\n"
+                    + "inner join empleado as e on v.Empleado_Persona_cedula=e.Persona_cedula\n"
+                    + "inner join Sede as s on e.Sede_idSede=s.idSede\n"
+                    + "where s.idSede = "+sede.getIdSede()+ " and v.fecha between '"+fechaInicio+"' and '"+fechaFinal+"';";
+            Connection conn =Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs=pat.executeQuery();
+            facturasVenta=new LinkedList();
+            while(rs.next()){
+                FacturaVenta facturaVenta = new FacturaVenta();
+                facturaVenta.setId(rs.getInt("id_fventa"));
+                Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
+                Cliente cliente = new ClienteDao().consultar(rs.getString("Cliente_Persona_cedula"));
+                facturaVenta.setEmpleado(empleado);
+                facturaVenta.setCliente(cliente);
+                facturaVenta.setFecha(rs.getDate("fecha"));
+                facturaVenta.setIva(rs.getDouble("iva"));
+                facturaVenta.setTotal(rs.getDouble("totalVenta"));
+                facturasVenta.add(facturaVenta);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FacturaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return facturasVenta;
     }
 
 }

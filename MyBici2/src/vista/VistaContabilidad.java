@@ -30,10 +30,10 @@ public class VistaContabilidad extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         btnRegresar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        menuFacturacion = new javax.swing.JMenu();
+        menuER = new javax.swing.JMenu();
+        menuFC = new javax.swing.JMenu();
+        menuNomina = new javax.swing.JMenu();
 
         jMenu4.setText("jMenu4");
 
@@ -41,17 +41,17 @@ public class VistaContabilidad extends javax.swing.JFrame {
 
         btnRegresar.setText("Regresar");
 
-        jMenu3.setText("Facturación");
-        jMenuBar1.add(jMenu3);
+        menuFacturacion.setText("Facturación");
+        jMenuBar1.add(menuFacturacion);
 
-        jMenu1.setText("Estado De Resultados");
-        jMenuBar1.add(jMenu1);
+        menuER.setText("Estado De Resultados");
+        jMenuBar1.add(menuER);
 
-        jMenu2.setText("Flujo De Caja");
-        jMenuBar1.add(jMenu2);
+        menuFC.setText("Flujo De Caja");
+        jMenuBar1.add(menuFC);
 
-        jMenu5.setText("Nomina");
-        jMenuBar1.add(jMenu5);
+        menuNomina.setText("Nomina");
+        jMenuBar1.add(menuNomina);
 
         setJMenuBar(jMenuBar1);
 
@@ -60,14 +60,14 @@ public class VistaContabilidad extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(313, Short.MAX_VALUE)
+                .addContainerGap(485, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
+                .addContainerGap(308, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addContainerGap())
         );
@@ -82,11 +82,11 @@ public class VistaContabilidad extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnRegresar;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    public javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    public javax.swing.JMenu menuER;
+    public javax.swing.JMenu menuFC;
+    public javax.swing.JMenu menuFacturacion;
+    public javax.swing.JMenu menuNomina;
     // End of variables declaration//GEN-END:variables
 }

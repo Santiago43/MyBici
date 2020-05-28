@@ -17,7 +17,8 @@ inner join empleado as e on p.cedula=e.Persona_cedula;
 
 select cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d
 inner join calle as cal on cal.idCalle = d.Calle_idCalle
-inner join carrera as car on car.idCarrera = d.Carrera_idCarrera;
+inner join carrera as car on car.idCarrera = d.Carrera_idCarrera
+where d.idDireccion=7;
 
 
 /*Consultar una dirección a partir de un id*/
@@ -29,7 +30,7 @@ where d.idDireccion="1";
 /*Consultar clientes*/
 select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero from persona as p
 inner join cliente as c on p.cedula=c.Persona_cedula
-where c.Persona_cedula ="0"; 
+where c.Persona_cedula ="1000853624"; 
 
 /*Consultar permisos (general)*/
 
@@ -101,3 +102,10 @@ select * from mantenientobicicleta;
 select * from facturaventa;
 /*Bicicletas*/
 select * from bicicleta;
+
+
+/*Consultar facturas entre fechas de una sede*/
+select v.* from facturaventa as v
+inner join empleado as e on v.Empleado_Persona_cedula=e.Persona_cedula
+inner join Sede as s on e.Sede_idSede=s.idSede
+where s.idSede = 1 and v.fecha between "2020-05-01" and "2020-05-31";

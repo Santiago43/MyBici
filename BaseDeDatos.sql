@@ -127,8 +127,8 @@ CREATE TABLE Cliente (
   INDEX Cliente_FKIndex1(Persona_cedula),
   FOREIGN KEY(Persona_cedula)
     REFERENCES Persona(cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON DELETE cascade
+      ON UPDATE cascade
 );
 
 

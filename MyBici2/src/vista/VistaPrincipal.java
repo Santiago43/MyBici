@@ -46,7 +46,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         menuEmpleados = new javax.swing.JMenu();
         itemEmpleados = new javax.swing.JMenuItem();
         menuClientes = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itemClientes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,8 +103,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         menuClientes.setText("Clientes");
 
-        jMenuItem1.setText("Clientes");
-        menuClientes.add(jMenuItem1);
+        itemClientes.setText("Clientes");
+        menuClientes.add(itemClientes);
 
         jMenuBar1.add(menuClientes);
 
@@ -156,11 +156,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem ItemTMantenimiento;
     public javax.swing.JMenuItem ItemTrabajos;
     public javax.swing.JButton btnSalir;
+    public javax.swing.JMenuItem itemClientes;
     public javax.swing.JMenuItem itemEmpleados;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     public javax.swing.JLabel lblRol;
     public javax.swing.JLabel lblUsuario;
     public javax.swing.JMenu menuAdministracion;

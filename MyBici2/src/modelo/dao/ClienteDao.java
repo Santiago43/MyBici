@@ -32,7 +32,7 @@ public class ClienteDao implements IClientesDao {
     @Override
     public boolean crear(Cliente cliente) {
         try {
-            String sql = "call insertarcliente(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "call crearcliente(?,?,?,?,?,?,?,?,?)";
             Connection conn = Conexion.conectado();
             CallableStatement call = conn.prepareCall(sql);
             call.setString("cedula", cliente.getCedula());
@@ -44,8 +44,8 @@ public class ClienteDao implements IClientesDao {
             call.setString("fechaNacimiento", cliente.getFechaNacimiento());
             call.setString("nacionalidad", cliente.getNacionalidad());
             call.setString("genero", String.valueOf(cliente.getGenero()));
-            boolean insert = call.execute();
-            return insert;
+            call.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,9 +61,9 @@ public class ClienteDao implements IClientesDao {
     public Cliente consultar(String clave) {
         Connection conn = Conexion.conectado();
         Cliente cliente = null;
-        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero, e.profesion, e.cargo, e.salario, e.Sede_idSede  from persona as p\n"
-                + "inner join cliente as e on p.cedula=e.Persona_cedula\n"
-                + "where e.Persona_cedula =" + clave;
+        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero from persona as p\n"
+                + "inner join cliente as c on p.cedula=c.Persona_cedula\n"
+                + "where c.Persona_cedula =" + clave;
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -75,10 +75,12 @@ public class ClienteDao implements IClientesDao {
                 cliente.setPrimerApellido(rs.getString("primerApellido"));
                 cliente.setSegundoApellido(rs.getString("segundoApellido"));
                 cliente.setFechaNacimiento(rs.getDate("fechaNacimiento").toString());
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setNacionalidad(rs.getString("nacionalidad"));
                 String idDireccion = rs.getString("Direccion_idDireccion");
-                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d"
-                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle"
-                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera"
+                String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d "
+                        + "inner join calle as cal on cal.idCalle = d.Calle_idCalle "
+                        + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera "
                         + "where d.idDireccion =" + idDireccion;
                 PreparedStatement pat2 = conn.prepareStatement(sql2);
                 ResultSet rs2 = pat2.executeQuery();
@@ -87,16 +89,16 @@ public class ClienteDao implements IClientesDao {
                 Carrera carrera = new Carrera();
                 direccion.setIdDireccion(Integer.parseInt(idDireccion));
                 if (rs2.next()) {
-                    calle.setIdCalle(rs.getInt("idCalle"));
+                    calle.setIdCalle(rs2.getInt("idCalle"));
                     calle.setNumeroCalle(rs2.getInt("numeroCalle"));
                     calle.setLetraCalle(rs2.getString("letraCalle").charAt(0));
                     calle.setBis(rs2.getBoolean("bisCalle"));
                     calle.setSur(rs2.getBoolean("sur"));
-                    carrera.setIdCarrera(rs.getInt("idCarrera"));
-                    carrera.setNumeroCarrera(rs.getInt("numeroCarrera"));
-                    carrera.setLetraCarrera(rs.getString("letraCarrera").charAt(0));
+                    carrera.setIdCarrera(rs2.getInt("idCarrera"));
+                    carrera.setNumeroCarrera(rs2.getInt("numeroCarrera"));
+                    carrera.setLetraCarrera(rs2.getString("letraCarrera").charAt(0));
                     carrera.setBis(rs2.getBoolean("bisCarrera"));
-                    carrera.setEste(rs.getBoolean("este"));
+                    carrera.setEste(rs2.getBoolean("este"));
                 }
                 direccion.setCalle(calle);
                 direccion.setCarrera(carrera);
@@ -116,16 +118,16 @@ public class ClienteDao implements IClientesDao {
     @Override
     public boolean actualizar(Cliente cliente) {
         try {
-            String sql = "update persona"
+            String sql = "update persona "
                     + "set primerNombre='" + cliente.getPrimerNombre() + "',"
                     + "segundoNombre='" + cliente.getSegundoNombre() + "',"
                     + "primerApellido='" + cliente.getPrimerApellido() + "',"
-                    + "segundoApellido=" + cliente.getSegundoApellido() + "',"
-                    + "fechaNacimiento=" + cliente.getFechaNacimiento() + "',"
-                    + "nacionalidad=" + cliente.getNacionalidad() + "',"
+                    + "segundoApellido='" + cliente.getSegundoApellido() + "',"
+                    + "fechaNacimiento='" + cliente.getFechaNacimiento() + "',"
+                    + "nacionalidad='" + cliente.getNacionalidad() + "',"
                     + "genero='" + cliente.getGenero() + "',"
-                    + "Direccion_idDireccion=" + cliente.getDireccion().getIdDireccion()
-                    + "where persona.cedula =" + cliente.getCedula() + ";";
+                    + "Direccion_idDireccion=" + cliente.getDireccion().getIdDireccion()+" "
+                    + "where cedula =" + cliente.getCedula() + ";";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             int update1 = pat.executeUpdate();
@@ -169,7 +171,7 @@ public class ClienteDao implements IClientesDao {
     public LinkedList<Cliente> listar() {
         LinkedList<Cliente> clientes = null;
         Connection conn = Conexion.conectado();
-        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero  from persona as p"
+        String sql = "select p.cedula, p.primerNombre, p.segundoNombre,p.primerApellido, p.segundoApellido, p.Direccion_idDireccion, p.fechaNacimiento, p.nacionalidad, p.genero  from persona as p "
                 + "inner join cliente as c on p.cedula=c.Persona_cedula";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -177,13 +179,15 @@ public class ClienteDao implements IClientesDao {
             clientes = new LinkedList();
             while (rs.next()) {
                 Cliente cliente = new Cliente();
-                cliente.setCedula(rs.getString("p.cedula"));
-                cliente.setPrimerNombre(rs.getString("p.primerNombre"));
-                cliente.setSegundoNombre(rs.getString("p.segundoNombre"));
-                cliente.setPrimerApellido(rs.getString("p.primerApellido"));
-                cliente.setSegundoApellido(rs.getString("p.segundoApellido"));
-                cliente.setFechaNacimiento(rs.getDate("p.fechaNacimiento").toString());
-                String idDireccion = rs.getString("p.Direccion_idDireccion");
+                cliente.setCedula(rs.getString("cedula"));
+                cliente.setPrimerNombre(rs.getString("primerNombre"));
+                cliente.setSegundoNombre(rs.getString("segundoNombre"));
+                cliente.setPrimerApellido(rs.getString("primerApellido"));
+                cliente.setSegundoApellido(rs.getString("segundoApellido"));
+                cliente.setFechaNacimiento(rs.getDate("fechaNacimiento").toString());
+                cliente.setGenero(rs.getString("genero"));
+                cliente.setNacionalidad(rs.getString("nacionalidad"));
+                String idDireccion = rs.getString("Direccion_idDireccion");                
                 String sql2 = "select cal.idCalle,cal.numeroCalle,cal.letraCalle,cal.bis as bisCalle,cal.sur,car.idCarrera,car.numeroCarrera,car.letraCarrera,car.bis as bisCarrera,car.este from direccion as d\n"
                         + "inner join calle as cal on cal.idCalle = d.Calle_idCalle\n"
                         + "inner join carrera as car on car.idCarrera = d.Carrera_idCarrera\n"
@@ -195,16 +199,16 @@ public class ClienteDao implements IClientesDao {
                 Carrera carrera = new Carrera();
                 direccion.setIdDireccion(Integer.parseInt(idDireccion));
                 if (rs2.next()) {
-                    calle.setIdCalle(rs.getInt("idCalle"));
+                    calle.setIdCalle(rs2.getInt("idCalle"));
                     calle.setNumeroCalle(rs2.getInt("numeroCalle"));
                     calle.setLetraCalle(rs2.getString("letraCalle").charAt(0));
                     calle.setBis(rs2.getBoolean("bisCalle"));
                     calle.setSur(rs2.getBoolean("sur"));
-                    carrera.setIdCarrera(rs.getInt("idCarrera"));
-                    carrera.setNumeroCarrera(rs.getInt("numeroCarrera"));
-                    carrera.setLetraCarrera(rs.getString("letraCarrera").charAt(0));
+                    carrera.setIdCarrera(rs2.getInt("idCarrera"));
+                    carrera.setNumeroCarrera(rs2.getInt("numeroCarrera"));
+                    carrera.setLetraCarrera(rs2.getString("letraCarrera").charAt(0));
                     carrera.setBis(rs2.getBoolean("bisCarrera"));
-                    carrera.setEste(rs.getBoolean("este"));
+                    carrera.setEste(rs2.getBoolean("este"));
                 }
                 direccion.setCalle(calle);
                 direccion.setCarrera(carrera);
