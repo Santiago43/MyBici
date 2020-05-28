@@ -109,7 +109,6 @@ public class FacturaDao implements IFacturaDao {
     public LinkedList<FacturaVenta> listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-<<<<<<< HEAD
 
     @Override
     public LinkedList<FacturaVenta> listarPorFecha(String fechaInicio, String fechaFinal, Sede sede) {
@@ -141,7 +140,6 @@ public class FacturaDao implements IFacturaDao {
         return facturasVenta;
     }
 
-=======
     
     public double calculoIVA (double iva, double subTotal){
         double total = subTotal * (iva + 1);
@@ -152,5 +150,4 @@ public class FacturaDao implements IFacturaDao {
         double subTotal = (valor)/(iva + 1);
         return subTotal;
     }
->>>>>>> Andrés
 }
