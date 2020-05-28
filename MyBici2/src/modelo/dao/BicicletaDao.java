@@ -30,7 +30,7 @@ public class BicicletaDao implements IBicicletaDao {
     @Override
     public boolean crear(Bicicleta bici) {
         try {
-            sql = "insert into Bicicleta (marcoSerial,grupoMecanico,color,marca,estado) values (?,?,?,?,?)";
+            sql = "insert into Bicicleta (marcoSerial,grupoMecanico,color,marca,estado,valorEstimado) values (?,?,?,?,?,?)";
             conn = Conexion.conectado();
             pat = conn.prepareStatement(sql);
             pat.setString(1, bici.getMarcoSerial());
@@ -38,7 +38,9 @@ public class BicicletaDao implements IBicicletaDao {
             pat.setString(3, bici.getColor());
             pat.setString(4, bici.getMarca());
             pat.setString(5, bici.getEstado());
-            return pat.execute();
+            pat.setDouble(6, bici.getValorEstimado());
+            pat.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,6 +61,7 @@ public class BicicletaDao implements IBicicletaDao {
                 bici.setColor(rs.getString("color"));
                 bici.setMarca(rs.getString("marca"));
                 bici.setEstado(rs.getString("estado"));
+                bici.setValorEstimado(rs.getDouble("valorEstimado"));
                 return bici;
             }
         } catch (SQLException ex) {
@@ -75,12 +78,15 @@ public class BicicletaDao implements IBicicletaDao {
     public boolean actualizar(Bicicleta bici) {
         try {
             sql = "update Bicicleta "
-                    + "set grupoMecanico = " + bici.getGrupoMecanico() + ","
-                    + "color =" + bici.getColor() + ","
-                    + "estado = " + bici.getEstado() + ";";
+                    + "set grupoMecanico = '" + bici.getGrupoMecanico() + "',"
+                    + "color = '" + bici.getColor() + "' ,"
+                    + "estado = '" + bici.getEstado() + "',"
+                    + "valorEstimado = " + bici.getValorEstimado() + " "
+                    + "where serial = " + bici.getMarcoSerial() + "';";
             conn = Conexion.conectado();
             pat = conn.prepareStatement(sql);
-            return pat.execute();
+            pat.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,8 +98,8 @@ public class BicicletaDao implements IBicicletaDao {
         try {
             sql = "delete from Bicicleta where serial = " + marcoSerial;
             conn = Conexion.conectado();
-            pat = conn.prepareStatement(sql);
-            return pat.execute();
+            pat.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
         }

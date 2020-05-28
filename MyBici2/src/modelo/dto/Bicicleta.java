@@ -12,6 +12,7 @@ public class Bicicleta {
     private String color;
     private String marca;
     private String estado;
+    private double valorEstimado;
 
     public String getMarcoSerial() {
         return marcoSerial;
@@ -51,6 +52,14 @@ public class Bicicleta {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public double getValorEstimado() {
+        return valorEstimado;
+    }
+
+    public void setValorEstimado(double valorEstimado) {
+        this.valorEstimado = valorEstimado;
     }
     
 }

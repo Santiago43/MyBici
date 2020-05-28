@@ -42,7 +42,8 @@ public class FacturaDao implements IFacturaDao {
             pat.setDouble(4, factura.getIva());
             pat.setDouble(5, factura.getTotal());
             pat.setDate(6, factura.getFecha());
-            return pat.execute();
+            pat.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(FacturaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,19 +76,40 @@ public class FacturaDao implements IFacturaDao {
     }
 
     @Override
-    public boolean actualizar(FacturaVenta dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(FacturaVenta factura) {
+        try {
+            sql = "update FacturaVenta "
+                    + "set Empleado_Persona_cedula = '" + factura.getEmpleado().getCedula() + "', "
+                    + "totalVenta = " + factura.getTotal() + " "
+                    + "where id_fventa = " + factura.getId() + ";";
+            conn = Conexion.conectado();
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
-    public boolean eliminar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean eliminar(String idFacturaV) {
+        try {
+            sql = "delete from FacturaVenta where id_fventa = " + idFacturaV;
+            conn = Conexion.conectado();
+            pat.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public LinkedList<FacturaVenta> listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+<<<<<<< HEAD
 
     @Override
     public LinkedList<FacturaVenta> listarPorFecha(String fechaInicio, String fechaFinal, Sede sede) {
@@ -119,4 +141,16 @@ public class FacturaDao implements IFacturaDao {
         return facturasVenta;
     }
 
+=======
+    
+    public double calculoIVA (double iva, double subTotal){
+        double total = subTotal * (iva + 1);
+        return total;
+    }
+    
+    public double sinIva (double iva, double valor){
+        double subTotal = (valor)/(iva + 1);
+        return subTotal;
+    }
+>>>>>>> Andrés
 }
