@@ -46,6 +46,7 @@ public class VistaPeticiones extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         radioSi = new javax.swing.JRadioButton();
         radioNo = new javax.swing.JRadioButton();
+        btnPendientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -90,6 +91,8 @@ public class VistaPeticiones extends javax.swing.JFrame {
         grupoAprobado.add(radioNo);
         radioNo.setText("No");
 
+        btnPendientes.setText("Listar Pendientes");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,7 +112,9 @@ public class VistaPeticiones extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(btnEliminar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnListar)))
+                        .addComponent(btnListar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPendientes)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -176,7 +181,8 @@ public class VistaPeticiones extends javax.swing.JFrame {
                     .addComponent(btnEliminar)
                     .addComponent(btnModificar)
                     .addComponent(btnConsultar)
-                    .addComponent(btnInsertar))
+                    .addComponent(btnInsertar)
+                    .addComponent(btnPendientes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(18, 18, 18))
@@ -201,6 +207,7 @@ public class VistaPeticiones extends javax.swing.JFrame {
     public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnListar;
     public javax.swing.JButton btnModificar;
+    public javax.swing.JButton btnPendientes;
     public javax.swing.JButton btnRegresar;
     private javax.swing.ButtonGroup grupoAprobado;
     private javax.swing.JLabel jLabel1;

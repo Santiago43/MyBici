@@ -23,6 +23,7 @@ public class ControladorListaPeticiones implements ActionListener{
     private VistaListaPeticiones vista;
     private PeticionDao peticionDao;
     private DefaultTableModel modeloTabla;
+    private LinkedList<Peticion> peticionesPendientes;
 
     /**
      *
@@ -47,6 +48,23 @@ public class ControladorListaPeticiones implements ActionListener{
         this.vista.setVisible(true);
     }
     
+    public ControladorListaPeticiones(VistaPeticiones vistaAnterior, VistaListaPeticiones vista, LinkedList<Peticion> peticionesPendientes){
+        this.vistaAnterior = vistaAnterior;
+        this.vista = vista;
+        this.peticionesPendientes=peticionesPendientes;
+        this.vista.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                salir(); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        this.vista.btnRegresar.addActionListener(this);
+        this.modeloTabla=(DefaultTableModel) this.vista.tblPeticiones.getModel();
+        cargarTablaPendientes();
+        this.vistaAnterior.setVisible(false);
+        this.vista.setVisible(true);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         salir();
@@ -60,6 +78,20 @@ public class ControladorListaPeticiones implements ActionListener{
     private void cargarTabla() {
         LinkedList <Peticion> peticiones = this.peticionDao.listar();
         for(Peticion peticion: peticiones){
+            String aprobado ="";
+            if(peticion.isAprobado()){
+                aprobado ="aprobado";
+            }else{
+                aprobado = "no aprobado";
+            }
+                    
+            Object fila[]= {peticion.getIdPeticionEmpleado(),peticion.getEmpleado().getPrimerNombre()+" "+peticion.getEmpleado().getPrimerApellido(),aprobado,peticion.getPeticion()};
+            this.modeloTabla.addRow(fila);
+        }
+    }
+
+    private void cargarTablaPendientes() {
+        for(Peticion peticion: this.peticionesPendientes){
             String aprobado ="";
             if(peticion.isAprobado()){
                 aprobado ="aprobado";

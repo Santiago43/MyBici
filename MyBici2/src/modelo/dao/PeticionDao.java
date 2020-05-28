@@ -65,7 +65,7 @@ public class PeticionDao implements IPeticionDao {
     public boolean actualizar(Peticion peticion) {
         try {
             String sql = "update peticionempleado\n"
-                    + "set Empleado_Persona_cedula = '"+peticion.getEmpleado().getCedula()+"',aprobado = '"+peticion.isAprobado()+"',peticion='"+peticion.getPeticion()+"' "
+                    + "set Empleado_Persona_cedula = '"+peticion.getEmpleado().getCedula()+"',aprobado = "+peticion.isAprobado()+",peticion='"+peticion.getPeticion()+"' "
                     + "where idPeticionEmpleado="+peticion.getIdPeticionEmpleado();
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -116,6 +116,18 @@ public class PeticionDao implements IPeticionDao {
             Logger.getLogger(PeticionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return peticiones;
+    }
+
+    @Override
+    public LinkedList<Peticion> listarPendientes() {
+        LinkedList <Peticion> peticiones= this.listar();
+        LinkedList <Peticion> peticionesPendientes = new LinkedList();
+        for(Peticion peticion : peticiones){
+            if(!peticion.isAprobado()){
+                peticionesPendientes.add(peticion);
+            }
+        }
+        return peticionesPendientes;
     }
 
 }

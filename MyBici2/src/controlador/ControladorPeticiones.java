@@ -51,7 +51,9 @@ public class ControladorPeticiones implements ActionListener {
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnListar.addActionListener(this);
         this.vista.btnRegresar.addActionListener(this);
+        this.vista.btnPendientes.addActionListener(this);
         this.vista.btnListar.setEnabled(Verificador.tienePermiso(usuario, "listar peticion"));
+        this.vista.btnPendientes.setEnabled(Verificador.tienePermiso(usuario, "listar peticion"));
         this.vista.btnEliminar.setEnabled(Verificador.tienePermiso(usuario, "eliminar peticion"));
         this.vista.btnModificar.setEnabled(Verificador.tienePermiso(usuario,"modificar peticion"));
         this.vista.radioSi.setEnabled(Verificador.tienePermiso(usuario,"aprobar peticion"));
@@ -81,7 +83,10 @@ public class ControladorPeticiones implements ActionListener {
                 eliminarPeticion();
             } else if (e.getSource().equals(this.vista.btnListar)) {
                 listarPeticiones();
-            } else if (e.getSource().equals(this.vista.btnRegresar)) {
+            }else if(e.getSource().equals(this.vista.btnPendientes)){
+                listarPeticionesPendientes();
+            } 
+            else if (e.getSource().equals(this.vista.btnRegresar)) {
                 salir();
             }
         }catch (MiExcepcion ex){
@@ -191,4 +196,8 @@ public class ControladorPeticiones implements ActionListener {
         ControladorListaPeticiones controlador = new ControladorListaPeticiones(this.vista,new VistaListaPeticiones(),this.peticionDao);
     }
 
+    private void listarPeticionesPendientes(){
+        ControladorListaPeticiones controlador;
+        controlador = new ControladorListaPeticiones(this.vista,new VistaListaPeticiones(),this.peticionDao.listarPendientes());
+    }
 }
