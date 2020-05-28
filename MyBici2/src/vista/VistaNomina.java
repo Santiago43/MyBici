@@ -27,6 +27,8 @@ public class VistaNomina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        AUXGROUP = new javax.swing.ButtonGroup();
+        AUSGROUP = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -38,22 +40,22 @@ public class VistaNomina extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtAuxTransporte = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtAuxTransporte1 = new javax.swing.JTextField();
+        txtDescuento = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtAuxTransporte2 = new javax.swing.JTextField();
+        txtDiasAusencia = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        RadioAusSi = new javax.swing.JRadioButton();
+        RadioAusNo = new javax.swing.JRadioButton();
         btnInsertar = new javax.swing.JButton();
         btnConsultar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMantenimientos = new javax.swing.JTable();
+        tblNominas = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        RadioAuxSi = new javax.swing.JRadioButton();
+        RadioAuxNo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +74,8 @@ public class VistaNomina extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha Nomina");
 
+        FechaNomina.setDateFormatString("yyyy/MM/dd");
+
         jLabel5.setText("Auxilio De Transporte");
 
         jLabel6.setText("Descuento");
@@ -80,9 +84,11 @@ public class VistaNomina extends javax.swing.JFrame {
 
         jLabel8.setText("¿Se Ausento?");
 
-        jRadioButton1.setText("Si");
+        AUSGROUP.add(RadioAusSi);
+        RadioAusSi.setText("Si");
 
-        jRadioButton2.setText("No");
+        AUSGROUP.add(RadioAusNo);
+        RadioAusNo.setText("No");
 
         btnInsertar.setText("Insertar");
 
@@ -94,29 +100,31 @@ public class VistaNomina extends javax.swing.JFrame {
 
         btnListar.setText("Listar Todos");
 
-        tblMantenimientos.setModel(new javax.swing.table.DefaultTableModel(
+        tblNominas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID Nomina", "Cédula Empleado", "Horas Extra", "Fecha Nomina", "Auxilio De Transporte", "Descuento", "Ausencia", "Dias de Ausencia"
+                "ID Nomina", "Cédula Empleado", "Horas Extra", "Fecha Nomina", "Auxilio De Transporte", "Descuento", "Dias de Ausencia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblMantenimientos);
+        jScrollPane1.setViewportView(tblNominas);
 
         jLabel9.setText("¿Cuenta Con Auxilio De Transporte?");
 
-        jRadioButton3.setText("Si");
+        AUXGROUP.add(RadioAuxSi);
+        RadioAuxSi.setText("Si");
 
-        jRadioButton4.setText("No");
+        AUXGROUP.add(RadioAuxNo);
+        RadioAuxNo.setText("No");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,24 +179,24 @@ public class VistaNomina extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtAuxTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton3)
+                                        .addComponent(RadioAuxSi)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton4))))
+                                        .addComponent(RadioAuxNo))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtAuxTransporte1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAuxTransporte2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDiasAusencia, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(RadioAusSi)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton2)))))))
+                                        .addComponent(RadioAusNo)))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -211,8 +219,8 @@ public class VistaNomina extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(RadioAuxSi)
+                    .addComponent(RadioAuxNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -220,16 +228,16 @@ public class VistaNomina extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtAuxTransporte1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(RadioAusSi)
+                    .addComponent(RadioAusNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtAuxTransporte2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDiasAusencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsertar)
@@ -261,7 +269,13 @@ public class VistaNomina extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser FechaNomina;
+    public javax.swing.ButtonGroup AUSGROUP;
+    public javax.swing.ButtonGroup AUXGROUP;
+    public com.toedter.calendar.JDateChooser FechaNomina;
+    public javax.swing.JRadioButton RadioAusNo;
+    public javax.swing.JRadioButton RadioAusSi;
+    public javax.swing.JRadioButton RadioAuxNo;
+    public javax.swing.JRadioButton RadioAuxSi;
     public javax.swing.JButton btnConsultar;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnInsertar;
@@ -277,16 +291,12 @@ public class VistaNomina extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable tblMantenimientos;
+    public javax.swing.JTable tblNominas;
     public javax.swing.JTextField txtAuxTransporte;
-    public javax.swing.JTextField txtAuxTransporte1;
-    public javax.swing.JTextField txtAuxTransporte2;
     public javax.swing.JTextField txtCCEmpleado;
+    public javax.swing.JTextField txtDescuento;
+    public javax.swing.JTextField txtDiasAusencia;
     public javax.swing.JTextField txtHorasExtra;
     // End of variables declaration//GEN-END:variables
 }

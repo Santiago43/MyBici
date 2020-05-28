@@ -7,13 +7,13 @@ import java.sql.SQLException;
 public class Conexion {
 
     String bd = "mybici";
-    private final String url = "jdbc:mysql://25.143.152.254:3306/" + bd + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private final String url = "jdbc:mysql://localhost:3306/" + bd + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static Connection con = null;
 
     private Conexion() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, "andres", "");
+            con = DriverManager.getConnection(url, "root", "12345");
             if (con != null) {
                 System.out.println("Conexion a base de datos exitosa");
             }

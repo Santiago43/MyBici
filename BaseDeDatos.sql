@@ -320,6 +320,7 @@ CREATE TABLE Nomina (
   horasExtra INTEGER UNSIGNED NULL,
   fechaNomina DATE NULL,
   auxilioTransporte BOOL NULL,
+  valorAuxilio double null,
   descuento DOUBLE NULL,
   diasAusencia int,
   PRIMARY KEY(idNomina),

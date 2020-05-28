@@ -68,7 +68,7 @@ public class NominaDao implements INominaDao {
             }
         } catch (SQLException ex) {
             Logger.getLogger(NominaDao.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error en consulta de la bicilceta\n" + ex);
+            JOptionPane.showMessageDialog(null, "Error en consulta de la nomina\n" + ex);
         }
         if (nom == null) {
             JOptionPane.showMessageDialog(null, "El ID " + idNomina + " no corresponde a ninguna nomina registrada");
@@ -77,18 +77,67 @@ public class NominaDao implements INominaDao {
     }
 
     @Override
-    public boolean actualizar(Nomina dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(Nomina nom) {
+        try{
+            sql= "update Nomina "
+                    +"set Empleado_Persona_cedula = '"+nom.getCedula() + "',"
+                    +"set horasExtra = '"+nom.getHorasExtra()+ "',"
+                    +"set fechaNomina = '"+nom.getFechaNomina()+ "',"
+                    +"set auxilioTransporte = '"+nom.isAuxTransportebool()+ "',"
+                    +"set valorAuxilio = '"+nom.getAuxTransportedouble()+ "',"
+                    +"set descuento = '"+nom.getDescuento()+ "',"
+                    +"set diasAusencia = '"+nom.getDiasAusencia()+ "';";
+            conn = Conexion.conectado();
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+        }catch(SQLException ex){
+            Logger.getLogger(NominaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
-    public boolean eliminar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean eliminar(String idNomina) {
+        try{
+            sql= "delete from Nomina where idNomina =" +idNomina;
+             conn = Conexion.conectado();
+            pat.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(NominaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+        }
+    
 
     @Override
     public LinkedList<Nomina> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Nomina> nominas = null;
+        Nomina nomina = null;
+        try{
+             Empleado empleado = new EmpleadosDao().consultar(rs.getString("Empleado_Persona_cedula"));
+            String sql = "select * from Nomina";
+         Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();    
+            nominas = new LinkedList(); 
+            while(rs.next()){
+                nomina = new Nomina();
+                nomina.setIdNomina(rs.getInt("idNomina"));
+                nomina.setCedula(empleado);
+                nomina.setFechaNomina(rs.getString("fechaNomina"));
+                nomina.setAuxTransportebool(rs.getBoolean("auxilioTransporte"));
+                nomina.setAuxTransportedouble(rs.getDouble("valorAuxilio"));
+                nomina.setDescuento(rs.getDouble("descuento"));
+                nomina.setDiasAusencia(rs.getInt("diasAusencia"));
+                nominas.add(nomina);
+            }
+            rs.close();
+            pat.close();
+        }catch(SQLException ex){
+            Logger.getLogger(NominaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nominas;
     }
 
 }
