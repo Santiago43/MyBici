@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import modelo.dao.BicicletaDao;
 import modelo.dao.ClienteDao;
 import modelo.dao.DireccionDao;
 import modelo.dao.EmpleadosDao;
 import modelo.dao.FacturaDao;
 import modelo.dao.PeticionDao;
 import modelo.dao.ProveedoresDao;
+import modelo.dao.NominaDao;
 import modelo.dao.RolesDao;
 import modelo.dao.SedeDao;
 import modelo.dao.TrabajosDAO;
@@ -20,6 +22,7 @@ import modelo.dao.ValoresFinancierosDao;
 import modelo.dto.Usuario;
 import vista.VistaEmpleado;
 import modelo.dto.ValoresFinancieros;
+import vista.VistaBicicletas;
 import vista.VistaClientes;
 import vista.VistaContabilidad;
 import vista.VistaFacturacion;
@@ -83,6 +86,7 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.itemUsuarios.addActionListener(this);
         this.vista.btnSalir.addActionListener(this);
         this.vista.itemClientes.addActionListener(this);
+        this.vista.menuBicicletas.addActionListener(this);
         this.vista.menuAdministracion.setVisible(Verificador.tienePermiso(usuario, "administración"));
         this.vista.menuEmpleados.setVisible(Verificador.tienePermiso(usuario, "empleados"));
         this.vista.menuSede.setVisible(Verificador.tienePermiso(usuario, "sede"));
@@ -120,7 +124,7 @@ public class ControladorPrincipal implements ActionListener {
         } else if (e.getSource().equals(this.vista.ItemContabilidad)) {
             ControladorContabilidad controladorContabilidad;
 
-            controladorContabilidad = new ControladorContabilidad(this.vista,new VistaContabilidad(),new SedeDao(),new FacturaDao());
+            controladorContabilidad = new ControladorContabilidad(this.vista,new VistaContabilidad(),new SedeDao(),new FacturaDao(), new NominaDao());
         }else if(e.getSource().equals(this.vista.ItemPeticiones)){
             ControladorPeticiones controladorPeticiones;
             controladorPeticiones = new ControladorPeticiones(this.vista,new VistaPeticiones(),new EmpleadosDao(),new PeticionDao(),this.usuario);
@@ -142,8 +146,13 @@ public class ControladorPrincipal implements ActionListener {
 
         } else if (e.getSource().equals(this.vista.itemClientes)) {
             ControladorClientes controladorClientes;
-            controladorClientes = new ControladorClientes(this.vista, new VistaClientes(), new ClienteDao(), new DireccionDao());
-        } else if (e.getSource().equals(this.vista.btnSalir)) {
+            controladorClientes= new ControladorClientes(this.vista,new VistaClientes(),new ClienteDao(),new DireccionDao());
+        }
+        else if(e.getSource().equals(this.vista.ItemIngresarbici)){
+            ControladorBicicletas controladorBicicletas;
+            controladorBicicletas= new ControladorBicicletas(this.vista,new VistaBicicletas(),new BicicletaDao());
+        }
+        else if (e.getSource().equals(this.vista.btnSalir)) {
             salir();
         } else if (e.getSource().equals(this.vista.itemFacturacion)){
             ControladorFacturacion controladorFacturacion;

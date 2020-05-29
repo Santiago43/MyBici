@@ -252,7 +252,7 @@ public class ControladorClientes implements ActionListener {
 
         }
         if (this.clienteDao.actualizar(cliente)) {
-            JOptionPane.showMessageDialog(null, "cliente creado satisfactoriamente");
+            JOptionPane.showMessageDialog(null, "cliente Actualizado satisfactoriamente");
         } else {
             throw new MiExcepcion("error al modificar cliente");
         }

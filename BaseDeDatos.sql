@@ -15,7 +15,7 @@ CREATE TABLE Objeto (
   años_garantia INTEGER UNSIGNED NULL,
   PRIMARY KEY(idObjeto)
 );
-
+select * from empleado;
 CREATE TABLE Telefono (
   id_telefono INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   tipo VARCHAR(10) NULL,
@@ -127,8 +127,8 @@ CREATE TABLE Cliente (
   INDEX Cliente_FKIndex1(Persona_cedula),
   FOREIGN KEY(Persona_cedula)
     REFERENCES Persona(cedula)
-      ON DELETE cascade
-      ON UPDATE cascade
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
 );
 
 
@@ -314,13 +314,16 @@ CREATE TABLE Persona_has_Telefono (
       ON DELETE cascade
       ON UPDATE cascade
 );
-CREATE TABLE Nomina (
+create TABLE Nomina 
+(
   idNomina INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Empleado_Persona_cedula VARCHAR(18) NOT NULL,
   horasExtra INTEGER UNSIGNED NULL,
   fechaNomina DATE NULL,
   auxilioTransporte BOOL NULL,
+  auxilioTransporteval double,
   descuento DOUBLE NULL,
+  diasAusencia int,
   PRIMARY KEY(idNomina),
   INDEX Nomina_FKIndex1(Empleado_Persona_cedula),
   FOREIGN KEY(Empleado_Persona_cedula)
@@ -328,6 +331,7 @@ CREATE TABLE Nomina (
       ON DELETE cascade
       ON UPDATE cascade
 );
+select * from Nomina;
 CREATE TABLE PeticionEmpleado (
   idPeticionEmpleado INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Empleado_Persona_cedula varchar(18) NOT NULL,
@@ -397,6 +401,8 @@ CREATE TABLE Usuario (
       ON DELETE cascade
       ON UPDATE cascade
 );
+
+select * from Usuario
 
 CREATE TABLE MantenimientoTaller (
   idMantenimiento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,

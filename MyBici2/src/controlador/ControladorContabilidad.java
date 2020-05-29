@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import modelo.dao.FacturaDao;
+import modelo.dao.NominaDao;
 import modelo.dao.SedeDao;
 import vista.VistaContabilidad;
 import vista.VistaER;
+import vista.VistaNomina;
 import vista.VistaPrincipal;
 
 /**
@@ -22,12 +24,14 @@ public class ControladorContabilidad implements ActionListener,MouseListener{
     private VistaContabilidad vista;
     private SedeDao sedeDao;
     private FacturaDao facturaDao;
+    private NominaDao nominaDao;
 
-    public ControladorContabilidad(VistaPrincipal vistaAnterior, VistaContabilidad vista, SedeDao sedeDao,FacturaDao facturaDao) {
+    public ControladorContabilidad(VistaPrincipal vistaAnterior, VistaContabilidad vista, SedeDao sedeDao,FacturaDao facturaDao, NominaDao nominaDao) {
         this.vistaAnterior = vistaAnterior;
         this.vista = vista;
         this.sedeDao = sedeDao;
         this.facturaDao= facturaDao;
+        this.nominaDao = nominaDao;
         this.vistaAnterior.setVisible(false);
         this.vista.menuER.addMouseListener(this);
         this.vista.menuFC.addMouseListener(this);
@@ -53,7 +57,8 @@ public class ControladorContabilidad implements ActionListener,MouseListener{
             controladorEstadoResultados=new ControladorEstadoResultados(this.vista,new VistaER(),this.sedeDao,this.facturaDao);
         }
         else if(e.getSource().equals(this.vista.menuNomina)){
-            
+            ControladorNomina ControladorNomina;
+            ControladorNomina = new ControladorNomina(this.vista, new VistaNomina(), this.nominaDao);
         }
         else if(e.getSource().equals(this.vista.menuFC)){
             

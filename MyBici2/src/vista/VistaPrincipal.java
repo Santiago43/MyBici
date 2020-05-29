@@ -27,6 +27,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
@@ -48,6 +49,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         itemEmpleados = new javax.swing.JMenuItem();
         menuClientes = new javax.swing.JMenu();
         itemClientes = new javax.swing.JMenuItem();
+        menuBicicletas = new javax.swing.JMenu();
+        ItemIngresarbici = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +121,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuClientes);
 
+        menuBicicletas.setText("Bicicletas");
+
+        ItemIngresarbici.setText("Ingresar");
+        ItemIngresarbici.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemIngresarbiciActionPerformed(evt);
+            }
+        });
+        menuBicicletas.add(ItemIngresarbici);
+
+        jMenuBar1.add(menuBicicletas);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,9 +168,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ItemIngresarbiciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemIngresarbiciActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ItemIngresarbiciActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem ItemContabilidad;
+    public javax.swing.JMenuItem ItemIngresarbici;
     public javax.swing.JMenuItem ItemPeticiones;
     public javax.swing.JMenuItem ItemProveedores;
     public javax.swing.JMenuItem ItemRoles;
@@ -167,9 +189,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     public javax.swing.JLabel lblRol;
     public javax.swing.JLabel lblUsuario;
     public javax.swing.JMenu menuAdministracion;
+    public javax.swing.JMenu menuBicicletas;
     private javax.swing.JMenu menuClientes;
     public javax.swing.JMenu menuEmpleados;
     public javax.swing.JMenu menuInventario;
