@@ -142,6 +142,12 @@ public class ControladorNomina implements ActionListener {
         }
         
     }
+    
+    public void limpiarTabla() {
+        while (this.modeloTablaNomina.getRowCount() > 0) {
+            this.modeloTablaNomina.removeRow(0);
+        }
+    }
 
     public void actualizarNomina() throws MiExcepcion {
 
@@ -162,7 +168,7 @@ public class ControladorNomina implements ActionListener {
                 this.vista.txtAuxTransporte.setText("102854");
             } else if (this.vista.RadioAuxNo.isSelected()) {
                 ausenciaBool = false;
-                this.vista.txtAuxTransporte.disable();
+               
                 this.vista.txtAuxTransporte.setText("0");
 
             }
@@ -170,7 +176,7 @@ public class ControladorNomina implements ActionListener {
             nomina.setAuxTransportedouble(MiExcepcion.capturaDouble(this.vista.txtAuxTransporte));
             nomina.setDescuento(MiExcepcion.capturaDouble(this.vista.txtDescuento));
             if (this.vista.RadioAusNo.isSelected()) {
-                this.vista.txtDiasAusencia.disable();
+              
                 this.vista.txtAuxTransporte.setText("0");
             } else {
                 nomina.setDiasAusencia(MiExcepcion.capturaEntero(this.vista.txtDiasAusencia));
@@ -202,6 +208,7 @@ public class ControladorNomina implements ActionListener {
     }
     
     private void listarClientes() {
+        limpiarTabla();
        LinkedList<Nomina> nominas = this.nominaDao.listar();
         for (Nomina nomina:nominas) {
             

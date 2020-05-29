@@ -50,7 +50,8 @@ public class ControladorBicicletas implements ActionListener {
         this.vistaAnterior.setVisible(false);
         this.vista.setVisible(true);
     }
-        @Override
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource().equals(this.vista.btnInsertar)) {
@@ -61,10 +62,9 @@ public class ControladorBicicletas implements ActionListener {
                 actualizarBicicleta();
             } else if (e.getSource().equals(this.vista.btnEliminar)) {
                 eliminarBicicleta();
-            }
-            else if (e.getSource().equals(this.vista.btnListar)) {
+            } else if (e.getSource().equals(this.vista.btnListar)) {
                 listarBicicletas();
-            }else if (e.getSource().equals(this.vista.btnRegresar)) {
+            } else if (e.getSource().equals(this.vista.btnRegresar)) {
                 salir();
             }
         } catch (MiExcepcion ex) {
@@ -72,17 +72,17 @@ public class ControladorBicicletas implements ActionListener {
         }
 
     }
-    
-    public void crearBicicleta() throws MiExcepcion{
+
+    public void crearBicicleta() throws MiExcepcion {
         Bicicleta bicicleta = new Bicicleta();
-        
+
         bicicleta.setMarcoSerial(MiExcepcion.capturaString(this.vista.txtMarcoSerial));
         bicicleta.setGrupoMecanico(MiExcepcion.capturaString(this.vista.txtGrupo));
         bicicleta.setColor(MiExcepcion.capturaString(this.vista.txtColor));
         bicicleta.setMarca(MiExcepcion.capturaString(this.vista.txtMarca));
         bicicleta.setEstado(MiExcepcion.capturaString(this.vista.txtEstado));
         bicicleta.setValorEstimado(MiExcepcion.capturaDouble(this.vista.txtvalorEstimado));
-        
+
         if (this.bicicletaDao.consultar(bicicleta.getMarcoSerial()) == null) {
             throw new MiExcepcion("Esta Bicicleta ya existe");
         } else {
@@ -94,8 +94,8 @@ public class ControladorBicicletas implements ActionListener {
             }
         }
     }
-    
-    public void consultarBicicleta() throws MiExcepcion{
+
+    public void consultarBicicleta() throws MiExcepcion {
         Bicicleta bicicleta = this.bicicletaDao.consultar(MiExcepcion.capturaString(this.vista.txtMarcoSerial));
         if (bicicleta == null) {
             throw new MiExcepcion("ese bicicleta no existe");
@@ -107,11 +107,11 @@ public class ControladorBicicletas implements ActionListener {
             this.vista.txtvalorEstimado.setText(String.valueOf(bicicleta.getValorEstimado()));
         }
     }
-    
-    public void actualizarBicicleta() throws MiExcepcion{
+
+    public void actualizarBicicleta() throws MiExcepcion {
         String marco = MiExcepcion.capturaString(this.vista.txtMarcoSerial);
         Bicicleta bicicleta = this.bicicletaDao.consultar(marco);
-        if(bicicleta ==null){
+        if (bicicleta == null) {
             throw new MiExcepcion("ese bicicleta no existe");
         }
         bicicleta.setGrupoMecanico(MiExcepcion.capturaString(this.vista.txtGrupo));
@@ -119,27 +119,23 @@ public class ControladorBicicletas implements ActionListener {
         bicicleta.setMarca(MiExcepcion.capturaString(this.vista.txtMarca));
         bicicleta.setEstado(MiExcepcion.capturaString(this.vista.txtEstado));
         bicicleta.setValorEstimado(MiExcepcion.capturaDouble(this.vista.txtvalorEstimado));
-        
-        if(this.bicicletaDao.actualizar(bicicleta)){
-                JOptionPane.showMessageDialog(null, "bicicleta Actualizada Satisfactoriamente");
-                Limpiar();
-            }
-            else
-            {
-                throw new MiExcepcion("Error al Actualizar La bicicleta");
-            }
-    }
-    
-    public void eliminarBicicleta() throws MiExcepcion{
-         String marco = MiExcepcion.capturaString(this.vista.txtMarcoSerial);
-        Bicicleta bicicleta = this.bicicletaDao.consultar(marco);
-        
-        if(bicicleta==null){
-            throw new MiExcepcion("Esa bicicleta no existe");
+
+        if (this.bicicletaDao.actualizar(bicicleta)) {
+            JOptionPane.showMessageDialog(null, "bicicleta Actualizada Satisfactoriamente");
+            Limpiar();
+        } else {
+            throw new MiExcepcion("Error al Actualizar La bicicleta");
         }
-        else
-        {
-            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar la Bicicleta con el serial" + bicicleta.getMarcoSerial()+ "?");
+    }
+
+    public void eliminarBicicleta() throws MiExcepcion {
+        String marco = MiExcepcion.capturaString(this.vista.txtMarcoSerial);
+        Bicicleta bicicleta = this.bicicletaDao.consultar(marco);
+
+        if (bicicleta == null) {
+            throw new MiExcepcion("Esa bicicleta no existe");
+        } else {
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar la Bicicleta con el serial" + bicicleta.getMarcoSerial() + "?");
             if (opc == JOptionPane.YES_OPTION) {
                 if (this.bicicletaDao.eliminar(marco)) {
                     JOptionPane.showMessageDialog(null, "Bicicleta Eliminada");
@@ -149,25 +145,23 @@ public class ControladorBicicletas implements ActionListener {
             }
         }
     }
-    
+
     private void listarBicicletas() {
-       LinkedList<Bicicleta> bicicletas = this.bicicletaDao.listar();
-        for (Bicicleta bicicleta:bicicletas) {
-            
-             
-            
-            
-            Object fila[] ={bicicleta.getMarcoSerial(),bicicleta.getGrupoMecanico(),bicicleta.getColor(),bicicleta.getMarca(),bicicleta.getEstado(),bicicleta.getValorEstimado()};
+        limpiarTabla();
+        LinkedList<Bicicleta> bicicletas = this.bicicletaDao.listar();
+        for (Bicicleta bicicleta : bicicletas) {
+
+            Object fila[] = {bicicleta.getMarcoSerial(), bicicleta.getGrupoMecanico(), bicicleta.getColor(), bicicleta.getMarca(), bicicleta.getEstado(), bicicleta.getValorEstimado()};
             this.modeloTablaBicicleta.addRow(fila);
         }
-    } 
+    }
 
     public void salir() {
         this.vista.dispose();
         this.vistaAnterior.setVisible(true);
     }
-    
-    public void Limpiar(){
+
+    public void Limpiar() {
         this.vista.txtMarcoSerial.setText("");
         this.vista.txtMarca.setText("");
         this.vista.txtGrupo.setText("");
@@ -175,5 +169,9 @@ public class ControladorBicicletas implements ActionListener {
         this.vista.txtColor.setText("");
         this.vista.txtvalorEstimado.setText("");
     }
-    
-    }
+
+    public void limpiarTabla() {
+        while (this.modeloTablaBicicleta.getRowCount() > 0) {
+            this.modeloTablaBicicleta.removeRow(0);
+        }
+    }}
