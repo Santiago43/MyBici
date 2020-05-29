@@ -331,7 +331,7 @@ CREATE TABLE Nomina (
 CREATE TABLE PeticionEmpleado (
   idPeticionEmpleado INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Empleado_Persona_cedula varchar(18) NOT NULL,
-  peticion VARCHAR(40) NULL,
+  peticion VARCHAR(140) NULL,
   aprobado BOOL NULL,
   PRIMARY KEY(idPeticionEmpleado),
   INDEX PeticionEmpleado_FKIndex1(Empleado_Persona_cedula),
