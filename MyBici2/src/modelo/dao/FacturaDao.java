@@ -50,6 +50,20 @@ public class FacturaDao implements IFacturaDao {
         return false;
     }
 
+    public int idFactrura (){
+        int id = 0;
+        try {
+            sql = "select id_fventa from facturaventa order by id_fventa desc limit 1";
+            pat = conn.prepareStatement(sql);
+            rs = pat.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id_fventa");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FacturaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id + 1;
+    }
     @Override
     public FacturaVenta consultar(String idFactura) {
         try {
@@ -109,7 +123,6 @@ public class FacturaDao implements IFacturaDao {
     public LinkedList<FacturaVenta> listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-<<<<<<< HEAD
 
     @Override
     public LinkedList<FacturaVenta> listarPorFecha(String fechaInicio, String fechaFinal, Sede sede) {
@@ -140,8 +153,6 @@ public class FacturaDao implements IFacturaDao {
         }
         return facturasVenta;
     }
-
-=======
     
     public double calculoIVA (double iva, double subTotal){
         double total = subTotal * (iva + 1);
@@ -152,5 +163,5 @@ public class FacturaDao implements IFacturaDao {
         double subTotal = (valor)/(iva + 1);
         return subTotal;
     }
->>>>>>> Andrés
+
 }

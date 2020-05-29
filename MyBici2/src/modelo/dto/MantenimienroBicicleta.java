@@ -65,7 +65,6 @@ public class MantenimienroBicicleta {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-    
+    } 
     
 }

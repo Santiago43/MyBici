@@ -14,26 +14,10 @@ public class Mercancia extends Objeto {
     public Mercancia() {
     }
 
-    /**
-     * 
-     */
     private String nombre;
-
-    /**
-     * 
-     */
     private double valorAdquisicion;
-
-    /**
-     * 
-     */
     private double precioVenta;
-
-    /**
-     * 
-     */
     private int cantidad;
-    
     
     /**
      * 

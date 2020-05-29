@@ -69,7 +69,7 @@ public class ControladorLogin implements ActionListener {
 
     }
     public void salir(){
-        JOptionPane.showMessageDialog(null, "Gracias por utilizar nuestro servicio. BiciBikes espera que vuelva pronto");
+        JOptionPane.showMessageDialog(null, "Gracias por utilizar nuestro servicio.\n === BiciBikes x Revolution DB ===");
         this.vista.dispose();
         Conexion.desconectar();
     }

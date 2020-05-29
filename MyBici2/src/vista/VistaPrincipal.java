@@ -40,6 +40,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ItemContabilidad = new javax.swing.JMenuItem();
         ItemTrabajos = new javax.swing.JMenuItem();
         ItemTMantenimiento = new javax.swing.JMenuItem();
+        itemFacturacion = new javax.swing.JMenuItem();
         menuInventario = new javax.swing.JMenu();
         ItemProveedores = new javax.swing.JMenuItem();
         ItemPeticiones = new javax.swing.JMenuItem();
@@ -50,12 +51,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("MYBICI");
+        jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        jLabel1.setText("BICI BIKES");
 
+        btnSalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSalir.setText("Salir");
 
+        lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUsuario.setText("Usuario:");
 
+        lblRol.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblRol.setText("Rol: ");
 
         menuAdministracion.setText("Adiministración");
@@ -81,6 +86,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         ItemTMantenimiento.setText("Mantenimiento Taller");
         menuSede.add(ItemTMantenimiento);
+
+        itemFacturacion.setText("Facturacón");
+        menuSede.add(itemFacturacion);
 
         jMenuBar1.add(menuSede);
 
@@ -114,33 +122,30 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(318, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(164, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(308, 308, 308))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblRol)
-                        .addGap(119, 119, 119))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblUsuario)
-                            .addComponent(btnSalir))
-                        .addGap(106, 106, 106))))
+                    .addComponent(lblUsuario)
+                    .addComponent(lblRol)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(157, 157, 157))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblRol)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(77, 77, 77))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(btnSalir))
         );
 
         pack();
@@ -158,6 +163,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton btnSalir;
     public javax.swing.JMenuItem itemClientes;
     public javax.swing.JMenuItem itemEmpleados;
+    public javax.swing.JMenuItem itemFacturacion;
     public javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
