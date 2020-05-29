@@ -119,7 +119,7 @@ public class ControladorPrincipal implements ActionListener {
             controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao(), valoresFinancieros);
         } else if (e.getSource().equals(this.vista.ItemContabilidad)) {
             ControladorContabilidad controladorContabilidad;
-<<<<<<< HEAD
+
             controladorContabilidad = new ControladorContabilidad(this.vista,new VistaContabilidad(),new SedeDao(),new FacturaDao());
         }else if(e.getSource().equals(this.vista.ItemPeticiones)){
             ControladorPeticiones controladorPeticiones;
@@ -136,18 +136,6 @@ public class ControladorPrincipal implements ActionListener {
             
         }
         else if(e.getSource().equals(this.vista.itemEmpleados)){
-=======
-            controladorContabilidad = new ControladorContabilidad(this.vista, new VistaContabilidad(), new SedeDao(), new FacturaDao());
-        } else if (e.getSource().equals(this.vista.ItemPeticiones)) {
-
-        } else if (e.getSource().equals(this.vista.ItemProveedores)) {
-
-        } else if (e.getSource().equals(this.vista.ItemRoles)) {
-            ControladorRoles controladorRoles = new ControladorRoles(this.vista, new VistaRoles(), new RolesDao(), this.usuario);
-        } else if (e.getSource().equals(this.vista.ItemSede)) {
-
-        } else if (e.getSource().equals(this.vista.itemEmpleados)) {
->>>>>>> Andrés
             ControladorEmpleados controladorEmpleados;
             controladorEmpleados = new ControladorEmpleados(new VistaEmpleado(), this.vista, new EmpleadosDao(), new DireccionDao(), new SedeDao());
         } else if (e.getSource().equals(this.vista.ItemTMantenimiento)) {

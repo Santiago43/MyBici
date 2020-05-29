@@ -153,11 +153,6 @@ public class FacturaDao implements IFacturaDao {
         }
         return facturasVenta;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> Andrés
-    
     public double calculoIVA (double iva, double subTotal){
         double total = subTotal * (iva + 1);
         return total;
@@ -167,8 +162,5 @@ public class FacturaDao implements IFacturaDao {
         double subTotal = (valor)/(iva + 1);
         return subTotal;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> Andrés
 }
