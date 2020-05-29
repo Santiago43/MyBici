@@ -11,6 +11,13 @@ import modelo.dto.Usuario;
  * @since 2020-05-25
  */
 public class Verificador {
+
+    /**
+     * Método que permite verificar el permiso de un usuario
+     * @param usuario que es el usuario en sesión
+     * @param permiso que es el permiso que se quiere verificar
+     * @return verdadero si tiene el permiso y falso si no
+     */
     public static boolean tienePermiso(Usuario usuario,String permiso){
         LinkedList<Permiso> permisosUsuario = usuario.getPermisos();
         for (int i = 0; i < permisosUsuario.size(); i++) {

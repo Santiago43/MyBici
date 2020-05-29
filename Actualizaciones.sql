@@ -26,3 +26,8 @@ where idProveedor = 1;
 update peticionempleado
 set Empleado_Persona_cedula = 1000853623,aprobado = true,peticion=""
 where idPeticionEmpleado=1;
+
+select * from sede;
+update sede 
+set Direccion_idDireccion=9, nombreSede="Sede 80"
+where idSede =1;

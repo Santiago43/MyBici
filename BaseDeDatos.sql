@@ -404,14 +404,13 @@ CREATE TABLE Usuario (
       ON UPDATE cascade
 );
 
-select * from Usuario
-
 CREATE TABLE MantenimientoTaller (
   idMantenimiento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   EmpresaMantenimiento_id_empresaMantenimiento INTEGER UNSIGNED NOT NULL,
   Taller_idTaller INTEGER UNSIGNED NOT NULL,
   fecha DATE NULL,
   factura VARCHAR(40) NULL,
+  costo double null,
   PRIMARY KEY(idMantenimiento),
   INDEX Mantenimiento_FKIndex1(Taller_idTaller),
   INDEX Mantenimiento_FKIndex2(EmpresaMantenimiento_id_empresaMantenimiento),
@@ -424,7 +423,8 @@ CREATE TABLE MantenimientoTaller (
       ON DELETE cascade
       ON UPDATE cascade
 );
-
+alter table MantenimientoTaller
+add column costo double;
 CREATE TABLE MantenientoBicicleta (
   idMantenimientoBicicleta INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Bicicleta_marcoSerial VARCHAR(20) NOT NULL,

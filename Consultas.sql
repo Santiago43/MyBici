@@ -123,5 +123,8 @@ inner join objeto as o on op.Objeto_idObjeto = o.idObjeto
 inner join equipooficina as eo on eo.Objeto_idObjeto = o.idObjeto
 order by total desc;
 
+select * from taller where Sede_idSede =1;
+
+select * from mantenimientoTaller where Taller_idTaller = 1;
 
 

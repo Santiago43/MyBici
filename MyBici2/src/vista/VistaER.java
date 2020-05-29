@@ -39,7 +39,7 @@ public class VistaER extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboSedes = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setText("Estado De Resultados");
 
