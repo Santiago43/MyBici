@@ -62,11 +62,6 @@ public class VistaNomina extends javax.swing.JFrame {
         jLabel1.setText("Nomina");
 
         btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Cedula Empleado");
 
@@ -256,12 +251,6 @@ public class VistaNomina extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        VistaContabilidad S = new VistaContabilidad();
-        S.setVisible(true);
-        this.hide();
-    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments

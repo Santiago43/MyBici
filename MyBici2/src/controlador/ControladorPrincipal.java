@@ -10,6 +10,7 @@ import modelo.dao.ClienteDao;
 import modelo.dao.DireccionDao;
 import modelo.dao.EmpleadosDao;
 import modelo.dao.FacturaDao;
+import modelo.dao.NominaDao;
 import modelo.dao.RolesDao;
 import modelo.dao.SedeDao;
 import modelo.dao.TrabajosDAO;
@@ -115,7 +116,7 @@ public class ControladorPrincipal implements ActionListener {
             controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao(), valoresFinancieros);
         } else if (e.getSource().equals(this.vista.ItemContabilidad)) {
             ControladorContabilidad controladorContabilidad;
-            controladorContabilidad = new ControladorContabilidad(this.vista,new VistaContabilidad(),new SedeDao(),new FacturaDao());
+            controladorContabilidad = new ControladorContabilidad(this.vista,new VistaContabilidad(),new SedeDao(),new FacturaDao(), new NominaDao());
         }else if(e.getSource().equals(this.vista.ItemPeticiones)){
             
         } 

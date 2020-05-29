@@ -1,9 +1,3 @@
-create trigger TR_01 
-after insert ON Empleado for each row
-insert into auditoriaEmpleados (fechaAuditoria,Persona_cedula,Sede_idSede,profesion,cargo,salario) 
-values ((select now()), new.Persona_cedula,new.Sede_idSede,new.profesion,new.cargo,new.salario);
-
-
 create table auditoriaEmpleados
 (
 fechaAuditoria datetime,
@@ -13,6 +7,14 @@ profesion varchar(20),
 cargo varchar(20),
 salario double
 );
+
+create trigger TR_01 
+after insert ON Empleado for each row
+insert into auditoriaEmpleados (fechaAuditoria,Persona_cedula,Sede_idSede,profesion,cargo,salario) 
+values ((select now()), new.Persona_cedula,new.Sede_idSede,new.profesion,new.cargo,new.salario);
+
+
+
 
 create trigger TR_02 
 after insert ON FacturaVenta for each row
@@ -49,11 +51,7 @@ CREATE TABLE auditoriaCliente (
   fechaInsercionCliente datetime,
   Persona_cedula INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY(Persona_cedula),
-  INDEX Cliente_FKIndex1(Persona_cedula),
-  FOREIGN KEY(Persona_cedula)
-    REFERENCES Persona(cedula)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+  INDEX Cliente_FKIndex1(Persona_cedula)
 );
 
 create trigger TR_04 
@@ -68,11 +66,8 @@ CREATE TABLE auditoriaEmpresaMantenimiento (
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
   nombreEmpresaMantemiento VARCHAR(40) NULL,
   PRIMARY KEY(id_empresaMantenimiento),
-  INDEX EmpresaMantenimiento_FKIndex1(Direccion_idDireccion),
-  FOREIGN KEY(Direccion_idDireccion)
-    REFERENCES Direccion(idDireccion)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX EmpresaMantenimiento_FKIndex1(Direccion_idDireccion)
+  
 );
 
 create trigger TR_05 
@@ -89,15 +84,8 @@ CREATE TABLE auditoriaEquipoOficina (
   PUC VARCHAR(10) NULL,
   PRIMARY KEY(Objeto_idObjeto),
   INDEX EquipoOficina_FKIndex1(Sede_idSede),
-  INDEX EquipoOficina_FKIndex2(Objeto_idObjeto),
-  FOREIGN KEY(Sede_idSede)
-    REFERENCES Sede(idSede)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(Objeto_idObjeto)
-    REFERENCES Objeto(idObjeto)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX EquipoOficina_FKIndex2(Objeto_idObjeto)
+  
 );
 
 create trigger TR_06 
@@ -111,11 +99,8 @@ CREATE TABLE AuditoriaInventario (
   id_inventario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Sede_idSede INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY(id_inventario),
-  INDEX Inventario_FKIndex1(Sede_idSede),
-  FOREIGN KEY(Sede_idSede)
-    REFERENCES Sede(idSede)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Inventario_FKIndex1(Sede_idSede)
+  
 );
 
 create trigger TR_07
@@ -134,15 +119,7 @@ CREATE TABLE AuditoriaMantenientoBicicleta (
   fechaEntrega DATE NULL,
   PRIMARY KEY(idMantenimientoBicicleta),
   INDEX MantenientoBici_FKIndex1(FacturaVenta_id_fventa),
-  INDEX MantenientoBicicleta_FKIndex2(Bicicleta_marcoSerial),
-  FOREIGN KEY(FacturaVenta_id_fventa)
-    REFERENCES FacturaVenta(id_fventa)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(Bicicleta_marcoSerial)
-    REFERENCES Bicicleta(marcoSerial)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX MantenientoBicicleta_FKIndex2(Bicicleta_marcoSerial)
 );
 
 create trigger TR_08
@@ -160,15 +137,7 @@ CREATE TABLE AuditoriaMantenimientoTaller (
   factura VARCHAR(40) NULL,
   PRIMARY KEY(idMantenimiento),
   INDEX Mantenimiento_FKIndex1(Taller_idTaller),
-  INDEX Mantenimiento_FKIndex2(EmpresaMantenimiento_id_empresaMantenimiento),
-  FOREIGN KEY(Taller_idTaller)
-    REFERENCES Taller(idTaller)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(EmpresaMantenimiento_id_empresaMantenimiento)
-    REFERENCES EmpresaMantenimiento(id_empresaMantenimiento)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Mantenimiento_FKIndex2(EmpresaMantenimiento_id_empresaMantenimiento)
 );
 
 create trigger TR_09
@@ -201,15 +170,7 @@ CREATE TABLE AuditoriaMercancia (
   cantidad INTEGER UNSIGNED NULL,
   PRIMARY KEY(Objeto_idObjeto),
   INDEX Mercancia_FKIndex1(Inventario_id_inventario),
-  INDEX Mercancia_FKIndex2(Objeto_idObjeto),
-  FOREIGN KEY(Inventario_id_inventario)
-    REFERENCES Inventario(id_inventario)
-      ON DELETE cascade
-      ON UPDATE cascade,
-  FOREIGN KEY(Objeto_idObjeto)
-    REFERENCES Objeto(idObjeto)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Mercancia_FKIndex2(Objeto_idObjeto)
 );
 
 create trigger TR_11
@@ -257,11 +218,7 @@ CREATE TABLE AuditoriaPersona (
   nacionalidad VARCHAR(15) NULL,
   genero VARCHAR(1) NULL,
   PRIMARY KEY(cedula),
-  INDEX Persona_FKIndex1(Direccion_idDireccion),
-  FOREIGN KEY(Direccion_idDireccion)
-    REFERENCES Direccion(idDireccion)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Persona_FKIndex1(Direccion_idDireccion)
 );
 
 create trigger TR_14
@@ -276,11 +233,7 @@ CREATE TABLE PeticionEmpleado (
   peticion VARCHAR(40) NULL,
   aprobado BOOL NULL,
   PRIMARY KEY(idPeticionEmpleado),
-  INDEX PeticionEmpleado_FKIndex1(Empleado_Persona_cedula),
-  FOREIGN KEY(Empleado_Persona_cedula)
-    REFERENCES Empleado(Persona_cedula)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX PeticionEmpleado_FKIndex1(Empleado_Persona_cedula)
 );
 
 CREATE TABLE AuditoriaPeticionEmpleado (
@@ -304,14 +257,10 @@ CREATE TABLE AuditoriaProveedor (
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
   nombre VARCHAR(20) NULL,
   PRIMARY KEY(idProveedor),
-  INDEX Proveedor_FKIndex1(Direccion_idDireccion),
-  FOREIGN KEY(Direccion_idDireccion)
-    REFERENCES Direccion(idDireccion)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Proveedor_FKIndex1(Direccion_idDireccion)
 );
 
-sedecreate trigger TR_16
+create trigger TR_16
 after insert ON Proveedor for each row
 insert into AuditoriaProveedor (fechaInsercionProveedor,idProveedor,Direccion_idDireccion,nombre) 
 values ((select now()),new.idProveedor,new.Direccion_idDireccion,new.nombre);
@@ -337,11 +286,7 @@ create TABLE AuditoriaSede (
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,
   nombreSede VARCHAR(30) NULL,
   PRIMARY KEY(idSede),
-  INDEX Sede_FKIndex1(Direccion_idDireccion),
-  FOREIGN KEY(Direccion_idDireccion)
-    REFERENCES Direccion(idDireccion)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Sede_FKIndex1(Direccion_idDireccion)
 );
 
 create trigger TR_18
@@ -356,11 +301,7 @@ CREATE TABLE AuditoriaTaller (
   Sede_idSede INTEGER UNSIGNED NOT NULL,
   totalVentas INTEGER UNSIGNED NULL,
   PRIMARY KEY(idTaller),
-  INDEX Taller_FKIndex1(Sede_idSede),
-  FOREIGN KEY(Sede_idSede)
-    REFERENCES Sede(idSede)
-      ON DELETE cascade
-      ON UPDATE cascade
+  INDEX Taller_FKIndex1(Sede_idSede)
 );
 
 create trigger TR_19

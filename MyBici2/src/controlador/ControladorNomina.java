@@ -45,6 +45,7 @@ public class ControladorNomina implements ActionListener {
         this.vista.btnModificar.addActionListener(this);
         this.vista.btnEliminar.addActionListener(this);
         this.vista.btnListar.addActionListener(this);
+        this.vista.btnRegresar.addActionListener(this);
         this.vista.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -66,7 +67,10 @@ public class ControladorNomina implements ActionListener {
                 actualizarNomina();
             } else if (e.getSource().equals(this.vista.btnEliminar)) {
                 eliminarNomina();
-            } else if (e.getSource().equals(this.vista.btnRegresar)) {
+            }
+            else if (e.getSource().equals(this.vista.btnListar)) {
+                listarClientes();
+            }else if (e.getSource().equals(this.vista.btnRegresar)) {
                 salir();
             }
         } catch (MiExcepcion ex) {
@@ -101,6 +105,15 @@ public class ControladorNomina implements ActionListener {
         } else {
             nomina.setDiasAusencia(MiExcepcion.capturaEntero(this.vista.txtDiasAusencia));
         }
+        
+            if(this.nominaDao.crear(nomina)){
+                JOptionPane.showMessageDialog(null, "Nomina creada Satisfactoriamente");
+            }
+            else
+            {
+                throw new MiExcepcion("Error al crear La Nomina");
+            }
+        
 
     }
 
@@ -112,7 +125,7 @@ public class ControladorNomina implements ActionListener {
             throw new MiExcepcion("Esa nomina no Existe");
         } else {
             Empleado empleado = new EmpleadosDao().consultar(IDConsulta);
-            this.vista.txtCCEmpleado.setText(empleado.getCedula());
+            this.vista.txtCCEmpleado.setText(nomina.getCedula().getCedula());
             this.vista.txtHorasExtra.setText(String.valueOf(nomina.getHorasExtra()));
             ((JTextField) this.vista.FechaNomina.getDateEditor().getUiComponent()).setText(nomina.getFechaNomina());
             if (nomina.isAuxTransportebool()) {
@@ -122,10 +135,12 @@ public class ControladorNomina implements ActionListener {
                 this.vista.RadioAuxNo.setSelected(true);
                 this.vista.RadioAuxSi.setSelected(false);
             }
+           
             this.vista.txtAuxTransporte.setText(String.valueOf(nomina.getAuxTransportedouble()));
             this.vista.txtDescuento.setText(String.valueOf(nomina.getDescuento()));
             this.vista.txtDiasAusencia.setText(String.valueOf(nomina.getDiasAusencia()));
         }
+        
     }
 
     public void actualizarNomina() throws MiExcepcion {
@@ -133,11 +148,11 @@ public class ControladorNomina implements ActionListener {
         String IDConsulta = JOptionPane.showInputDialog("Inserte el ID a Modificar");
 
         Nomina nomina = this.nominaDao.consultar(IDConsulta);
-        if (nomina == null) {
-            throw new MiExcepcion("Esa nomina no Existe");
-        } else {
+        
+           
+        
             Empleado empleado = new EmpleadosDao().consultar(MiExcepcion.capturaString(this.vista.txtCCEmpleado));
-
+            
             nomina.setCedula(empleado);
             nomina.setHorasExtra(MiExcepcion.capturaEntero(this.vista.txtHorasExtra));
             nomina.setFechaNomina(MiExcepcion.capturaString((JTextField) this.vista.FechaNomina.getDateEditor().getUiComponent()));
@@ -160,7 +175,13 @@ public class ControladorNomina implements ActionListener {
             } else {
                 nomina.setDiasAusencia(MiExcepcion.capturaEntero(this.vista.txtDiasAusencia));
             }
-        }
+        if(this.nominaDao.actualizar(nomina)){
+                JOptionPane.showMessageDialog(null, "Nomina Actualizada Satisfactoriamente");
+            }
+            else
+            {
+                throw new MiExcepcion("Error al Actualizar La Nomina");
+            }
 
     }
 
@@ -169,11 +190,7 @@ public class ControladorNomina implements ActionListener {
 
         Nomina nomina = this.nominaDao.consultar(IDConsulta);
 
-        if (nomina == null) {
-            throw new MiExcepcion("Esa Nomina no existe");
-        }
-        else{
-            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar la nomina  del Empleado con CC" + nomina.getCedula()+"?");
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar la nomina  del Empleado con CC" + nomina.getCedula().getCedula()+"?");
             if (opc == JOptionPane.YES_OPTION) {
                 if (this.nominaDao.eliminar(IDConsulta)) {
                     JOptionPane.showMessageDialog(null, "Nomina eliminada");
@@ -181,7 +198,7 @@ public class ControladorNomina implements ActionListener {
                     throw new MiExcepcion("Error al eliminar la Nomina");
                 }
             }
-        }
+        
     }
     
     private void listarClientes() {
@@ -191,7 +208,7 @@ public class ControladorNomina implements ActionListener {
              
             
             
-            Object fila[] ={nomina.getIdNomina(),nomina.getCedula(),nomina.getHorasExtra(),nomina.getFechaNomina(),nomina.getDescuento(),nomina.getDiasAusencia()};
+            Object fila[] ={nomina.getIdNomina(),nomina.getCedula().getCedula(),nomina.getHorasExtra(),nomina.getFechaNomina(),nomina.getAuxTransportedouble(),nomina.getDescuento(),nomina.getDiasAusencia()};
             this.modeloTablaNomina.addRow(fila);
         }
     }
