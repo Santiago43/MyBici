@@ -151,7 +151,7 @@ public class ControladorFacturacion implements ActionListener {
                 if (mercancia != null) {
                     this.vista.txtNombreProducto.setText(mercancia.getNombre());
                     this.vista.txtStock.setText(String.valueOf(mercancia.getCantidad() - 1));
-                    this.vista.txtMarca.setText(mercancia.getMarca());
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontro un articulo registrado con el codigo " + this.vista.txtCodigoArticulo.getText());
                 }
@@ -224,7 +224,6 @@ public class ControladorFacturacion implements ActionListener {
         this.vista.txtCodigoArticulo.setText("");
         this.vista.txtNombreProducto.setText("");
         this.vista.txtStock.setText("");
-        this.vista.txtMarca.setText("");
         this.vista.txtCantidadComprar.setText("");
         limpiarCarrito();
     }
