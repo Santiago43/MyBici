@@ -22,6 +22,7 @@ import vista.VistaEmpleado;
 import modelo.dto.ValoresFinancieros;
 import vista.VistaClientes;
 import vista.VistaContabilidad;
+import vista.VistaFacturacion;
 import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPeticiones;
@@ -51,15 +52,14 @@ public class ControladorPrincipal implements ActionListener {
      */
     private final VistaLogin vistaAnterior;
     /**
-     * 
+     *
      */
     private final UsuariosDao usuariosDao;
     private VistaSede vistaInv;
     private Usuario usuario;
-    
+
     ValoresFinancierosDao valoresFinancierosDao = new ValoresFinancierosDao();
     ValoresFinancieros valoresFinancieros;
-
 
     /**
      * Constructor de la clase
@@ -87,15 +87,14 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.menuEmpleados.setVisible(Verificador.tienePermiso(usuario, "empleados"));
         this.vista.menuSede.setVisible(Verificador.tienePermiso(usuario, "sede"));
         this.vista.menuInventario.setVisible(Verificador.tienePermiso(usuario, "inventario"));
-        this.vista.itemClientes.setVisible(Verificador.tienePermiso(usuario,"clientes"));
-        this.vista.lblRol.setText("Rol: "+usuario.getRol().getNombre());
-        this.vista.lblUsuario.setText("Usuario: "+usuario.getUsuario());
+        this.vista.itemClientes.setVisible(Verificador.tienePermiso(usuario, "clientes"));
+        this.vista.lblRol.setText("Rol: " + usuario.getRol().getNombre());
+        this.vista.lblUsuario.setText("Usuario: " + usuario.getUsuario());
         this.vista.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 salir(); //To change body of generated methods, choose Tools | Templates.
             }
-
         });
         this.vistaAnterior = vistaAnterior;
         this.vistaAnterior.setVisible(false);
@@ -104,21 +103,23 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.setLocationRelativeTo(null);
 
     }
+
     /**
-     * 
-     * @param e 
+     *
+     * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.vista.itemUsuarios)) {
             ControladorUsuarios controladorUsuarios;
             controladorUsuarios = new ControladorUsuarios(this.vista, new VistaUsuarios(), this.usuariosDao, new RolesDao(), new EmpleadosDao());
-        }  else if (e.getSource().equals(this.vista.ItemTrabajos)) {
+        } else if (e.getSource().equals(this.vista.ItemTrabajos)) {
             valoresFinancieros = valoresFinancierosDao.consultar("aclxrd");
             ControladorTrabajos controladorTrabajos;
             controladorTrabajos = new ControladorTrabajos(this.vista, new VistaTrabajos(), this.usuariosDao, this.usuario, new TrabajosDAO(), new EmpleadosDao(), valoresFinancieros);
         } else if (e.getSource().equals(this.vista.ItemContabilidad)) {
             ControladorContabilidad controladorContabilidad;
+<<<<<<< HEAD
             controladorContabilidad = new ControladorContabilidad(this.vista,new VistaContabilidad(),new SedeDao(),new FacturaDao());
         }else if(e.getSource().equals(this.vista.ItemPeticiones)){
             ControladorPeticiones controladorPeticiones;
@@ -135,20 +136,32 @@ public class ControladorPrincipal implements ActionListener {
             
         }
         else if(e.getSource().equals(this.vista.itemEmpleados)){
+=======
+            controladorContabilidad = new ControladorContabilidad(this.vista, new VistaContabilidad(), new SedeDao(), new FacturaDao());
+        } else if (e.getSource().equals(this.vista.ItemPeticiones)) {
+
+        } else if (e.getSource().equals(this.vista.ItemProveedores)) {
+
+        } else if (e.getSource().equals(this.vista.ItemRoles)) {
+            ControladorRoles controladorRoles = new ControladorRoles(this.vista, new VistaRoles(), new RolesDao(), this.usuario);
+        } else if (e.getSource().equals(this.vista.ItemSede)) {
+
+        } else if (e.getSource().equals(this.vista.itemEmpleados)) {
+>>>>>>> Andrés
             ControladorEmpleados controladorEmpleados;
-            controladorEmpleados=new ControladorEmpleados(new VistaEmpleado(), this.vista, new EmpleadosDao(),new DireccionDao(),new SedeDao());
-        }
-        else if(e.getSource().equals(this.vista.ItemTMantenimiento)){
-            
-        }
-        else if(e.getSource().equals(this.vista.itemClientes)){
+            controladorEmpleados = new ControladorEmpleados(new VistaEmpleado(), this.vista, new EmpleadosDao(), new DireccionDao(), new SedeDao());
+        } else if (e.getSource().equals(this.vista.ItemTMantenimiento)) {
+
+        } else if (e.getSource().equals(this.vista.itemClientes)) {
             ControladorClientes controladorClientes;
-            controladorClientes= new ControladorClientes(this.vista,new VistaClientes(),new ClienteDao(),new DireccionDao());
-        }
-        else if (e.getSource().equals(this.vista.btnSalir)) {
+            controladorClientes = new ControladorClientes(this.vista, new VistaClientes(), new ClienteDao(), new DireccionDao());
+        } else if (e.getSource().equals(this.vista.btnSalir)) {
             salir();
+        } else if (e.getSource().equals(this.vista.itemFacturacion)){
+            ControladorFacturacion controladorFacturacion;
+            controladorFacturacion = new ControladorFacturacion(this.vista, new VistaFacturacion());
         }
-       
+
     }
 
     public void salir() {

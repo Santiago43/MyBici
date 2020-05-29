@@ -78,9 +78,9 @@ public class BicicletaDao implements IBicicletaDao {
     public boolean actualizar(Bicicleta bici) {
         try {
             sql = "update Bicicleta "
-                    + "set grupoMecanico = '" + bici.getGrupoMecanico() + "',"
-                    + "color = '" + bici.getColor() + "' ,"
-                    + "estado = '" + bici.getEstado() + "',"
+                    + "set grupoMecanico = '" + bici.getGrupoMecanico() + "', "
+                    + "color = '" + bici.getColor() + "', "
+                    + "estado = '" + bici.getEstado() + "', "
                     + "valorEstimado = " + bici.getValorEstimado() + " "
                     + "where serial = " + bici.getMarcoSerial() + "';";
             conn = Conexion.conectado();

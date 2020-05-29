@@ -11,21 +11,21 @@ insert into direccion(Calle_idCalle,Carrera_idCarrera) values
 
 select * from direccion;
 #values(0,1,"admin","","","2000-01-01","Colombiano","n");
-select * from empleado;
-#Personas - empleados
-select * from persona;
 
+#Personas - empleados
 call insertarEmpleado(0,1,"admin","","","","2000-01-01","Colombiano","n",1,"Administrador","Gerente",0);
-select * from empleado;
+
 #rol 
-set SQL_SAFE_UPDATES =0;
 insert into rol(nombreRol) values ("Gerente Designado");
-select * from rol;
-update rol set nombreCorto = "SupCaja" where nombreRol="Supervisor de caja";
 #delete from rol where idRol=1;
 #usuario
 insert into usuario(usuario,Empleado_Persona_cedula,Rol_idRol,contraseña) values ("admin",0,1,"1234");
-insert into Valores_Financieros values (0.19);
+use mybici;
+select * from usuario;
+select * from rol_has_permiso;
+select * from permiso;
+insert into Valores_Financieros values (0.19,877803,102854);
+
 set SQL_SAFE_UPDATES =0;
 #permisos
 insert into permiso(nombrePermiso) values("prueba");
@@ -107,5 +107,9 @@ call agregarTelefonoAProveedor("fijo",1,"3555555");
 /*Insertar petición*/
 insert into peticionempleado(Empleado_Persona_cedula,peticion,aprobado) 
 values("1000853623","Test",false);
+
+
+ALTER TABLE `mybici`.`mantenientobicicleta` 
+ADD COLUMN `Estado` boolean NOT NULL;
 
 
