@@ -110,13 +110,13 @@ insert into AuditoriaInventario (FechaInsercionInventario,id_inventario,Sede_idS
 values ((select now()),new.id_inventario,new.Sede_idSede);
 
 
-CREATE TABLE AuditoriaMantenientoBicicleta (
+create TABLE AuditoriaMantenientoBicicleta 
+(
   fechaInsercionMantenimiento datetime,
   idMantenimientoBicicleta INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Bicicleta_marcoSerial VARCHAR(20) NOT NULL,
   FacturaVenta_id_fventa INTEGER UNSIGNED NOT NULL,
   descripcion VARCHAR(180) NULL,
-  valorEstimado INTEGER UNSIGNED NULL,
   fechaEntrega DATE NULL,
   PRIMARY KEY(idMantenimientoBicicleta),
   INDEX MantenientoBici_FKIndex1(FacturaVenta_id_fventa),
@@ -125,8 +125,8 @@ CREATE TABLE AuditoriaMantenientoBicicleta (
 
 create trigger TR_08
 after insert ON MantenientoBicicleta for each row
-insert into AuditoriaMantenientoBicicleta (fechaInsercionMantenimiento,idMantenimientoBicicleta,Bicicleta_marcoSerial,FacturaVenta_id_fventa,descripcion,valorEstimado,fechaEntrega) 
-values ((select now()),new.idMantenimientoBicicleta,new.Bicicleta_marcoSerial,new.FacturaVenta_id_fventa,new.descripcion,new.valorEstimado,new.fechaEntrega);
+insert into AuditoriaMantenientoBicicleta (fechaInsercionMantenimiento,idMantenimientoBicicleta,Bicicleta_marcoSerial,FacturaVenta_id_fventa,descripcion,fechaEntrega) 
+values ((select now()),new.idMantenimientoBicicleta,new.Bicicleta_marcoSerial,new.FacturaVenta_id_fventa,new.descripcion,new.fechaEntrega);
 
 
 CREATE TABLE AuditoriaMantenimientoTaller (
