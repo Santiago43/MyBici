@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.dto.EquipoOficina;
 import modelo.dto.Inventario;
+import modelo.dto.MantenimientoTaller;
 import modelo.dto.Mercancia;
 import modelo.dto.Proveedor;
 import modelo.dto.Sede;
@@ -69,6 +70,7 @@ public class SedeDao implements ISedeDao {
                 sede.setInventario(traerInventario(conn, sede.getIdSede()));
                 sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
                 sede.setEquipoOficina(traerEquipoOficina(conn, sede.getIdSede()));
+                sede.setTalleres(this.consultarTalleres(sede));
                 sede.setEmpleados(new EmpleadosDao().listar());
             }
         } catch (SQLException ex) {
@@ -84,7 +86,18 @@ public class SedeDao implements ISedeDao {
      */
     @Override
     public boolean actualizar(Sede sede) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "update sede \n"
+                    + "set Direccion_idDireccion="+sede.getDireccion().getIdDireccion()+", nombreSede='"+sede.getNombreSede()+"'\n"
+                    + "where idSede ="+sede.getIdSede();
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            pat.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -111,15 +124,15 @@ public class SedeDao implements ISedeDao {
      */
     @Override
     public LinkedList<Sede> listar() {
-        LinkedList <Sede> sedes = null;
+        LinkedList<Sede> sedes = null;
         Sede sede = null;
         try {
-            String sql = "select * from sede" ;
+            String sql = "select * from sede";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             sedes = new LinkedList();
-            while(rs.next()) {
+            while (rs.next()) {
                 sede = new Sede();
                 sede.setIdSede(rs.getInt("idSede"));
                 int idDireccion = rs.getInt("Direccion_idDireccion");
@@ -243,7 +256,7 @@ public class SedeDao implements ISedeDao {
             pat.close();
             sql = "select * from objeto as o \n"
                     + "inner join mercancia as m on o.idObjeto = m.Objeto_idObjeto\n"
-                    + "where m.Inventario_id_inventario="+inventario.getIdInventario();
+                    + "where m.Inventario_id_inventario=" + inventario.getIdInventario();
             pat = conn.prepareStatement(sql);
             ResultSet rs2 = pat.executeQuery();
             LinkedList<Mercancia> mercancias = new LinkedList();
@@ -307,7 +320,7 @@ public class SedeDao implements ISedeDao {
                 + "where s.idSede = " + idSede;
         PreparedStatement pat = conn.prepareStatement(sql);
         ResultSet rs = pat.executeQuery();
-        equiposOficina=new LinkedList();
+        equiposOficina = new LinkedList();
         while (rs.next()) {
             EquipoOficina equipoOficina = new EquipoOficina();
             equipoOficina.setIdObjeto(rs.getInt("idObjeto"));
@@ -328,7 +341,7 @@ public class SedeDao implements ISedeDao {
     public Sede consultarPorNombre(String nombreSede) {
         Sede sede = null;
         try {
-            String sql = "select * from sede where nombreSede='" + nombreSede+"'";
+            String sql = "select * from sede where nombreSede='" + nombreSede + "'";
             Connection conn = Conexion.conectado();
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -340,12 +353,47 @@ public class SedeDao implements ISedeDao {
                 sede.setInventario(traerInventario(conn, sede.getIdSede()));
                 sede.setDireccion(new DireccionDao().consultar(String.valueOf(idDireccion)));
                 sede.setEquipoOficina(traerEquipoOficina(conn, sede.getIdSede()));
+                sede.setTalleres(this.consultarTalleres(sede));
                 sede.setEmpleados(new EmpleadosDao().listar());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sede;
+    }
+
+    private LinkedList<Taller> consultarTalleres(Sede sede) throws SQLException {
+        LinkedList<Taller> talleres = null;
+        String sql = "select * from taller where Sede_idSede =" + sede.getIdSede();
+        Connection conn = Conexion.conectado();
+        PreparedStatement pat = conn.prepareStatement(sql);
+        ResultSet rs = pat.executeQuery();
+        talleres = new LinkedList();
+        while (rs.next()) {
+            Taller taller = new Taller();
+            taller.setIdTaller(rs.getInt("idTaller"));
+            taller.setTotalVentas(rs.getDouble("totalVentas"));
+            taller.setMantenimientos(this.consultarMantenimientos(taller));
+        }
+        return talleres;
+    }
+
+    private LinkedList<MantenimientoTaller> consultarMantenimientos(Taller taller) throws SQLException {
+        LinkedList<MantenimientoTaller> mantenimientos = null;
+        String sql = "select * from mantenimientoTaller where Taller_idTaller =" + taller.getIdTaller();
+        Connection conn = Conexion.conectado();
+        PreparedStatement pat = conn.prepareStatement(sql);
+        ResultSet rs = pat.executeQuery();
+        mantenimientos = new LinkedList();
+        while (rs.next()) {
+            MantenimientoTaller mantenimiento = new MantenimientoTaller();
+            mantenimiento.setIdMantenimiento(rs.getInt("idMantenimiento"));
+            mantenimiento.setFactura(rs.getString("fecha"));
+            mantenimiento.setCosto(rs.getDouble("costo"));
+            mantenimiento.setFecha(rs.getString("fecha"));
+            mantenimientos.add(mantenimiento);
+        }
+        return mantenimientos;
     }
 
 }

@@ -6,7 +6,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import modelo.dao.FacturaDao;
+import modelo.dao.NominaDao;
 import modelo.dao.SedeDao;
+import modelo.dto.EquipoOficina;
+import modelo.dto.FacturaVenta;
+import modelo.dto.MantenimientoTaller;
+import modelo.dto.Nomina;
 import modelo.dto.Sede;
 import modelo.dto.Taller;
 import vista.VistaContabilidad;
@@ -33,6 +38,7 @@ public class ControladorEstadoResultados implements ActionListener {
         this.facturaDao = facturaDao;
         this.vistaAnterior.setVisible(false);
         this.vista.btnRegresar.addActionListener(this);
+        this.vista.btnConsultar.addActionListener(this);
         this.vista.addWindowFocusListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e) {
@@ -63,25 +69,30 @@ public class ControladorEstadoResultados implements ActionListener {
             Sede sede = this.sedeDao.consultarPorNombre(this.vista.comboSedes.getSelectedItem().toString());
             double totalVentas = calcularVentas(sede);
             double totalMantenimientos = calcularMantenimientos(sede);
-            this.facturaDao.listarPorFecha(fechaInicio, fechaFinal, sede);
-            String estadoDeResultados="								BiciBikes S.A.S\n"
-                    + "							  Estado de Resultados\n"
-                    + "					Del 1 de "+this.vista.comboMes.getSelectedItem().toString()+" de "+año+" al "+obtenerUltimoDíaDeMes(Integer.parseInt(año),this.vista.comboMes.getSelectedIndex())+" de "+this.vista.comboMes.getSelectedItem().toString()+" de "+this.vista.comboAño.getSelectedItem().toString()+"\n"
+            
+            LinkedList<FacturaVenta>facturas=this.facturaDao.listarPorFecha(fechaInicio, fechaFinal, sede);
+            double impuestos = ((this.calcularVentas(facturas)+this.calcularVentas(sede))-((this.calcularSalario()+this.calcularMantenimientos(sede))+this.calcularDepreciacion(sede)))*0.33;
+            if(impuestos<0){
+                impuestos=0;
+            }
+            String estadoDeResultados="			BiciBikes S.A.S\n"
+                    + "             Estado de Resultados\n"
+                    + "		Del 1 de "+this.vista.comboMes.getSelectedItem().toString()+" de "+año+" al "+obtenerUltimoDíaDeMes(Integer.parseInt(año),this.vista.comboMes.getSelectedIndex())+" de "+this.vista.comboMes.getSelectedItem().toString()+" de "+this.vista.comboAño.getSelectedItem().toString()+"\n"
                     + "\n"
                     + "\n"
                     + "Ingresos operacionales:\n"
-                    + "	Total ventas en la sede:				$ \n"
-                    + "	Mantenimientos: 					$ 9000000\n"
-                    + "Total Ingresos operacionales								$ 9000000\n"
+                    + "	Total ventas en la sede:	$ "+this.calcularVentas(facturas)+"\n"
+                    + "	Mantenimientos: 	$ "+this.calcularVentas(sede)+"\n"
+                    + "Total Ingresos operacionales                                                                                          $ "+(this.calcularVentas(facturas)+this.calcularVentas(sede))+"\n"
                     + "\n"
                     + "Gastos operacionales:\n"
-                    + "	Salarios								$ 9000000\n"
-                    + "	Mantenimientos							$ 9000000\n"
-                    + "	Depreciación							$ 900000\n"
-                    + "Total Gastos operacionales 									($ 9000000)\n"
-                    + "Utilidad operativa:											 $ 300000\n"
-                    + "Impuestos													($ 3000000)\n"
-                    + "Utilidad neta:													$900000";
+                    + "	Salarios		$ "+this.calcularSalario()+"\n"
+                    + "	Mantenimientos	$ "+this.calcularMantenimientos(sede)+"\n"
+                    + "	Depreciación		$ "+this.calcularDepreciacion(sede)+"\n"
+                    + "Total Gastos operacionales                                                                                             ($ "+((this.calcularSalario()+this.calcularMantenimientos(sede))+this.calcularDepreciacion(sede))+")\n"
+                    + "Utilidad operativa:				$ "+(((this.calcularVentas(facturas)+this.calcularVentas(sede))-((this.calcularSalario()+this.calcularMantenimientos(sede))+this.calcularDepreciacion(sede))))+"\n"
+                    + "Impuestos					($ "+impuestos+")\n"
+                    + "Utilidad neta:					$"+(((this.calcularVentas(facturas)+this.calcularVentas(sede))-((this.calcularSalario()+this.calcularMantenimientos(sede))+this.calcularDepreciacion(sede))-impuestos))+" ";
             this.vista.txtArea.setText(estadoDeResultados);
         } else if (e.getSource().equals(this.vista.btnRegresar)) {
             salir();
@@ -136,8 +147,40 @@ public class ControladorEstadoResultados implements ActionListener {
     }
 
     private double calcularMantenimientos(Sede sede) {
-       
-       return 0;
+       double totalMantenimientos=0;
+       LinkedList<Taller> talleres = sede.getTalleres();
+        for (Taller taller: talleres) {
+            LinkedList<MantenimientoTaller>mantenimientos=taller.getMantenimientos();
+            for (MantenimientoTaller mantenimiento: mantenimientos) {
+                totalMantenimientos+=mantenimiento.getCosto();
+            }
+        }
+       return totalMantenimientos;
     }
 
+    private double calcularDepreciacion(Sede sede){
+        double totalDepreciacion=0;
+        LinkedList<EquipoOficina> equipos=sede.getEquipoOficina();
+        for(EquipoOficina equipo: equipos){
+            totalDepreciacion+=equipo.getDepreciacion();
+        }
+        return totalDepreciacion;
+    }
+    private double calcularVentas(LinkedList<FacturaVenta> facturas){
+        double ingresoTotal=0;
+        for(FacturaVenta factura: facturas){
+            ingresoTotal+=factura.getTotal();
+        }
+        return ingresoTotal;
+    }
+    
+    private double calcularSalario(){
+        double salarios=0;
+        NominaDao nominaDao = new NominaDao();
+        LinkedList<Nomina>nominas=nominaDao.listar();
+        for(Nomina nomina: nominas){
+            salarios+=nomina.getCedula().getSalario()*(30-nomina.getDiasAusencia())/30;
+        }
+        return salarios;
+    }
 }

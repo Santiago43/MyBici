@@ -25,6 +25,12 @@ public class MantenimientoTaller {
      * 
      */
     private String factura;
+    
+    private double costo;
+    /**
+     * 
+     * @return 
+     */
 
     public int getIdMantenimiento() {
         return idMantenimiento;
@@ -50,4 +56,12 @@ public class MantenimientoTaller {
         this.factura = factura;
     }
 
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+    
 }
