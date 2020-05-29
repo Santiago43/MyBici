@@ -9,6 +9,7 @@ import modelo.dao.NominaDao;
 import modelo.dao.SedeDao;
 import vista.VistaContabilidad;
 import vista.VistaER;
+import vista.VistaFC;
 import vista.VistaNomina;
 import vista.VistaPrincipal;
 
@@ -61,7 +62,8 @@ public class ControladorContabilidad implements ActionListener,MouseListener{
             ControladorNomina = new ControladorNomina(this.vista, new VistaNomina(), this.nominaDao);
         }
         else if(e.getSource().equals(this.vista.menuFC)){
-            
+            ControladorFlujoCaja controladorFlujoCaja;
+            controladorFlujoCaja = new ControladorFlujoCaja(this.vista,new VistaFC(),this.sedeDao,this.facturaDao);
         }
     }
 
