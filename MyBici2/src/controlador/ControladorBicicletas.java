@@ -81,12 +81,14 @@ public class ControladorBicicletas implements ActionListener {
         bicicleta.setColor(MiExcepcion.capturaString(this.vista.txtColor));
         bicicleta.setMarca(MiExcepcion.capturaString(this.vista.txtMarca));
         bicicleta.setEstado(MiExcepcion.capturaString(this.vista.txtEstado));
+        bicicleta.setValorEstimado(MiExcepcion.capturaDouble(this.vista.txtvalorEstimado));
         
-        if (this.bicicletaDao.consultar(bicicleta.getMarcoSerial()) != null) {
+        if (this.bicicletaDao.consultar(bicicleta.getMarcoSerial()) == null) {
             throw new MiExcepcion("Esta Bicicleta ya existe");
         } else {
             if (this.bicicletaDao.crear(bicicleta)) {
                 JOptionPane.showMessageDialog(null, "Bicicleta creada satisfactoriamente");
+                Limpiar();
             } else {
                 throw new MiExcepcion("error al crear la Bicicleta");
             }
@@ -102,6 +104,7 @@ public class ControladorBicicletas implements ActionListener {
             this.vista.txtColor.setText(bicicleta.getColor());
             this.vista.txtMarca.setText(bicicleta.getMarca());
             this.vista.txtEstado.setText(bicicleta.getEstado());
+            this.vista.txtvalorEstimado.setText(String.valueOf(bicicleta.getValorEstimado()));
         }
     }
     
@@ -115,9 +118,11 @@ public class ControladorBicicletas implements ActionListener {
         bicicleta.setColor(MiExcepcion.capturaString(this.vista.txtColor));
         bicicleta.setMarca(MiExcepcion.capturaString(this.vista.txtMarca));
         bicicleta.setEstado(MiExcepcion.capturaString(this.vista.txtEstado));
+        bicicleta.setValorEstimado(MiExcepcion.capturaDouble(this.vista.txtvalorEstimado));
         
         if(this.bicicletaDao.actualizar(bicicleta)){
                 JOptionPane.showMessageDialog(null, "bicicleta Actualizada Satisfactoriamente");
+                Limpiar();
             }
             else
             {
@@ -152,7 +157,7 @@ public class ControladorBicicletas implements ActionListener {
              
             
             
-            Object fila[] ={bicicleta.getMarcoSerial(),bicicleta.getGrupoMecanico(),bicicleta.getColor(),bicicleta.getMarca(),bicicleta.getEstado()};
+            Object fila[] ={bicicleta.getMarcoSerial(),bicicleta.getGrupoMecanico(),bicicleta.getColor(),bicicleta.getMarca(),bicicleta.getEstado(),bicicleta.getValorEstimado()};
             this.modeloTablaBicicleta.addRow(fila);
         }
     } 
@@ -160,6 +165,15 @@ public class ControladorBicicletas implements ActionListener {
     public void salir() {
         this.vista.dispose();
         this.vistaAnterior.setVisible(true);
+    }
+    
+    public void Limpiar(){
+        this.vista.txtMarcoSerial.setText("");
+        this.vista.txtMarca.setText("");
+        this.vista.txtGrupo.setText("");
+        this.vista.txtEstado.setText("");
+        this.vista.txtColor.setText("");
+        this.vista.txtvalorEstimado.setText("");
     }
     
     }

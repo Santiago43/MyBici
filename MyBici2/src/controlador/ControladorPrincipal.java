@@ -87,6 +87,7 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.btnSalir.addActionListener(this);
         this.vista.itemClientes.addActionListener(this);
         this.vista.menuBicicletas.addActionListener(this);
+        this.vista.ItemIngresarbici.addActionListener(this);
         this.vista.menuAdministracion.setVisible(Verificador.tienePermiso(usuario, "administración"));
         this.vista.menuEmpleados.setVisible(Verificador.tienePermiso(usuario, "empleados"));
         this.vista.menuSede.setVisible(Verificador.tienePermiso(usuario, "sede"));
@@ -150,7 +151,7 @@ public class ControladorPrincipal implements ActionListener {
         }
         else if(e.getSource().equals(this.vista.ItemIngresarbici)){
             ControladorBicicletas controladorBicicletas;
-            controladorBicicletas= new ControladorBicicletas(this.vista,new VistaBicicletas(),new BicicletaDao());
+            controladorBicicletas = new ControladorBicicletas(this.vista,new VistaBicicletas(),new BicicletaDao());
         }
         else if (e.getSource().equals(this.vista.btnSalir)) {
             salir();

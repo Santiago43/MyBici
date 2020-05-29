@@ -32,14 +32,14 @@ totalVenta double,
 fecha date
 );
 
-CREATE TABLE auditoriaBicicleta (
+create TABLE auditoriaBicicleta
+ (
   fechaInsercionBicicleta datetime,
   marcoSerial VARCHAR(20) NOT NULL,
   grupoMecanico VARCHAR(20) NOT NULL,
   color VARCHAR(20) NULL,
   marca VARCHAR(20) NULL,
-  estado VARCHAR(60) NULL,
-  PRIMARY KEY(marcoSerial)
+  estado VARCHAR(60) NULL
 );
 create trigger TR_03 
 after insert ON Bicicleta for each row
@@ -47,11 +47,11 @@ insert into auditoriaBicicleta (fechaInsercionBicicleta,marcoSerial,grupoMecanic
 values ((select now()),new.marcoSerial,new.grupoMecanico,new.color,new.marca,new.estado);
 
 
-CREATE TABLE auditoriaCliente (
+create TABLE auditoriaCliente 
+(
   fechaInsercionCliente datetime,
-  Persona_cedula INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY(Persona_cedula),
-  INDEX Cliente_FKIndex1(Persona_cedula)
+  Persona_cedula INTEGER UNSIGNED NOT NULL
+
 );
 
 create trigger TR_04 
@@ -60,7 +60,8 @@ insert into auditoriaCliente (fechaInsercionCliente,Persona_cedula)
 values ((select now()),new.Persona_cedula);
 
 
-CREATE TABLE auditoriaEmpresaMantenimiento (
+CREATE TABLE auditoriaEmpresaMantenimiento 
+(
   fechaInsercionEmpresaMantenimiento datetime,
   id_empresaMantenimiento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Direccion_idDireccion INTEGER UNSIGNED NOT NULL,

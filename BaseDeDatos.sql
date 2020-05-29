@@ -47,15 +47,17 @@ CREATE TABLE Calle (
   PRIMARY KEY(idCalle)
 );
 
-CREATE TABLE Bicicleta (
+create TABLE Bicicleta 
+(
   marcoSerial VARCHAR(20) NOT NULL,
   grupoMecanico VARCHAR(20) NOT NULL,
   color VARCHAR(20) NULL,
   marca VARCHAR(20) NULL,
   estado VARCHAR(60) NULL,
+  valorEstimado double,
   PRIMARY KEY(marcoSerial)
 );
-
+select * from Bicicleta;
 CREATE TABLE Rol_has_Permiso (
   Rol_idRol INTEGER UNSIGNED NOT NULL,
   Permiso_idPermiso INTEGER UNSIGNED NOT NULL,

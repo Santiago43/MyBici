@@ -50,6 +50,7 @@ public class BicicletaDao implements IBicicletaDao {
     @Override
     public Bicicleta consultar(String serial) {
         Bicicleta bici = null;
+        conn = Conexion.conectado();
         try {
             bici = new Bicicleta();
             sql = "select * from Bicicleta where marcoSerial =\"" + serial + "\"";
@@ -80,9 +81,9 @@ public class BicicletaDao implements IBicicletaDao {
             sql = "update Bicicleta "
                     + "set grupoMecanico = '" + bici.getGrupoMecanico() + "', "
                     + "color = '" + bici.getColor() + "', "
-                    + "estado = '" + bici.getEstado() + "', "
-                    + "valorEstimado = " + bici.getValorEstimado() + " "
-                    + "where serial = " + bici.getMarcoSerial() + "';";
+                     + "valorEstimado = '" + bici.getValorEstimado()+ "', "
+                    + "estado = '" + bici.getEstado() + "' "
+                    + "where marcoSerial = '" + bici.getMarcoSerial() + "';";
             conn = Conexion.conectado();
             pat = conn.prepareStatement(sql);
             pat.execute();
@@ -96,10 +97,14 @@ public class BicicletaDao implements IBicicletaDao {
     @Override
     public boolean eliminar(String marcoSerial) {
         try {
-            sql = "delete from Bicicleta where serial = " + marcoSerial;
-            conn = Conexion.conectado();
-            pat.execute();
-            return true;
+            String sql = "delete from Bicicleta where marcoSerial = '" + marcoSerial + "'";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            int delete = pat.executeUpdate();
+            pat.close();
+            if (delete > 0) {
+                return true;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,7 +113,33 @@ public class BicicletaDao implements IBicicletaDao {
 
     @Override
     public LinkedList<Bicicleta> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Bicicleta> bicicletas = null;
+        Bicicleta bicicleta = null;
+        try {
+
+            String sql = "select * from Bicicleta";
+            Connection conn = Conexion.conectado();
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            bicicletas = new LinkedList();
+            while (rs.next()) {
+                bicicleta = new Bicicleta();
+                bicicleta.setMarcoSerial(rs.getString("marcoSerial"));
+                bicicleta.setGrupoMecanico(rs.getString("grupoMecanico"));
+                bicicleta.setColor(rs.getString("color"));
+                bicicleta.setMarca(rs.getString("marca"));
+                bicicleta.setEstado(rs.getString("estado"));
+                bicicleta.setValorEstimado(rs.getDouble("valorEstimado"));
+                bicicletas.add(bicicleta);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BicicletaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bicicletas;
     }
+    
+    
 
 }
