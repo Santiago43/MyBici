@@ -18,6 +18,7 @@ public class Mercancia extends Objeto {
     private double valorAdquisicion;
     private double precioVenta;
     private int cantidad;
+    private int cantidadCompra;
     
     /**
      * 
@@ -75,6 +76,14 @@ public class Mercancia extends Objeto {
      */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public int getCantidadCompra() {
+        return cantidadCompra;
+    }
+
+    public void setCantidadCompra(int cantidadCompra) {
+        this.cantidadCompra = cantidadCompra;
     }
 
 

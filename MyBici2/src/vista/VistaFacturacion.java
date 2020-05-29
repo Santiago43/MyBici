@@ -59,57 +59,58 @@ public class VistaFacturacion extends javax.swing.JFrame {
         btnSacarCarrito = new javax.swing.JToggleButton();
         jLabel14 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        txtProveedor = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblArticulos = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         txtIVA = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        btnlimpiarArt = new javax.swing.JToggleButton();
+        btnArtFact = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        btnNuevo = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Información de Factura");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 170, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 170, -1));
 
         jLabel2.setText("Código de la Factura");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 170, -1));
-        getContentPane().add(txtIDFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 165, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 170, -1));
+        getContentPane().add(txtIDFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 165, -1));
 
         jLabel3.setText("C.C. Empleado");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 160, -1));
-        getContentPane().add(txtCCEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 165, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 160, -1));
+        getContentPane().add(txtCCEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 165, -1));
 
         jLabel4.setText("C.C. Cliente");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 160, -1));
-        getContentPane().add(txtCCCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 165, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 160, -1));
+        getContentPane().add(txtCCCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, 165, -1));
 
         jLabel5.setText("Fecha Venta");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 150, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 150, -1));
 
         jLabel6.setText("IVA $");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 150, 140, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 140, -1));
 
         txtFechaVenta.setEditable(false);
-        getContentPane().add(txtFechaVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 170, -1));
+        getContentPane().add(txtFechaVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 110, 170, -1));
 
         jLabel8.setText("Total Venta $");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 200, 170, 20));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, 170, 20));
 
         txtTotalVenta.setEditable(false);
-        getContentPane().add(txtTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 220, 170, -1));
+        getContentPane().add(txtTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 170, -1));
 
         btnInsertar.setText("Registrar Factura");
-        getContentPane().add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 260, 170, -1));
+        getContentPane().add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 250, 170, -1));
 
         btnConsultar.setText("Consultar");
-        getContentPane().add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, 170, -1));
+        getContentPane().add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, 170, -1));
 
         btnListar.setText("Ver todas las facturas");
-        getContentPane().add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 170, -1));
+        getContentPane().add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 170, -1));
 
         tblFacturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,7 +130,7 @@ public class VistaFacturacion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblFacturas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 650, 160));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 650, 160));
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +141,7 @@ public class VistaFacturacion extends javax.swing.JFrame {
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 20));
 
         btnLimpiar.setText("Limpiar Factura");
-        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 300, 170, -1));
+        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 170, -1));
         getContentPane().add(txtCodigoArticulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 120, 20));
 
         jLabel10.setText("Cantidad a Comprar");
@@ -183,22 +184,16 @@ public class VistaFacturacion extends javax.swing.JFrame {
         txtStock.setEditable(false);
         getContentPane().add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 120, 20));
 
-        jLabel15.setText("Provedor");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 120, 20));
-
-        txtProveedor.setEditable(false);
-        getContentPane().add(txtProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 120, 20));
-
         tblArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo Articulo", "Nombre", "Cantidad"
+                "Codigo Articulo", "Nombre"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -214,26 +209,40 @@ public class VistaFacturacion extends javax.swing.JFrame {
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
 
         txtIVA.setEditable(false);
-        getContentPane().add(txtIVA, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 170, -1));
+        getContentPane().add(txtIVA, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 170, -1));
 
         jLabel9.setText("Buscar en:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 120, 20));
 
-        jToggleButton1.setText("Limpiar Articulos");
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 170, -1));
+        btnlimpiarArt.setText("Limpiar Articulos");
+        getContentPane().add(btnlimpiarArt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, 170, -1));
+
+        btnArtFact.setText("Listar Articulos de Factura Registrada ");
+        btnArtFact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArtFactActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnArtFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 380, -1));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 590, 40, 20));
+
+        btnNuevo.setText("Nuevo ");
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 110, 90, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        VistaContabilidad v = new VistaContabilidad();
-        v.setVisible(true);
-        this.hide();
+      
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSacarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacarCarritoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSacarCarritoActionPerformed
+
+    private void btnArtFactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtFactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnArtFactActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,6 +250,7 @@ public class VistaFacturacion extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnArtFact;
     public javax.swing.JToggleButton btnBuscarFactura;
     public javax.swing.JToggleButton btnBuscarInventario;
     public javax.swing.JToggleButton btnCarrito;
@@ -248,15 +258,17 @@ public class VistaFacturacion extends javax.swing.JFrame {
     public javax.swing.JButton btnInsertar;
     public javax.swing.JButton btnLimpiar;
     public javax.swing.JButton btnListar;
+    public javax.swing.JToggleButton btnNuevo;
     public javax.swing.JButton btnRegresar;
     public javax.swing.JToggleButton btnSacarCarrito;
+    public javax.swing.JToggleButton btnlimpiarArt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -267,7 +279,6 @@ public class VistaFacturacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToggleButton jToggleButton1;
     public javax.swing.JTable tblArticulos;
     public javax.swing.JTable tblFacturas;
     public javax.swing.JTextField txtCCCliente;
@@ -278,7 +289,6 @@ public class VistaFacturacion extends javax.swing.JFrame {
     public javax.swing.JTextField txtIDFactura;
     public javax.swing.JTextField txtIVA;
     public javax.swing.JTextField txtNombreProducto;
-    public javax.swing.JTextField txtProveedor;
     public javax.swing.JTextField txtStock;
     public javax.swing.JTextField txtTotalVenta;
     // End of variables declaration//GEN-END:variables

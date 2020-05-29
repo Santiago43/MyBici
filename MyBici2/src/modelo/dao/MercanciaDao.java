@@ -45,7 +45,6 @@ public class MercanciaDao implements IMercanciaDao {
                 mercancia = new Mercancia();
                 mercancia.setIdObjeto(Integer.valueOf(idArticulo));
                 mercancia.setNombre(rs.getString("nombre"));
-                mercancia.setValorAdquisicion(rs.getDouble("valor_adg"));
                 mercancia.setPrecioVenta(rs.getDouble("precio_venta"));
                 mercancia.setCantidad(rs.getInt("cantidad"));
             }

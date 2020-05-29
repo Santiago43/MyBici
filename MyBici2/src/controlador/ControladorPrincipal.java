@@ -86,6 +86,7 @@ public class ControladorPrincipal implements ActionListener {
         this.vista.itemUsuarios.addActionListener(this);
         this.vista.btnSalir.addActionListener(this);
         this.vista.itemClientes.addActionListener(this);
+        this.vista.itemFacturacion.addActionListener(this);
         this.vista.menuBicicletas.addActionListener(this);
         this.vista.ItemIngresarbici.addActionListener(this);
         this.vista.menuAdministracion.setVisible(Verificador.tienePermiso(usuario, "administración"));

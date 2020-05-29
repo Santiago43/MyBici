@@ -14,7 +14,11 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+<<<<<<< HEAD
             con = DriverManager.getConnection(url, "carlos3", "");
+=======
+            con = DriverManager.getConnection(url, "andres", "");
+>>>>>>> Andrés
 
             if (con != null) {
                 System.out.println("Conexion a base de datos exitosa");

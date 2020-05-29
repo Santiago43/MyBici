@@ -11,9 +11,9 @@ import java.sql.Date;
  *
  * @author andre
  */
-public class MantenimienroBicicleta {
+public class MantenimientoBicicleta {
     private int id;
-    private Date fechaEntrega;
+    private String fechaEntrega;
     private String descripccion;
     private FacturaVenta factura;
     private Bicicleta bicicleta;
@@ -27,11 +27,11 @@ public class MantenimienroBicicleta {
         this.id = id;
     }
 
-    public Date getFechaEntrega() {
+    public String getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(Date fechaEntrega) {
+    public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
     
