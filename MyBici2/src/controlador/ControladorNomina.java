@@ -54,6 +54,7 @@ public class ControladorNomina implements ActionListener {
         });
         this.vistaAnterior.setVisible(false);
         this.vista.setVisible(true);
+        listarClientes();
     }
 
     @Override
@@ -92,7 +93,7 @@ public class ControladorNomina implements ActionListener {
             this.vista.txtAuxTransporte.setText("102854");
         } else if (this.vista.RadioAuxNo.isSelected()) {
             ausenciaBool = false;
-            this.vista.txtAuxTransporte.disable();
+          
             this.vista.txtAuxTransporte.setText("0");
 
         }
@@ -100,7 +101,7 @@ public class ControladorNomina implements ActionListener {
         nomina.setAuxTransportedouble(MiExcepcion.capturaDouble(this.vista.txtAuxTransporte));
         nomina.setDescuento(MiExcepcion.capturaDouble(this.vista.txtDescuento));
         if (this.vista.RadioAusNo.isSelected()) {
-            this.vista.txtDiasAusencia.disable();
+           
             this.vista.txtAuxTransporte.setText("0");
         } else {
             nomina.setDiasAusencia(MiExcepcion.capturaEntero(this.vista.txtDiasAusencia));
@@ -108,6 +109,8 @@ public class ControladorNomina implements ActionListener {
         
             if(this.nominaDao.crear(nomina)){
                 JOptionPane.showMessageDialog(null, "Nomina creada Satisfactoriamente");
+                Limpiar();
+                listarClientes();
             }
             else
             {
@@ -148,6 +151,16 @@ public class ControladorNomina implements ActionListener {
             this.modeloTablaNomina.removeRow(0);
         }
     }
+    
+    public void Limpiar() {
+        this.vista.txtAuxTransporte.setText("");
+        this.vista.txtCCEmpleado.setText("");
+        this.vista.txtDescuento.setText("");
+        this.vista.txtDiasAusencia.setText("");
+        this.vista.txtHorasExtra.setText("");
+        this.vista.AUSGROUP.clearSelection();
+        this.vista.AUXGROUP.clearSelection();
+    }
 
     public void actualizarNomina() throws MiExcepcion {
 
@@ -166,14 +179,15 @@ public class ControladorNomina implements ActionListener {
             if (this.vista.RadioAuxSi.isSelected()) {
                 ausenciaBool = true;
                 this.vista.txtAuxTransporte.setText("102854");
+                  nomina.setAuxTransportedouble(102854);
             } else if (this.vista.RadioAuxNo.isSelected()) {
                 ausenciaBool = false;
                
                 this.vista.txtAuxTransporte.setText("0");
-
+                  nomina.setAuxTransportedouble(0);
             }
             nomina.setAuxTransportebool(ausenciaBool);
-            nomina.setAuxTransportedouble(MiExcepcion.capturaDouble(this.vista.txtAuxTransporte));
+          
             nomina.setDescuento(MiExcepcion.capturaDouble(this.vista.txtDescuento));
             if (this.vista.RadioAusNo.isSelected()) {
               
@@ -181,8 +195,11 @@ public class ControladorNomina implements ActionListener {
             } else {
                 nomina.setDiasAusencia(MiExcepcion.capturaEntero(this.vista.txtDiasAusencia));
             }
+              
         if(this.nominaDao.actualizar(nomina)){
                 JOptionPane.showMessageDialog(null, "Nomina Actualizada Satisfactoriamente");
+                Limpiar();
+                listarClientes();
             }
             else
             {
@@ -200,6 +217,7 @@ public class ControladorNomina implements ActionListener {
             if (opc == JOptionPane.YES_OPTION) {
                 if (this.nominaDao.eliminar(IDConsulta)) {
                     JOptionPane.showMessageDialog(null, "Nomina eliminada");
+                     listarClientes();
                 } else {
                     throw new MiExcepcion("Error al eliminar la Nomina");
                 }

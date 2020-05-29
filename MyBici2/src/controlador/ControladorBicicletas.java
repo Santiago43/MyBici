@@ -49,6 +49,7 @@ public class ControladorBicicletas implements ActionListener {
         });
         this.vistaAnterior.setVisible(false);
         this.vista.setVisible(true);
+        listarBicicletas();
     }
 
     @Override
