@@ -30,8 +30,8 @@ public class BicicletaDao implements IBicicletaDao {
     @Override
     public boolean crear(Bicicleta bici) {
         try {
-            sql = "insert into Bicicleta (marcoSerial,grupoMecanico,color,marca,estado,valorEstimado) values (?,?,?,?,?,?)";
             conn = Conexion.conectado();
+            sql = "insert into Bicicleta (marcoSerial,grupoMecanico,color,marca,estado,valorEstimado) values (?,?,?,?,?,?)";
             pat = conn.prepareStatement(sql);
             pat.setString(1, bici.getMarcoSerial());
             pat.setString(2, bici.getGrupoMecanico());
@@ -46,12 +46,14 @@ public class BicicletaDao implements IBicicletaDao {
         }
         return false;
     }
+    
 
     @Override
     public Bicicleta consultar(String serial) {
         Bicicleta bici = null;
         try {
             bici = new Bicicleta();
+            conn = Conexion.conectado();
             sql = "select * from Bicicleta where marcoSerial =\"" + serial + "\"";
             pat = conn.prepareStatement(sql);
             rs = pat.executeQuery();
@@ -71,7 +73,7 @@ public class BicicletaDao implements IBicicletaDao {
         if (bici == null) {
             JOptionPane.showMessageDialog(null, "El serial " + serial + " no corresponde a ninguna bicicleta registrada");
         }
-        return bici;
+        return null;
     }
 
     @Override

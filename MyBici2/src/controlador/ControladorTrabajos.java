@@ -3,8 +3,6 @@ package controlador;
 import excepcion.MiExcepcion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.BicicletaDao;
 import modelo.dao.ClienteDao;
@@ -26,7 +25,7 @@ import modelo.dto.Bicicleta;
 import modelo.dto.Cliente;
 import modelo.dto.Empleado;
 import modelo.dto.FacturaVenta;
-import modelo.dto.MantenimienroBicicleta;
+import modelo.dto.MantenimientoBicicleta;
 import modelo.dto.Usuario;
 import modelo.dto.ValoresFinancieros;
 import vista.VistaPrincipal;
@@ -68,7 +67,7 @@ public class ControladorTrabajos implements ActionListener {
     Date sendF;
     long d;
     java.sql.Date sendD;
-    String fechV = dia + "/" + mes + "/" + año;
+    String fechV = año + "-" + mes + "-" + dia;
     Date date1;
 
     ControladorTrabajos(VistaPrincipal vista, VistaTrabajos vistaTrabajos, UsuariosDao usuariosDao, Usuario usuario, TrabajosDAO trabajosDAO, EmpleadosDao empleadosDao, ValoresFinancieros valoresFinancieros) {
@@ -110,7 +109,7 @@ public class ControladorTrabajos implements ActionListener {
             editableID(false);
             try {
                 idmantenimiento = MiExcepcion.capturaString(this.vista.txtIDMantenimiento);
-                MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
+                MantenimientoBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                 if (mantenimiento == null) {
                     //Datos cliente
                     cliente = clienteDao.consultar(MiExcepcion.capturaString(this.vista.txtCedulaCliente));
@@ -126,76 +125,65 @@ public class ControladorTrabajos implements ActionListener {
                             factura.setId(MiExcepcion.capturaEntero(this.vista.txtIDFactura));
                             factura.setCliente(cliente);
                             factura.setEmpleado(empleado);
-                            date1 = new SimpleDateFormat("yyyy/MM/dd").parse(fechV);
-                            d = date1.getTime();
-                            sendD = new java.sql.Date(d);
-                            factura.setFecha(sendD);
+                            factura.setFecha(fechV);
                             double totalMantenimiento;
                             if (this.vista.rbtnSiIVA.isSelected()) {
-                                factura.setIva(valoresFinancieros.getIva());
+                                factura.setIva(valoresFinancieros.getIva() * MiExcepcion.capturaDouble(this.vista.txtSubTotal));
                                 totalMantenimiento = facturaDao.calculoIVA(valoresFinancieros.getIva(), MiExcepcion.capturaDouble(this.vista.txtSubTotal));
                                 this.vista.txtValorMantenimiento.setText("$ " + totalMantenimiento);
                             } else {
                                 totalMantenimiento = MiExcepcion.capturaDouble(this.vista.txtSubTotal);
                                 this.vista.txtValorMantenimiento.setText("$ " + totalMantenimiento);
                             }
-                            factura.setTotal(totalMantenimiento);
-                            //Datos del mantenimiento
-                            mantenimiento = new MantenimienroBicicleta();
-                            mantenimiento.setId(MiExcepcion.capturaEntero(this.vista.txtIDMantenimiento));
-                            mantenimiento.setFactura(factura);
-                            if (bicicletaDao.consultar(MiExcepcion.capturaString(this.vista.txtSerial)) == null) {
-                                bicicleta = new Bicicleta();
-                                bicicleta.setMarcoSerial(MiExcepcion.capturaString(this.vista.txtSerial));
-                                bicicleta.setMarca(MiExcepcion.capturaString(this.vista.txtMarca));
-                                bicicleta.setColor(MiExcepcion.capturaString(this.vista.txtColor));
-                                bicicleta.setGrupoMecanico(MiExcepcion.capturaString(this.vista.txtGrupo));
-                                bicicleta.setEstado(MiExcepcion.capturaString(this.vista.txtEstado));
-                                bicicleta.setValorEstimado(MiExcepcion.capturaDouble(this.vista.txtValorEstimado));
-                            } else {
-                                e.setSource(this.vista.btnBuscarBici);
+                            if (totalMantenimiento != 0) {
+                                factura.setTotal(totalMantenimiento);
+                                //Datos del mantenimiento
+                                mantenimiento = new MantenimientoBicicleta();
+                                mantenimiento.setId(MiExcepcion.capturaEntero(this.vista.txtIDMantenimiento));
+                                mantenimiento.setFactura(factura);
+                                bicicleta = bicicletaDao.consultar(MiExcepcion.capturaString(this.vista.txtSerial));
+                                if (bicicleta == null) {
+                                    bicicleta = new Bicicleta();
+                                    bicicleta.setMarcoSerial(MiExcepcion.capturaString(this.vista.txtSerial));
+                                    bicicleta.setMarca(MiExcepcion.capturaString(this.vista.txtMarca));
+                                    bicicleta.setColor(MiExcepcion.capturaString(this.vista.txtColor));
+                                    bicicleta.setGrupoMecanico(MiExcepcion.capturaString(this.vista.txtGrupo));
+                                    bicicleta.setEstado(MiExcepcion.capturaString(this.vista.txtEstado));
+                                    bicicleta.setValorEstimado(MiExcepcion.capturaDouble(this.vista.txtValorEstimado));
+                                } else {
+                                    buscarbici();
+                                }
+                                mantenimiento.setBicicleta(bicicleta);
+                                sendF = this.vista.FecEntrega.getDate();
+                                d = sendF.getTime();
+                                sendD = new java.sql.Date(d);
+                                mantenimiento.setFechaEntrega(MiExcepcion.capturaString((JTextField) this.vista.FecEntrega.getDateEditor().getUiComponent()));
+                                mantenimiento.setDescripccion(this.vista.txtDescripcion.getText());
+                                if (this.vista.rbtnEnProceso.isSelected()) {
+                                    mantenimiento.setEstado(true);
+                                } else if (this.vista.rbtnTerminado.isSelected()) {
+                                    mantenimiento.setEstado(false);
+                                }
+                                if (this.trabajosDAO.crear(bicicleta, mantenimiento, factura)) {
+                                    JOptionPane.showMessageDialog(null, "Bicicleta Registrada: Serial " + this.vista.txtSerial.getText() + ".\nMantenimiento registrado: ID " + this.vista.txtIDMantenimiento.getText() + "\nFactura generada: ID " + this.vista.txtIDFactura.getText());
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Mantenimiento no guardado");
+                                }
+                                editableBici(true);
                             }
-                            mantenimiento.setBicicleta(bicicleta);
-                            sendF = this.vista.FecEntrega.getDate();
-                            d = sendF.getTime();
-                            sendD = new java.sql.Date(d);
-                            mantenimiento.setFechaEntrega(sendD);
-                            mantenimiento.setDescripccion(this.vista.txtDescripcion.getText());
-                            if (this.vista.rbtnEnProceso.isSelected()) {
-                                mantenimiento.setEstado(true);
-                            } else if (this.vista.rbtnTerminado.isSelected()) {
-                                mantenimiento.setEstado(false);
-                            }
-                            if (this.trabajosDAO.crear(bicicleta, mantenimiento, factura)) {
-                                JOptionPane.showMessageDialog(null, "Bicicleta Registrada: Serial " + this.vista.txtSerial.getText() + ".\nMantenimiento registrado: ID " + this.vista.txtIDMantenimiento.getText() + "\nFactura generada: ID " + this.vista.txtIDFactura.getText());
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Mantenimiento no guardado");
-                            }
-                            editableBici(true);
+
                         }
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "El mantenimiento con ID " + this.vista.txtIDMantenimiento.getText() + " ya existe");
                 }
-            } catch (MiExcepcion | ParseException ex) {
-                Logger.getLogger(ControladorTrabajos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            editableID(true);
-        }
-        if (e.getSource().equals(this.vista.btnBuscarBici)) {
-            try {
-                bicicleta = bicicletaDao.consultar(MiExcepcion.capturaString(this.vista.txtSerial));
-                this.vista.txtMarca.setText(bicicleta.getMarca());
-                this.vista.txtColor.setText(bicicleta.getColor());
-                this.vista.txtGrupo.setText(bicicleta.getGrupoMecanico());
-                this.vista.txtEstado.setText(bicicleta.getEstado());
-                this.vista.txtValorEstimado.setText(String.valueOf(bicicleta.getValorEstimado()));
-                editableBici(false);
-                this.vista.btnResetBici.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Se encontró una bicilceta registrada con el serial " + this.vista.txtSerial.getText());
             } catch (MiExcepcion ex) {
                 Logger.getLogger(ControladorTrabajos.class.getName()).log(Level.SEVERE, null, ex);
             }
+            limpiar();
+        }
+        if (e.getSource().equals(this.vista.btnBuscarBici)) {
+            buscarbici();
         }
         if (e.getSource().equals(this.vista.btnConsultar)) {
             editableID(false);
@@ -208,7 +196,7 @@ public class ControladorTrabajos implements ActionListener {
             this.vista.btnEliminar.setEnabled(true);
             try {
                 idmantenimiento = MiExcepcion.capturaString(this.vista.txtIDMantenimiento);
-                MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
+                MantenimientoBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                 if (mantenimiento != null) {
                     this.vista.txtIDFactura.setText(Integer.toString(mantenimiento.getFactura().getId()));
                     this.vista.txtCedulaCliente.setText(mantenimiento.getFactura().getCliente().getCedula());
@@ -218,16 +206,17 @@ public class ControladorTrabajos implements ActionListener {
                     this.vista.txtGrupo.setText(mantenimiento.getBicicleta().getGrupoMecanico());
                     this.vista.txtEstado.setText(mantenimiento.getBicicleta().getEstado());
                     this.vista.txtValorEstimado.setText(String.valueOf(mantenimiento.getBicicleta().getValorEstimado()));
-                    this.vista.FecEntrega.setDate(mantenimiento.getFechaEntrega());
+                    (((JTextField) this.vista.FecEntrega.getDateEditor().getUiComponent())).setText(mantenimiento.getFechaEntrega());
                     this.vista.txtDescripcion.setText(mantenimiento.getDescripccion());
                     if (mantenimiento.isEstado()) {
                         this.vista.rbtnEnProceso.setSelected(true);
                     } else {
                         this.vista.rbtnTerminado.setSelected(true);
                     }
-                    if (mantenimiento.getFactura().getIva() != 0) {
+
+                    if (mantenimiento.getFactura().getIva() > 0) {
                         this.vista.rbtnSiIVA.setSelected(true);
-                        this.vista.txtSubTotal.setText("$ " + facturaDao.sinIva(valoresFinancieros.getIva(), mantenimiento.getFactura().getTotal()));
+                        this.vista.txtSubTotal.setText("$ " + mantenimiento.getFactura().getIva());
                     } else {
                         this.vista.txtSubTotal.setText("$ " + mantenimiento.getFactura().getTotal());
                     }
@@ -238,7 +227,6 @@ public class ControladorTrabajos implements ActionListener {
                 }
                 editableBici(false);
                 editableFactura(false);
-                editableID(true);
             } catch (MiExcepcion | NullPointerException ex) {
                 Logger.getLogger(ControladorTrabajos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -246,12 +234,9 @@ public class ControladorTrabajos implements ActionListener {
         if (e.getSource().equals(this.vista.btnModificar)) {
             try {
                 idmantenimiento = MiExcepcion.capturaString(this.vista.txtIDMantenimiento);
-                MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
+                MantenimientoBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                 if (mantenimiento != null) {
-                    sendF = this.vista.FecEntrega.getDate();
-                    d = sendF.getTime();
-                    sendD = new java.sql.Date(d);
-                    mantenimiento.setFechaEntrega(sendD);
+                    mantenimiento.setFechaEntrega(MiExcepcion.capturaString((JTextField) this.vista.FecEntrega.getDateEditor().getUiComponent()));
                     mantenimiento.setDescripccion(this.vista.txtDescripcion.getText());
                     if (this.trabajosDAO.actualiazar(mantenimiento)) {
                         JOptionPane.showMessageDialog(null, "Datos del mantenimineto " + this.vista.txtIDMantenimiento.getText() + " actualizados correctamente!");
@@ -267,10 +252,10 @@ public class ControladorTrabajos implements ActionListener {
             this.vista.btnEliminar.setEnabled(false);
         }
         if (e.getSource().equals(this.vista.btnEliminar)) {
-            if (pruebaAprobado()) {
+            if (aprobado()) {
                 try {
                     idmantenimiento = MiExcepcion.capturaString(this.vista.txtIDMantenimiento);
-                    MantenimienroBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
+                    MantenimientoBicicleta mantenimiento = this.trabajosDAO.consultar(Integer.parseInt(idmantenimiento));
                     if (mantenimiento != null) {
 
                         if (this.trabajosDAO.eliminar(mantenimiento)) {
@@ -287,17 +272,7 @@ public class ControladorTrabajos implements ActionListener {
             }
         }
         if (e.getSource().equals(this.vista.btnListar)) {
-            LinkedList<MantenimienroBicicleta> mantenimientos = trabajosDAO.listar();
-            for (MantenimienroBicicleta mantenimiento : mantenimientos) {
-                String estado;
-                if (mantenimiento.isEstado()) {
-                    estado = "En porceso";
-                } else {
-                    estado = "Entregado";
-                }
-                Object fila[] = {mantenimiento.getId(), mantenimiento.getFactura().getId(), mantenimiento.getFechaEntrega(), estado, mantenimiento.getDescripccion(), mantenimiento.getBicicleta().getMarcoSerial(), mantenimiento.getBicicleta().getMarca(), mantenimiento.getBicicleta().getColor(), mantenimiento.getBicicleta().getEstado()};
-                this.modeloTabla.addRow(fila);
-            }
+            listar();
         }
         //--- Condiciones para funcionalidad
         if (e.getSource().equals(this.vista.btnNuevo)) {
@@ -319,6 +294,7 @@ public class ControladorTrabajos implements ActionListener {
         }
         if (e.getSource().equals(this.vista.btnLimpiar)) {
             limpiar();
+            listar();
         }
     }
 
@@ -327,7 +303,6 @@ public class ControladorTrabajos implements ActionListener {
         this.vista.txtIDFactura.setText("");
         this.vista.txtCedulaCliente.setText("");
         this.vista.txtSerial.setText("");
-        this.vista.FecEntrega.setDateFormatString(dia + "/" + mes + "/" + año);
         this.vista.txtMarca.setText("");
         this.vista.txtColor.setText("");
         this.vista.txtGrupo.setText("");
@@ -336,6 +311,12 @@ public class ControladorTrabajos implements ActionListener {
         this.vista.txtDescripcion.setText("");
         this.vista.txtValorMantenimiento.setText("");
         this.vista.txtSubTotal.setText("");
+        this.vista.txtCCEmpleado.setText("");
+        this.vista.FecEntrega.setDateFormatString("yyyy-MM-dd");
+        editableBici(true);
+        editableFactura(true);
+        editableID(true);
+        editableMantenimiento(true);
     }
 
     public void editableID(boolean bool) {
@@ -366,18 +347,13 @@ public class ControladorTrabajos implements ActionListener {
     }
 
     public boolean aprobado() {
-        String clave = JOptionPane.showInputDialog(null, "Confirmación del Gerente");
-        Usuario gerente = usuariosDao.consultar(clave);
-        return gerente != null;
-    }
-
-    public boolean pruebaAprobado() {
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Confirmación del Gerente:");
+        JTextField user = new JTextField();
         JPasswordField pass = new JPasswordField(10);
         panel.add(label);
         panel.add(pass);
-        String[] options = new String[]{"Aprobar", "Cancel"};
+        String[] options = new String[]{"Aprobar", "Cancelar"};
         int option = JOptionPane.showOptionDialog(null, panel, "Eliminar",
                 JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[0]);
@@ -386,6 +362,43 @@ public class ControladorTrabajos implements ActionListener {
             clave += c;
         }
         Usuario gerente = usuariosDao.consultar(clave);
-        return "GerDeg".equals(gerente.getRol().getNombreCorto());
+        if (clave.equals(this.usuario.getContraseña())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void buscarbici() {
+        try {
+            bicicleta = bicicletaDao.consultar(MiExcepcion.capturaString(this.vista.txtSerial));
+            this.vista.txtMarca.setText(bicicleta.getMarca());
+            this.vista.txtColor.setText(bicicleta.getColor());
+            this.vista.txtGrupo.setText(bicicleta.getGrupoMecanico());
+            this.vista.txtEstado.setText(bicicleta.getEstado());
+            this.vista.txtValorEstimado.setText(String.valueOf(bicicleta.getValorEstimado()));
+            editableBici(false);
+            this.vista.btnResetBici.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Se encontró una bicilceta registrada con el serial " + this.vista.txtSerial.getText());
+        } catch (MiExcepcion ex) {
+            Logger.getLogger(ControladorTrabajos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void listar() {
+        LinkedList<MantenimientoBicicleta> mantenimientos = trabajosDAO.listar();
+        while (this.modeloTabla.getRowCount() > 0) {
+            this.modeloTabla.removeRow(0);
+        }
+        for (MantenimientoBicicleta mantenimiento : mantenimientos) {
+            String estado;
+            if (mantenimiento.isEstado()) {
+                estado = "En porceso";
+            } else {
+                estado = "Entregado";
+            }
+            Object fila[] = {mantenimiento.getId(), mantenimiento.getFactura().getId(), mantenimiento.getFechaEntrega(), estado, mantenimiento.getDescripccion(), mantenimiento.getBicicleta().getMarcoSerial(), mantenimiento.getBicicleta().getMarca(), mantenimiento.getBicicleta().getColor(), mantenimiento.getBicicleta().getEstado()};
+            this.modeloTabla.addRow(fila);
+        }
     }
 }
