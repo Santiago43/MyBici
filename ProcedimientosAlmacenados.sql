@@ -186,13 +186,13 @@ Agregar teléfono a proveedor
 delimiter $$
 
 create procedure agregarTelefonoAProveedor (
-in _tipo varchar(6),
+in _tipo varchar(10),
 in idProveedor int,
 in numeroTelefono varchar(13)
 )
 begin
-insert into persona_has_telefono (Telefono_id_telefono,Persona_cedula,numeroTelefono) 
-values((select id_telefono from telefono where tipo = _tipo),cedula,numeroTelefono);
+insert into proveedor_has_telefono (Telefono_id_telefono,Proveedor_idProveedor,numeroTelefono) 
+values((select id_telefono from telefono where tipo = _tipo),idProveedor,numeroTelefono);
 end $$
 
 

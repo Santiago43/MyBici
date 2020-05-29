@@ -78,22 +78,34 @@ in idSede int,
 in descripcion varchar(70), 
 in PUC varchar(10),
 in valorAdquisicion double,
-in fechaAdquisicion date
+in fechaAdquisicion date,
+in idProveedor int
 */
-call insertarEquipoOficina("Berloni",1,1,"Moderna mesa de centro con cuatro cajones y dos puff de asiento tapizado","152405",1398000,"2020-05-25",3);
-
+call insertarEquipoOficina("Berloni",1,1,"Moderna mesa de centro con cuatro cajones y dos puff de asiento tapizado","152405",1398000,"2020-05-25",1);
+select * from equipooficina;
+set sql_safe_updates=0;
+select * from objeto;
+delete from objeto;
 /*Tipo de telefono*/
 
-insert into telefono (tipo) values ("fijo");
-insert into telefono (tipo) values ("celular");
-insert into telefono (tipo) values ("pbx");
-insert into telefono (tipo) values ("nacional");
-
+insert into telefono (tipo) values ("Fijo");
+insert into telefono (tipo) values ("Celular");
+insert into telefono (tipo) values ("PBX");
+insert into telefono (tipo) values ("Nacional");
+select * from telefono;
 /*Agregar telefono a persona*/
 
 call agregarTelefonoAPersona ("fijo","0","7292821");
 
+/*Agregar telefono a proveedor
+in _tipo varchar(10),
+in idProveedor int,
+in numeroTelefono varchar(13)
+*/
+
+call agregarTelefonoAProveedor("fijo",1,"3555555");
 /*Insertar petición*/
 insert into peticionempleado(Empleado_Persona_cedula,peticion,aprobado) 
 values("1000853623","Test",false);
+
 

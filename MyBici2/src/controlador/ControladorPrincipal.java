@@ -11,6 +11,7 @@ import modelo.dao.DireccionDao;
 import modelo.dao.EmpleadosDao;
 import modelo.dao.FacturaDao;
 import modelo.dao.PeticionDao;
+import modelo.dao.ProveedoresDao;
 import modelo.dao.RolesDao;
 import modelo.dao.SedeDao;
 import modelo.dao.TrabajosDAO;
@@ -25,6 +26,7 @@ import vista.VistaSede;
 import vista.VistaLogin;
 import vista.VistaPeticiones;
 import vista.VistaPrincipal;
+import vista.VistaProveedores;
 import vista.VistaRoles;
 import vista.VistaTrabajos;
 import vista.VistaUsuarios;
@@ -123,7 +125,8 @@ public class ControladorPrincipal implements ActionListener {
             controladorPeticiones = new ControladorPeticiones(this.vista,new VistaPeticiones(),new EmpleadosDao(),new PeticionDao(),this.usuario);
         } 
         else if(e.getSource().equals(this.vista.ItemProveedores)){
-            
+            ControladorProveedores controladorProveedores;
+            controladorProveedores = new ControladorProveedores(new VistaProveedores(),this.vista,new ProveedoresDao(),new DireccionDao());
         }
         else if(e.getSource().equals(this.vista.ItemRoles)){
             ControladorRoles controladorRoles = new ControladorRoles(this.vista,new VistaRoles(),new RolesDao(),this.usuario);

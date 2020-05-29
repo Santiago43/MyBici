@@ -109,5 +109,19 @@ inner join empleado as e on v.Empleado_Persona_cedula=e.Persona_cedula
 inner join Sede as s on e.Sede_idSede=s.idSede
 where s.idSede = 1 and v.fecha between "2020-05-01" and "2020-05-31";
 
+/*Nomina*/
+select * from nomina;
 /*Consultar peticiones por id*/
 select * from peticionempleado where idPeticionEmpleado =1;
+
+
+/*Consultas de proveedores*/
+
+select pro.*, sum(eo.valorAdquisicion) as total,count(pro.idProveedor) as cantidad from proveedor as pro
+inner join objeto_has_proveedor as op on pro.idProveedor = op.Proveedor_idProveedor
+inner join objeto as o on op.Objeto_idObjeto = o.idObjeto
+inner join equipooficina as eo on eo.Objeto_idObjeto = o.idObjeto
+order by total desc;
+
+
+
