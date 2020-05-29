@@ -57,7 +57,7 @@ public class VistaNomina extends javax.swing.JFrame {
         RadioAuxSi = new javax.swing.JRadioButton();
         RadioAuxNo = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setText("Nomina");
 

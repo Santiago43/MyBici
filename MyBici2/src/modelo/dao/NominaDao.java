@@ -92,6 +92,7 @@ public class NominaDao implements INominaDao {
                     +" horasExtra = "+nom.getHorasExtra()+ ","
                     +" fechaNomina = '"+nom.getFechaNomina()+ "',"
                     +" auxilioTransporte = "+nom.isAuxTransportebool()+ ","
+                    +" auxilioTransporteval = "+nom.getAuxTransportedouble()+ ","
                     +" descuento = "+nom.getDescuento()+ ","
                     +" diasAusencia = '"+nom.getDiasAusencia()+ "' where idNomina = "+nom.getIdNomina()+";";
             conn = Conexion.conectado();

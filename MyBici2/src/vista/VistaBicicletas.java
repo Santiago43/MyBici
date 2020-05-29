@@ -49,7 +49,7 @@ public class VistaBicicletas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtvalorEstimado = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setText("Bicicletas");
 
